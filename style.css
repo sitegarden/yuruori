@@ -109,10 +109,13 @@ a {
   position: relative;
   z-index: 2;
   margin: 0;
-  max-width: 860px;
-  font-size: clamp(3.4rem, 9vw, 7.8rem);
-  line-height: 0.98;
-  letter-spacing: -0.08em;
+  font-size: clamp(2.7rem, 13vw, 4.4rem);
+
+  line-height: 1.12;
+
+  letter-spacing: -0.04em;
+
+  max-width: 100%;
   color: #21324a;
   text-shadow:
     4px 4px 0 #ffe66d,
