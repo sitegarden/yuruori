@@ -462,3 +462,10 @@ a {
     justify-self: center;
   }
 }
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 2.65rem;
+    letter-spacing: -0.03em;
+  }
+}
