@@ -756,3 +756,139 @@ a {
     padding: 9px 12px;
   }
 }
+
+.comment-area {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 3px dashed rgba(33, 50, 74, 0.28);
+}
+
+.comment-toggle {
+  appearance: none;
+  border: 3px solid #21324a;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: #8ed7ff;
+  color: #21324a;
+  box-shadow: 4px 4px 0 #21324a;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-toggle:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #21324a;
+}
+
+.comment-panel {
+  display: none;
+  margin-top: 18px;
+  padding: 18px;
+  background: #fff8c9;
+  border: 3px solid #21324a;
+  border-radius: 22px;
+  box-shadow: 5px 5px 0 #21324a;
+}
+
+.comment-panel.open {
+  display: block;
+}
+
+.comment-panel-title {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.reaction-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reaction-btn {
+  appearance: none;
+  border: 2px solid #21324a;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: #ffffff;
+  color: #21324a;
+  box-shadow: 3px 3px 0 #21324a;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.reaction-btn:hover {
+  background: #ffe66d;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #21324a;
+}
+
+.reaction-count {
+  margin-left: 4px;
+}
+
+.popular-comments {
+  margin-top: 20px;
+}
+
+.popular-title {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: rgba(33, 50, 74, 0.72);
+}
+
+.popular-list {
+  display: grid;
+  gap: 8px;
+}
+
+.popular-comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  border: 2px solid #21324a;
+  border-radius: 16px;
+  box-shadow: 3px 3px 0 #21324a;
+  font-weight: 900;
+}
+
+.popular-comment strong {
+  min-width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: #ffe66d;
+  border: 2px solid #21324a;
+  border-radius: 999px;
+}
+
+.no-comments {
+  display: inline-block;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 2px dashed rgba(33, 50, 74, 0.45);
+  border-radius: 16px;
+  font-weight: 900;
+  color: rgba(33, 50, 74, 0.62);
+}
+
+@media (max-width: 860px) {
+  .reaction-buttons {
+    flex-direction: column;
+  }
+
+  .reaction-btn,
+  .comment-toggle {
+    width: 100%;
+    text-align: left;
+  }
+}
