@@ -14,6 +14,7 @@
     </a>
 
     <nav class="nav">
+      <a href="#timeline">Timeline</a>
       <a href="#about">About</a>
       <a href="#works">Works</a>
       <a href="#profile">Profile</a>
@@ -22,7 +23,7 @@
 
   <main>
     <section class="hero">
-      <div class="hero-badge">Creative Playground</div>
+      <div class="hero-badge">My Creative SNS</div>
 
       <h1>
         ゆるく織って、<br />
@@ -30,28 +31,48 @@
       </h1>
 
       <p class="hero-text">
-        Yuruoriは、診断サイトや性格タイプ系コンテンツを中心に、
-        思いつきをかわいく、遊べる形にしていくブランドです。
+        Yuruoriは、診断サイトや創作、日記、制作ログをまとめる場所。
+        SNSに流すほどでもないことも、自分のペースで残していきます。
       </p>
 
       <div class="hero-buttons">
-        <a href="#works" class="btn main">作品を見る</a>
-        <a href="#about" class="btn sub">Yuruoriとは？</a>
+        <a href="#timeline" class="btn main">タイムラインを見る</a>
+        <a href="#works" class="btn sub">作品を見る</a>
       </div>
 
       <div class="floating-card card-one">
-        <span>ENTP</span>
-        <p>ツッコミと発想の診断</p>
+        <span>LIKE</span>
+        <p>見た人は気軽に押せる</p>
       </div>
 
       <div class="floating-card card-two">
-        <span>ESTP</span>
-        <p>勢いと行動の診断</p>
+        <span>COMMENT</span>
+        <p>テンプレから選ぶだけ</p>
       </div>
 
       <div class="bubble bubble-yellow"></div>
       <div class="bubble bubble-blue"></div>
       <div class="bubble bubble-small"></div>
+    </section>
+
+    <section id="timeline" class="section timeline-section">
+      <p class="section-label">Timeline</p>
+      <h2>投稿</h2>
+      <p>
+        日記、制作メモ、イラスト、好きなもの。
+        Yuruoriの小さなタイムラインです。
+      </p>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="diary">Diary</button>
+        <button class="filter-btn" data-filter="log">Log</button>
+        <button class="filter-btn" data-filter="art">Art</button>
+        <button class="filter-btn" data-filter="idea">Idea</button>
+        <button class="filter-btn" data-filter="music">Music</button>
+      </div>
+
+      <div id="postList" class="post-list"></div>
     </section>
 
     <section id="about" class="section about">
@@ -101,6 +122,14 @@
           診断サイト、性格タイプ系コンテンツ、ミニゲーム、創作まわりのサイトを制作。
           思いついたものを、勢いで形にしていくタイプ。
         </p>
+
+        <div class="name-note">
+          <span>Name Note</span>
+          <p>
+            EGMは「Earl Grey Milk Tea」の略。
+            好きなものを少しだけ名前に混ぜています。
+          </p>
+        </div>
       </div>
 
       <div class="profile-stamp">
@@ -111,7 +140,9 @@
   </main>
 
   <footer class="footer">
-    <p>© Yuruori.com</p>
+    <p>© Yuruori.com / Created by Lane</p>
   </footer>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
