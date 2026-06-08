@@ -105,19 +105,7 @@ async function renderPosts(filter = "all") {
       `;
     }).join("");
 
-    const commentToggles = document.querySelectorAll(".comment-toggle");
-
-commentToggles.forEach(button => {
-  button.addEventListener("click", () => {
-    const postId = button.dataset.postId;
-    const panel = document.querySelector(`[data-comment-panel="${postId}"]`);
-
-    if (!panel) return;
-
-    panel.classList.toggle("open");
-  });
-});
-
+    
     const likedClass = localStorage.getItem(getLikedKey(post.id)) ? "liked" : "";
 
     return `
@@ -231,6 +219,18 @@ function renderPopularComments(postId, reactions = {}) {
 function setupPostButtons() {
   const likeButtons = document.querySelectorAll(".like-btn");
   const reactionButtons = document.querySelectorAll(".reaction-btn");
+  const commentToggles = document.querySelectorAll(".comment-toggle");
+
+  commentToggles.forEach(button => {
+    button.addEventListener("click", () => {
+      const postId = button.dataset.postId;
+      const panel = document.querySelector(`[data-comment-panel="${postId}"]`);
+
+      if (!panel) return;
+
+      panel.classList.toggle("open");
+    });
+  });
 
   likeButtons.forEach(button => {
     button.addEventListener("click", async () => {
@@ -255,8 +255,6 @@ function setupPostButtons() {
 
       const countElement = document.querySelector(`[data-like-count="${postId}"]`);
       countElement.textContent = Number(countElement.textContent) + 1;
-      const stats = await getPostStats(postId);
-renderPopularComments(postId, stats.reactions);
     });
   });
 
@@ -286,6 +284,9 @@ renderPopularComments(postId, stats.reactions);
       );
 
       countElement.textContent = Number(countElement.textContent) + 1;
+
+      const stats = await getPostStats(postId);
+      renderPopularComments(postId, stats.reactions);
     });
   });
 }
