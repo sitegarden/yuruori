@@ -105,6 +105,19 @@ async function renderPosts(filter = "all") {
       `;
     }).join("");
 
+    const commentToggles = document.querySelectorAll(".comment-toggle");
+
+commentToggles.forEach(button => {
+  button.addEventListener("click", () => {
+    const postId = button.dataset.postId;
+    const panel = document.querySelector(`[data-comment-panel="${postId}"]`);
+
+    if (!panel) return;
+
+    panel.classList.toggle("open");
+  });
+});
+
     const likedClass = localStorage.getItem(getLikedKey(post.id)) ? "liked" : "";
 
     return `
@@ -134,12 +147,26 @@ async function renderPosts(filter = "all") {
           </button>
         </div>
 
-        <div class="reaction-area">
-          <p class="reaction-title">テンプレコメント</p>
-          <div class="reaction-buttons">
-            ${reactions}
-          </div>
-        </div>
+        <div class="comment-area">
+  <button class="comment-toggle" data-post-id="${postId}">
+    💬 テンプレコメントする
+  </button>
+
+  <div class="comment-panel" data-comment-panel="${postId}">
+    <p class="comment-panel-title">コメントを選ぶ</p>
+
+    <div class="reaction-buttons">
+      ${reactions}
+    </div>
+  </div>
+
+  <div class="popular-comments">
+    <p class="popular-title">人気コメント</p>
+    <div class="popular-list" data-popular-list="${postId}">
+      <span class="no-comments">まだコメントがありません。</span>
+    </div>
+  </div>
+</div>
       </article>
     `;
   }).join("");
@@ -167,7 +194,38 @@ async function loadAllStats(targetPosts) {
         countElement.textContent = stats.reactions[reaction.key] || 0;
       }
     });
+    renderPopularComments(post.id, stats.reactions);
   }
+}
+
+function renderPopularComments(postId, reactions = {}) {
+  const popularList = document.querySelector(`[data-popular-list="${postId}"]`);
+
+  if (!popularList) return;
+
+  const rankedComments = reactionTemplates
+    .map(template => {
+      return {
+        key: template.key,
+        label: template.label,
+        count: reactions[template.key] || 0
+      };
+    })
+    .filter(item => item.count > 0)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  if (rankedComments.length === 0) {
+    popularList.innerHTML = `<span class="no-comments">まだコメントがありません。</span>`;
+    return;
+  }
+
+  popularList.innerHTML = rankedComments.map(item => `
+    <div class="popular-comment">
+      <span>${item.label}</span>
+      <strong>${item.count}</strong>
+    </div>
+  `).join("");
 }
 
 function setupPostButtons() {
@@ -197,6 +255,8 @@ function setupPostButtons() {
 
       const countElement = document.querySelector(`[data-like-count="${postId}"]`);
       countElement.textContent = Number(countElement.textContent) + 1;
+      const stats = await getPostStats(postId);
+renderPopularComments(postId, stats.reactions);
     });
   });
 
