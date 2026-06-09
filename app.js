@@ -152,18 +152,31 @@ function setupCurrentNav() {
   });
 }
 
+
+
+
 const visitorCount = document.getElementById("visitorCount");
 const todayCount = document.getElementById("todayCount");
 const yesterdayCount = document.getElementById("yesterdayCount");
 const counterMessage = document.getElementById("counterMessage");
 
-const VISITOR_TOTAL_KEY = "yuruoriVisitorTotal";
-const VISITOR_LAST_DATE_KEY = "yuruoriVisitorLastDate";
-const VISITOR_TODAY_KEY = "yuruoriVisitorToday";
-const VISITOR_YESTERDAY_KEY = "yuruoriVisitorYesterday";
+const visitorCounterRef = doc(db, "siteStats", "visitors");
+
+const VISITOR_SESSION_KEY = "yuruoriVisitorCountedSession";
 
 function getTodayString() {
   const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const date = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${date}`;
+}
+
+function getYesterdayString() {
+  const now = new Date();
+  now.setDate(now.getDate() - 1);
 
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -200,32 +213,95 @@ function getCounterMessage(total) {
   return "ようこそ、ゆるおりへ。";
 }
 
-function setupVisitorCounter() {
-  if (!visitorCount) return;
+async function createVisitorCounterIfNeeded() {
+  const snapshot = await getDoc(visitorCounterRef);
 
-  const today = getTodayString();
-  const lastDate = localStorage.getItem(VISITOR_LAST_DATE_KEY);
-
-  let total = Number(localStorage.getItem(VISITOR_TOTAL_KEY) || "0");
-  let todayTotal = Number(localStorage.getItem(VISITOR_TODAY_KEY) || "0");
-  let yesterdayTotal = Number(localStorage.getItem(VISITOR_YESTERDAY_KEY) || "0");
-
-  if (lastDate !== today) {
-    yesterdayTotal = todayTotal;
-    todayTotal = 0;
-
-    localStorage.setItem(VISITOR_YESTERDAY_KEY, String(yesterdayTotal));
-    localStorage.setItem(VISITOR_LAST_DATE_KEY, today);
+  if (snapshot.exists()) {
+    return snapshot.data();
   }
 
-  total += 1;
-  todayTotal += 1;
+  const today = getTodayString();
 
-  localStorage.setItem(VISITOR_TOTAL_KEY, String(total));
-  localStorage.setItem(VISITOR_TODAY_KEY, String(todayTotal));
-  localStorage.setItem(VISITOR_LAST_DATE_KEY, today);
+  const initialData = {
+    total: 0,
+    today: 0,
+    yesterday: 0,
+    currentDate: today,
+    updatedAt: serverTimestamp()
+  };
 
-  visitorCount.textContent = formatCounterNumber(total);
+  await setDoc(visitorCounterRef, initialData);
+
+  return initialData;
+}
+
+async function getVisitorCounterData() {
+  const data = await createVisitorCounterIfNeeded();
+
+  const today = getTodayString();
+
+  if (data.currentDate === today) {
+    return data;
+  }
+
+  const yesterdayValue = Number(data.today || 0);
+
+  await updateDoc(visitorCounterRef, {
+    today: 0,
+    yesterday: yesterdayValue,
+    currentDate: today,
+    updatedAt: serverTimestamp()
+  });
+
+  const newSnapshot = await getDoc(visitorCounterRef);
+
+  if (!newSnapshot.exists()) {
+    return {
+      total: 0,
+      today: 0,
+      yesterday: 0,
+      currentDate: today
+    };
+  }
+
+  return newSnapshot.data();
+}
+
+async function countVisitorOncePerSession() {
+  const today = getTodayString();
+  const sessionValue = sessionStorage.getItem(VISITOR_SESSION_KEY);
+
+  if (sessionValue === today) {
+    return getVisitorCounterData();
+  }
+
+  let data = await getVisitorCounterData();
+
+  await updateDoc(visitorCounterRef, {
+    total: increment(1),
+    today: increment(1),
+    updatedAt: serverTimestamp()
+  });
+
+  sessionStorage.setItem(VISITOR_SESSION_KEY, today);
+
+  const updatedSnapshot = await getDoc(visitorCounterRef);
+
+  if (!updatedSnapshot.exists()) {
+    return data;
+  }
+
+  return updatedSnapshot.data();
+}
+
+function renderVisitorCounterData(data) {
+  const total = Number(data.total || 0);
+  const todayTotal = Number(data.today || 0);
+  const yesterdayTotal = Number(data.yesterday || 0);
+
+  if (visitorCount) {
+    visitorCount.textContent = formatCounterNumber(total);
+  }
 
   if (todayCount) {
     todayCount.textContent = String(todayTotal);
@@ -240,7 +316,40 @@ function setupVisitorCounter() {
   }
 }
 
+async function setupVisitorCounter() {
+  if (!visitorCount) return;
+
+  visitorCount.textContent = "------";
+
+  if (todayCount) {
+    todayCount.textContent = "---";
+  }
+
+  if (yesterdayCount) {
+    yesterdayCount.textContent = "---";
+  }
+
+  if (counterMessage) {
+    counterMessage.textContent = "カウンターを読み込み中...";
+  }
+
+  try {
+    const data = await countVisitorOncePerSession();
+    renderVisitorCounterData(data);
+  } catch (error) {
+    console.error(error);
+
+    if (counterMessage) {
+      counterMessage.textContent = "カウンターの読み込みに失敗しました。";
+    }
+  }
+}
+
 setupVisitorCounter();
+
+
+
+
 
 setupSiteHeader();
 setupSiteFooter();
