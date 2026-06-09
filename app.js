@@ -1,4 +1,8 @@
-import { db } from "./firebase.js";
+import {
+  db,
+  auth,
+  googleProvider
+} from "./firebase.js";
 
 import {
   collection,
@@ -9,11 +13,18 @@ import {
   setDoc,
   updateDoc,
   query,
+  where,
   orderBy,
   limit,
   serverTimestamp,
   increment
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const siteHeader = document.getElementById("siteHeader");
 const siteFooter = document.getElementById("siteFooter");
@@ -592,6 +603,7 @@ async function addClap() {
 async function fetchClapLogs() {
   const clapQuery = query(
     clapMessagesCollection,
+    where("visible", "==", true),
     orderBy("createdAt", "desc"),
     limit(20)
   );
@@ -911,6 +923,7 @@ function formatGuestbookDate(value) {
 async function fetchGuestbookLogs() {
   const guestbookQuery = query(
     guestbookCollection,
+    where("visible", "==", true),
     orderBy("createdAt", "desc"),
     limit(30)
   );
@@ -924,7 +937,6 @@ async function fetchGuestbookLogs() {
     };
   });
 }
-
 function renderGuestbookItems(logs) {
   if (!guestbookList) return;
 
