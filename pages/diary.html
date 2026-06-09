@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>日記 - ゆるおり</title>
+  <meta name="description" content="ゆるおりの日記と制作ログページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="page-top">
+        <div class="page-title-box">
+          <p class="eyebrow">Diary</p>
+          <h1>日記</h1>
+          <p>
+            ゆるおりの制作ログや、ちょっとした近況を書くページです。
+            サイトの増築記録もここに残していきます。
+          </p>
+        </div>
+      </section>
+
+      <section class="diary-page-layout">
+        <aside class="diary-side">
+          <section class="portal-box">
+            <h2>DIARY MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#latest">最新日記</a></li>
+              <li><a href="#log">制作ログ</a></li>
+              <li><a href="#archive">月別ログ</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>今日のひとこと</h2>
+            <p>
+              サイトは増築すると、いつの間にかWikiみたいになります。
+            </p>
+          </section>
+
+          <section class="portal-box">
+            <h2>月別ログ</h2>
+            <ul class="side-link-list">
+              <li><a href="#june-2026">2026年6月</a></li>
+              <li>2026年5月 準備中</li>
+              <li>2026年4月 準備中</li>
+            </ul>
+          </section>
+        </aside>
+
+        <section class="diary-main">
+          <section class="portal-box" id="latest">
+            <h2>最新日記</h2>
+
+            <article class="diary-entry" id="june-2026">
+              <div class="diary-entry-head">
+                <time datetime="2026-06-09">2026/06/09</time>
+                <span>サイト制作</span>
+              </div>
+
+              <h3>ゆるおりを作り直している</h3>
+
+              <p>
+                ゆるおりを「サイトは遊ぶ場所」という方向で作り直し中。
+                最初は令和っぽい綺麗なデザインだったけど、少しずつ昔のポータルサイトみたいな空気に寄せている。
+              </p>
+
+              <p>
+                カウンター、Web拍手、探検入口まで作ったので、だんだん個人サイト感が出てきた。
+                このまま増やしていくと、本当にWikiくらいのボリュームになりそう。
+              </p>
+            </article>
+          </section>
+
+          <section class="portal-box" id="log">
+            <h2>制作ログ</h2>
+
+            <div class="diary-log-list">
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>トップページをポータル風に変更</strong>
+                <p>
+                  でかいヒーロー型から、昔のYahooっぽい小枠多めのレイアウトに変更。
+                </p>
+              </article>
+
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>訪問者カウンターを追加</strong>
+                <p>
+                  localStorage版のカウンターを追加。キリ番ページも作成。
+                </p>
+              </article>
+
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>Web拍手ページを追加</strong>
+                <p>
+                  拍手ボタンとひとことメッセージ機能を追加。まずは端末内保存版。
+                </p>
+              </article>
+
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>表ページを増築</strong>
+                <p>
+                  ABOUT、PROFILE、WORKS、GAMES、OCFA案内ページを作成。
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="portal-box" id="archive">
+            <h2>日記ログ</h2>
+
+            <div class="diary-archive-table">
+              <a href="#june-2026">
+                <strong>2026年6月</strong>
+                <span>ゆるおり作り直し、ポータル化、カウンター、Web拍手など。</span>
+              </a>
+
+              <a href="#">
+                <strong>2026年5月</strong>
+                <span>準備中。</span>
+              </a>
+
+              <a href="#">
+                <strong>2026年4月</strong>
+                <span>準備中。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+
+            <div class="diary-memo">
+              <p>
+                日記ページがあると、サイトが生きている感じになります。
+              </p>
+
+              <p>
+                制作ログも残しておくと、あとで「この時こんなことしてたんだ」と見返せます。
+              </p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
