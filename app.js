@@ -1,305 +1,140 @@
-import { posts } from "./posts.js";
-import { db } from "./firebase.js";
+const siteHeader = document.getElementById("siteHeader");
+const siteFooter = document.getElementById("siteFooter");
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  increment
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+function getRootPath() {
+  const path = location.pathname;
 
-const postList = document.getElementById("postList");
-const filterButtons = document.querySelectorAll(".filter-btn");
+  if (path.includes("/pages/") || path.includes("/play/")) {
+    return "../";
+  }
 
-const reactionTemplates = [
-  { key: "suki", label: "☕ すき" },
-  { key: "kawaii", label: "🎨 かわいい" },
-  { key: "mood", label: "🌙 雰囲気いい" },
-  { key: "genius", label: "⚡ 天才か？" },
-  { key: "seen", label: "👀 見たよ" },
-  { key: "support", label: "🫶 応援" }
+  return "";
+}
+
+const rootPath = getRootPath();
+
+const navLinks = [
+  { label: "HOME", url: "index.html" },
+  { label: "ABOUT", url: "pages/about.html" },
+  { label: "PROFILE", url: "pages/profile.html" },
+  { label: "WORKS", url: "pages/works.html" },
+  { label: "GAMES", url: "pages/games.html" },
+  { label: "OCFA", url: "pages/ocfa.html" },
+  { label: "DIARY", url: "pages/diary.html" },
+  { label: "LINK", url: "pages/links.html" }
 ];
 
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function makeUrl(url) {
+  return `${rootPath}${url}`;
 }
 
-function getLikedKey(postId) {
-  return `yuruori_liked_${postId}`;
-}
+function normalizePath(path) {
+  let normalized = path;
 
-function getReactedKey(postId, reactionKey) {
-  return `yuruori_reacted_${postId}_${reactionKey}`;
-}
-
-async function getPostStats(postId) {
-  const ref = doc(db, "postStats", postId);
-  const snap = await getDoc(ref);
-
-  if (!snap.exists()) {
-    return {
-      likes: 0,
-      reactions: {}
-    };
+  if (normalized.endsWith("/")) {
+    normalized += "index.html";
   }
 
-  const data = snap.data();
-
-  return {
-    likes: data.likes || 0,
-    reactions: data.reactions || {}
-  };
+  return normalized;
 }
 
-async function ensurePostStats(postId) {
-  const ref = doc(db, "postStats", postId);
-  const snap = await getDoc(ref);
+function setupSiteHeader() {
+  if (!siteHeader) return;
 
-  if (!snap.exists()) {
-    await setDoc(ref, {
-      likes: 0,
-      reactions: {}
-    });
-  }
-}
-
-async function renderPosts(filter = "all") {
-  const filteredPosts =
-    filter === "all"
-      ? posts
-      : posts.filter(post => post.type === filter);
-
-  if (filteredPosts.length === 0) {
-    postList.innerHTML = `<p class="empty-message">まだ投稿がありません。</p>`;
-    return;
-  }
-
-  postList.innerHTML = filteredPosts.map(post => {
-    const postId = escapeHtml(post.id);
-    const title = escapeHtml(post.title);
-    const text = escapeHtml(post.text);
-    const date = escapeHtml(post.date);
-    const type = escapeHtml(post.type);
-    const image = post.image ? escapeHtml(post.image) : "";
-
-    const tags = post.tags
-      .map(tag => `<span>#${escapeHtml(tag)}</span>`)
-      .join("");
-
-    const reactions = reactionTemplates.map(reaction => {
-      return `
-        <button
-          class="reaction-btn"
-          data-post-id="${postId}"
-          data-reaction="${reaction.key}"
-        >
-          ${reaction.label}
-          <span class="reaction-count" data-count="${postId}-${reaction.key}">0</span>
-        </button>
-      `;
-    }).join("");
-
-    
-    const likedClass = localStorage.getItem(getLikedKey(post.id)) ? "liked" : "";
-
-    return `
-      <article class="post-card" data-post-id="${postId}">
-        <div class="post-head">
-          <span class="post-type ${type}">${type}</span>
-          <time>${date}</time>
-        </div>
-
-        <h3>${title}</h3>
-        <p>${text}</p>
-
-        ${
-          image
-            ? `<img src="${image}" alt="${title}" class="post-image" />`
-            : ""
-        }
-
-        <div class="post-tags">
-          ${tags}
-        </div>
-
-        <div class="post-actions">
-          <button class="like-btn ${likedClass}" data-post-id="${postId}">
-            ♡ いいね
-            <span class="like-count" data-like-count="${postId}">0</span>
-          </button>
-        </div>
-
-        <div class="comment-area">
-  <button class="comment-toggle" data-post-id="${postId}">
-    💬 テンプレコメントする
-  </button>
-
-  <div class="comment-panel" data-comment-panel="${postId}">
-    <p class="comment-panel-title">コメントを選ぶ</p>
-
-    <div class="reaction-buttons">
-      ${reactions}
-    </div>
-  </div>
-
-  <div class="popular-comments">
-    <p class="popular-title">人気コメント</p>
-    <div class="popular-list" data-popular-list="${postId}">
-      <span class="no-comments">まだコメントがありません。</span>
-    </div>
-  </div>
-</div>
-      </article>
-    `;
-  }).join("");
-
-  await loadAllStats(filteredPosts);
-  setupPostButtons();
-}
-
-async function loadAllStats(targetPosts) {
-  for (const post of targetPosts) {
-    const stats = await getPostStats(post.id);
-
-    const likeCount = document.querySelector(`[data-like-count="${post.id}"]`);
-
-    if (likeCount) {
-      likeCount.textContent = stats.likes;
-    }
-
-    reactionTemplates.forEach(reaction => {
-      const countElement = document.querySelector(
-        `[data-count="${post.id}-${reaction.key}"]`
-      );
-
-      if (countElement) {
-        countElement.textContent = stats.reactions[reaction.key] || 0;
-      }
-    });
-    renderPopularComments(post.id, stats.reactions);
-  }
-}
-
-function renderPopularComments(postId, reactions = {}) {
-  const popularList = document.querySelector(`[data-popular-list="${postId}"]`);
-
-  if (!popularList) return;
-
-  const rankedComments = reactionTemplates
-    .map(template => {
-      return {
-        key: template.key,
-        label: template.label,
-        count: reactions[template.key] || 0
-      };
+  const navHtml = navLinks
+    .map((link) => {
+      const fullUrl = makeUrl(link.url);
+      return `<a href="${fullUrl}">${link.label}</a>`;
     })
-    .filter(item => item.count > 0)
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 5);
+    .join("");
 
-  if (rankedComments.length === 0) {
-    popularList.innerHTML = `<span class="no-comments">まだコメントがありません。</span>`;
-    return;
-  }
+  siteHeader.innerHTML = `
+    <header class="site-header">
+      <a class="site-logo" href="${makeUrl("index.html")}" aria-label="ゆるおり HOME">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">ゆるおり</span>
+      </a>
 
-  popularList.innerHTML = rankedComments.map(item => `
-    <div class="popular-comment">
-      <span>${item.label}</span>
-      <strong>${item.count}</strong>
-    </div>
-  `).join("");
+      <button class="nav-toggle" type="button" id="navToggle" aria-label="メニューを開く">
+        MENU
+      </button>
+
+      <nav class="site-nav" id="siteNav" aria-label="メインナビゲーション">
+        ${navHtml}
+      </nav>
+    </header>
+  `;
 }
 
-function setupPostButtons() {
-  const likeButtons = document.querySelectorAll(".like-btn");
-  const reactionButtons = document.querySelectorAll(".reaction-btn");
-  const commentToggles = document.querySelectorAll(".comment-toggle");
+function setupSiteFooter() {
+  if (!siteFooter) return;
 
-  commentToggles.forEach(button => {
-    button.addEventListener("click", () => {
-      const postId = button.dataset.postId;
-      const panel = document.querySelector(`[data-comment-panel="${postId}"]`);
+  siteFooter.innerHTML = `
+    <footer class="site-footer">
+      <p class="footer-logo">ゆるおり</p>
+      <p>創作と遊びを置いておく場所。</p>
 
-      if (!panel) return;
+      <p class="footer-links">
+        <a href="${makeUrl("index.html")}">HOME</a>
+        <span>/</span>
+        <a href="${makeUrl("pages/about.html")}">ABOUT</a>
+        <span>/</span>
+        <a href="${makeUrl("pages/works.html")}">WORKS</a>
+        <span>/</span>
+        <a href="${makeUrl("play/index.html")}">EXPLORE</a>
+      </p>
 
-      panel.classList.toggle("open");
-    });
+      <p class="footer-small">© ゆるおり</p>
+    </footer>
+  `;
+}
+
+function setupMobileNav() {
+  const navToggle = document.getElementById("navToggle");
+  const siteNav = document.getElementById("siteNav");
+
+  if (!navToggle || !siteNav) return;
+
+  navToggle.addEventListener("click", () => {
+    siteNav.classList.toggle("open");
+
+    if (siteNav.classList.contains("open")) {
+      navToggle.textContent = "CLOSE";
+      navToggle.setAttribute("aria-label", "メニューを閉じる");
+    } else {
+      navToggle.textContent = "MENU";
+      navToggle.setAttribute("aria-label", "メニューを開く");
+    }
   });
 
-  likeButtons.forEach(button => {
-    button.addEventListener("click", async () => {
-      const postId = button.dataset.postId;
-      const likedKey = getLikedKey(postId);
-
-      if (localStorage.getItem(likedKey)) {
-        alert("この投稿にはもういいね済みです。");
-        return;
-      }
-
-      await ensurePostStats(postId);
-
-      const ref = doc(db, "postStats", postId);
-
-      await updateDoc(ref, {
-        likes: increment(1)
-      });
-
-      localStorage.setItem(likedKey, "true");
-      button.classList.add("liked");
-
-      const countElement = document.querySelector(`[data-like-count="${postId}"]`);
-      countElement.textContent = Number(countElement.textContent) + 1;
-    });
-  });
-
-  reactionButtons.forEach(button => {
-    button.addEventListener("click", async () => {
-      const postId = button.dataset.postId;
-      const reactionKey = button.dataset.reaction;
-      const reactedKey = getReactedKey(postId, reactionKey);
-
-      if (localStorage.getItem(reactedKey)) {
-        alert("このリアクションはもう押しています。");
-        return;
-      }
-
-      await ensurePostStats(postId);
-
-      const ref = doc(db, "postStats", postId);
-
-      await updateDoc(ref, {
-        [`reactions.${reactionKey}`]: increment(1)
-      });
-
-      localStorage.setItem(reactedKey, "true");
-
-      const countElement = document.querySelector(
-        `[data-count="${postId}-${reactionKey}"]`
-      );
-
-      countElement.textContent = Number(countElement.textContent) + 1;
-
-      const stats = await getPostStats(postId);
-      renderPopularComments(postId, stats.reactions);
+  siteNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      siteNav.classList.remove("open");
+      navToggle.textContent = "MENU";
+      navToggle.setAttribute("aria-label", "メニューを開く");
     });
   });
 }
 
-filterButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    const filter = button.dataset.filter;
+function setupCurrentNav() {
+  const siteNav = document.getElementById("siteNav");
 
-    filterButtons.forEach(btn => btn.classList.remove("active"));
-    button.classList.add("active");
+  if (!siteNav) return;
 
-    renderPosts(filter);
+  const currentPath = normalizePath(location.pathname);
+  const links = siteNav.querySelectorAll("a");
+
+  links.forEach((link) => {
+    const linkUrl = new URL(link.getAttribute("href"), location.href);
+    const linkPath = normalizePath(linkUrl.pathname);
+
+    if (currentPath === linkPath) {
+      link.classList.add("current");
+    }
   });
-});
+}
 
-renderPosts();
+setupSiteHeader();
+setupSiteFooter();
+setupMobileNav();
+setupCurrentNav();
