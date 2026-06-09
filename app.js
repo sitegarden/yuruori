@@ -1373,3 +1373,113 @@ function setupAdminPage() {
 }
 
 setupAdminPage();
+
+const catTalkButton = document.getElementById("catTalkButton");
+const catTalkTitle = document.getElementById("catTalkTitle");
+const catTalkText = document.getElementById("catTalkText");
+
+const catFortuneButton = document.getElementById("catFortuneButton");
+const catFortuneTitle = document.getElementById("catFortuneTitle");
+const catFortuneText = document.getElementById("catFortuneText");
+
+const catTalks = [
+  {
+    title: "くーちゃんが来ました",
+    text: "今日は甘えたい日かもしれません。近くにいるだけで勝ちです。"
+  },
+  {
+    title: "ごまちゃんが見ています",
+    text: "噛まれる可能性があります。でもそれも猫です。"
+  },
+  {
+    title: "猫が丸くなっています",
+    text: "休憩してもいいという合図です。今日は少しゆっくりしましょう。"
+  },
+  {
+    title: "猫が通り過ぎました",
+    text: "特に用はないけど、存在感だけ残していきました。"
+  },
+  {
+    title: "猫が鳴きました",
+    text: "何かを要求している気がします。たぶんごはんか、かまってです。"
+  },
+  {
+    title: "猫が寝ています",
+    text: "寝ている猫は最強です。起こさないで見守りましょう。"
+  }
+];
+
+const catFortunes = [
+  {
+    title: "くーちゃんタイプ",
+    text: "今日は甘えたり、誰かとゆるく話したりすると良さそうです。"
+  },
+  {
+    title: "ごまちゃんタイプ",
+    text: "今日はちょっと尖り気味かもしれません。でも個性なのでOKです。"
+  },
+  {
+    title: "ひなたぼっこ猫",
+    text: "無理に動かず、あたたかい場所で休むと回復しそうです。"
+  },
+  {
+    title: "走り回る猫",
+    text: "急にやる気が出る日です。勢いで作業すると進みます。"
+  },
+  {
+    title: "箱入り猫",
+    text: "安心できる場所にいるのが大事な日です。無理な交流は控えめでOKです。"
+  },
+  {
+    title: "気まぐれ猫",
+    text: "予定通りじゃなくても大丈夫です。気分で動く方がうまくいきます。"
+  }
+];
+
+function getRandomItem(items) {
+  const index = Math.floor(Math.random() * items.length);
+  return items[index];
+}
+
+function setupCatTalk() {
+  if (!catTalkButton) return;
+
+  catTalkButton.addEventListener("click", () => {
+    const talk = getRandomItem(catTalks);
+
+    if (catTalkTitle) {
+      catTalkTitle.textContent = talk.title;
+    }
+
+    if (catTalkText) {
+      catTalkText.textContent = talk.text;
+    }
+
+    catTalkButton.classList.remove("pop");
+    void catTalkButton.offsetWidth;
+    catTalkButton.classList.add("pop");
+  });
+}
+
+function setupCatFortune() {
+  if (!catFortuneButton) return;
+
+  catFortuneButton.addEventListener("click", () => {
+    const fortune = getRandomItem(catFortunes);
+
+    if (catFortuneTitle) {
+      catFortuneTitle.textContent = fortune.title;
+    }
+
+    if (catFortuneText) {
+      catFortuneText.textContent = fortune.text;
+    }
+
+    catFortuneButton.classList.remove("pop");
+    void catFortuneButton.offsetWidth;
+    catFortuneButton.classList.add("pop");
+  });
+}
+
+setupCatTalk();
+setupCatFortune();
