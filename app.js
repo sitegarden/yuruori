@@ -392,3 +392,115 @@ function setupClapMessageForm() {
 
 setupClapButton();
 setupClapMessageForm();
+
+
+
+const fortuneButton = document.getElementById("fortuneButton");
+const fortuneTitle = document.getElementById("fortuneTitle");
+const fortuneText = document.getElementById("fortuneText");
+const luckyColor = document.getElementById("luckyColor");
+const luckyItem = document.getElementById("luckyItem");
+const luckyPage = document.getElementById("luckyPage");
+const luckyWord = document.getElementById("luckyWord");
+
+const fortunes = [
+  {
+    title: "大吉",
+    text: "今日はかなりいい感じ。気になっていたページを増やすと進みそうです。",
+    color: "ピンク",
+    item: "紅茶",
+    page: "探検入口",
+    word: "勢いで作ると案外うまくいく"
+  },
+  {
+    title: "中吉",
+    text: "ほどよく良い日。無理せず、ひとつだけ進めると満足できます。",
+    color: "水色",
+    item: "メモ帳",
+    page: "日記",
+    word: "少し進めば十分"
+  },
+  {
+    title: "小吉",
+    text: "小さな発見がありそうな日。リンクを押した先にヒントがあるかもしれません。",
+    color: "クリーム色",
+    item: "小さいリンク",
+    page: "リンク集",
+    word: "寄り道も成果"
+  },
+  {
+    title: "吉",
+    text: "いつも通りがちょうどいい日。急がず、好きなところから触るのが良さそうです。",
+    color: "黄緑",
+    item: "猫の画像",
+    page: "プロフィール",
+    word: "普通に良い"
+  },
+  {
+    title: "末吉",
+    text: "まだ準備中のものが気になる日。完成していなくても、置き場を作るだけで前進です。",
+    color: "薄紫",
+    item: "工事中の札",
+    page: "作品一覧",
+    word: "未完成でも置いていい"
+  },
+  {
+    title: "凶",
+    text: "今日はナビやCSSが暴れやすい日。大きな修正をする前に、バックアップを取ると安心です。",
+    color: "グレー",
+    item: "バックアップ",
+    page: "Web拍手",
+    word: "一回保存しよう"
+  },
+  {
+    title: "謎",
+    text: "よく分からない日。こういう日は、よく分からないページを作ると逆に合っています。",
+    color: "虹色",
+    item: "謎のボタン",
+    page: "隠しページ",
+    word: "意味はあとから生える"
+  }
+];
+
+function getRandomFortune() {
+  const index = Math.floor(Math.random() * fortunes.length);
+  return fortunes[index];
+}
+
+function setupFortune() {
+  if (!fortuneButton) return;
+
+  fortuneButton.addEventListener("click", () => {
+    const fortune = getRandomFortune();
+
+    if (fortuneTitle) {
+      fortuneTitle.textContent = fortune.title;
+    }
+
+    if (fortuneText) {
+      fortuneText.textContent = fortune.text;
+    }
+
+    if (luckyColor) {
+      luckyColor.textContent = fortune.color;
+    }
+
+    if (luckyItem) {
+      luckyItem.textContent = fortune.item;
+    }
+
+    if (luckyPage) {
+      luckyPage.textContent = fortune.page;
+    }
+
+    if (luckyWord) {
+      luckyWord.textContent = fortune.word;
+    }
+
+    fortuneButton.classList.remove("pop");
+    void fortuneButton.offsetWidth;
+    fortuneButton.classList.add("pop");
+  });
+}
+
+setupFortune();
