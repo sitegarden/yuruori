@@ -1659,3 +1659,36 @@ setupCatFortune();
     grid-row: auto;
   }
 }
+
+
+
+const secretButton = document.getElementById("secretButton");
+const secretResult = document.getElementById("secretResult");
+
+const secretMessages = [
+  "ここまで来たあなたは、かなり探索しています。",
+  "ひみつの部屋にようこそ。今日は少しだけレアです。",
+  "何もないように見えて、こういう場所が一番サイトっぽいです。",
+  "好きなものを置いていけば、サイトは勝手に育ちます。",
+  "ここはまだ空き部屋です。あとで何かが増えるかもしれません。",
+  "カウンター、拍手、占い、猫、倉庫。だいぶ個人サイトです。",
+  "このページを見つけたこと自体が、今日の小さな実績です。"
+];
+
+function setupSecretRoom() {
+  if (!secretButton) return;
+
+  secretButton.addEventListener("click", () => {
+    const message = getRandomItem(secretMessages);
+
+    if (secretResult) {
+      secretResult.textContent = message;
+    }
+
+    secretButton.classList.remove("pop");
+    void secretButton.offsetWidth;
+    secretButton.classList.add("pop");
+  });
+}
+
+setupSecretRoom();
