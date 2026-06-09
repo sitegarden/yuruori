@@ -4474,3 +4474,12 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.storage-box-grid span a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.storage-box-grid span a:hover {
+  text-decoration: underline;
+}
