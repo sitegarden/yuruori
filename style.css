@@ -1773,3 +1773,48 @@ body {
     gap: 3px;
   }
 }
+
+.illust-box {
+  overflow: hidden;
+}
+
+.top-illust-wrap {
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.top-illust {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #e6a5c0;
+  background: #fff;
+}
+
+.illust-caption {
+  padding: 10px;
+}
+
+.illust-caption strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #a94b77;
+  font-size: 14px;
+}
+
+.illust-caption p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  font-size: 13px;
+  line-height: 1.7;
+}
