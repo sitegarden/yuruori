@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>管理ページ - ゆるおり</title>
+  <meta name="description" content="ゆるおりの管理ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>ADMIN MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#login">ログイン</a></li>
+              <li><a href="#guestbookAdmin">足あと帳</a></li>
+              <li><a href="#clapAdmin">拍手メッセージ</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>注意</h2>
+            <p>
+              管理人だけが使うページです。
+              非表示にした投稿は、通常ページには表示されません。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box" id="login">
+            <h2>管理ログイン</h2>
+
+            <div class="admin-login-box">
+              <p id="adminLoginStatus">
+                ログイン状態を確認中...
+              </p>
+
+              <div class="admin-button-row">
+                <button class="mini-button" type="button" id="adminLoginButton">
+                  Googleでログイン
+                </button>
+
+                <button class="mini-button" type="button" id="adminLogoutButton">
+                  ログアウト
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="portal-box" id="guestbookAdmin">
+            <h2>足あと帳管理</h2>
+
+            <div class="admin-list" id="adminGuestbookList">
+              <p class="empty-text">ログインすると表示されます。</p>
+            </div>
+          </section>
+
+          <section class="portal-box" id="clapAdmin">
+            <h2>拍手メッセージ管理</h2>
+
+            <div class="admin-list" id="adminClapList">
+              <p class="empty-text">ログインすると表示されます。</p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script type="module" src="../app.js"></script>
+</body>
+</html>
