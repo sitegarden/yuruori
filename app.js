@@ -2,12 +2,17 @@ import { db } from "./firebase.js";
 
 import {
   collection,
+  doc,
   addDoc,
+  getDoc,
   getDocs,
+  setDoc,
+  updateDoc,
   query,
   orderBy,
   limit,
-  serverTimestamp
+  serverTimestamp,
+  increment
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const siteHeader = document.getElementById("siteHeader");
@@ -242,59 +247,7 @@ setupSiteFooter();
 setupMobileNav();
 setupCurrentNav();
 
-const clapButton = document.getElementById("clapButton");
-const clapCount = document.getElementById("clapCount");
-const clapResult = document.getElementById("clapResult");
 
-const clapMessageForm = document.getElementById("clapMessageForm");
-const clapName = document.getElementById("clapName");
-const clapText = document.getElementById("clapText");
-const clapFormStatus = document.getElementById("clapFormStatus");
-const clapLogList = document.getElementById("clapLogList");
-
-const CLAP_COUNT_KEY = "yuruoriClapCount";
-const CLAP_LOG_KEY = "yuruoriClapLogs";
-
-const clapMessages = [
-  "拍手ありがとうございます！",
-  "うれしいです。ゆるおりが少し元気になりました。",
-  "ぱちぱち。今日もいい感じです。",
-  "ありがとうございます。管理人がたぶん喜びます。",
-  "拍手を受け取りました。よい一日を。",
-  "応援感謝です。サイトをまた増築します。"
-];
-
-function getClapCount() {
-  return Number(localStorage.getItem(CLAP_COUNT_KEY) || "0");
-}
-
-function saveClapCount(count) {
-  localStorage.setItem(CLAP_COUNT_KEY, String(count));
-}
-
-function getClapLogs() {
-  const rawLogs = localStorage.getItem(CLAP_LOG_KEY);
-
-  if (!rawLogs) {
-    return [];
-  }
-
-  try {
-    const logs = JSON.parse(rawLogs);
-
-    if (Array.isArray(logs)) {
-      return logs;
-    }
-
-    return [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveClapLogs(logs) {
-  localStorage.setItem(CLAP_LOG_KEY, JSON.stringify(logs));
-}
 
 function escapeHtml(text) {
   return String(text)
@@ -305,21 +258,119 @@ function escapeHtml(text) {
     .replaceAll("'", "&#039;");
 }
 
-function getRandomClapMessage() {
-  const index = Math.floor(Math.random() * clapMessages.length);
-  return clapMessages[index];
+
+
+
+
+const clapButton = document.getElementById("clapButton");
+const clapCount = document.getElementById("clapCount");
+const clapResult = document.getElementById("clapResult");
+
+const clapMessageForm = document.getElementById("clapMessageForm");
+const clapName = document.getElementById("clapName");
+const clapText = document.getElementById("clapText");
+const clapFormStatus = document.getElementById("clapFormStatus");
+const clapLogList = document.getElementById("clapLogList");
+
+const clapCounterRef = doc(db, "siteStats", "clap");
+const clapMessagesCollection = collection(db, "clapMessages");
+
+const clapThanksMessages = [
+  "拍手ありがとうございます！",
+  "うれしいです。ゆるおりが少し元気になりました。",
+  "ぱちぱち。今日もいい感じです。",
+  "ありがとうございます。管理人がたぶん喜びます。",
+  "拍手を受け取りました。よい一日を。",
+  "応援感謝です。サイトをまた増築します。"
+];
+
+function getRandomClapThanksMessage() {
+  const index = Math.floor(Math.random() * clapThanksMessages.length);
+  return clapThanksMessages[index];
 }
 
-function renderClapCount() {
+async function getClapTotal() {
+  const snapshot = await getDoc(clapCounterRef);
+
+  if (!snapshot.exists()) {
+    await setDoc(clapCounterRef, {
+      total: 0,
+      updatedAt: serverTimestamp()
+    });
+
+    return 0;
+  }
+
+  const data = snapshot.data();
+  return Number(data.total || 0);
+}
+
+async function renderClapCount() {
   if (!clapCount) return;
 
-  clapCount.textContent = String(getClapCount());
+  try {
+    const total = await getClapTotal();
+    clapCount.textContent = String(total);
+  } catch (error) {
+    console.error(error);
+    clapCount.textContent = "---";
+  }
 }
 
-function renderClapLogs() {
-  if (!clapLogList) return;
+async function addClap() {
+  const snapshot = await getDoc(clapCounterRef);
 
-  const logs = getClapLogs();
+  if (!snapshot.exists()) {
+    await setDoc(clapCounterRef, {
+      total: 1,
+      updatedAt: serverTimestamp()
+    });
+
+    return 1;
+  }
+
+  await updateDoc(clapCounterRef, {
+    total: increment(1),
+    updatedAt: serverTimestamp()
+  });
+
+  const newSnapshot = await getDoc(clapCounterRef);
+  const data = newSnapshot.data();
+
+  return Number(data.total || 0);
+}
+
+async function fetchClapLogs() {
+  const clapQuery = query(
+    clapMessagesCollection,
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+
+  const snapshot = await getDocs(clapQuery);
+
+  return snapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data()
+    };
+  });
+}
+
+function formatClapDate(value) {
+  if (!value) {
+    return "日時不明";
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("ja-JP");
+  }
+
+  return String(value);
+}
+
+function renderClapItems(logs) {
+  if (!clapLogList) return;
 
   if (logs.length === 0) {
     clapLogList.innerHTML = `<p class="empty-text">まだメッセージはありません。</p>`;
@@ -331,14 +382,37 @@ function renderClapLogs() {
       return `
         <article class="clap-log-item">
           <div class="clap-log-head">
-            <strong>${escapeHtml(log.name)}</strong>
-            <span>${escapeHtml(log.date)}</span>
+            <strong>${escapeHtml(log.name || "名無し")}</strong>
+            <span>${escapeHtml(formatClapDate(log.createdAt))}</span>
           </div>
-          <p>${escapeHtml(log.text)}</p>
+          <p>${escapeHtml(log.text || "")}</p>
         </article>
       `;
     })
     .join("");
+}
+
+async function renderClapLogs() {
+  if (!clapLogList) return;
+
+  clapLogList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+
+  try {
+    const logs = await fetchClapLogs();
+    renderClapItems(logs);
+  } catch (error) {
+    console.error(error);
+    clapLogList.innerHTML = `<p class="empty-text">拍手ログの読み込みに失敗しました。</p>`;
+  }
+}
+
+async function addClapMessage({ name, text }) {
+  await addDoc(clapMessagesCollection, {
+    name,
+    text,
+    createdAt: serverTimestamp(),
+    visible: true
+  });
 }
 
 function setupClapButton() {
@@ -346,19 +420,36 @@ function setupClapButton() {
 
   renderClapCount();
 
-  clapButton.addEventListener("click", () => {
-    const nextCount = getClapCount() + 1;
-
-    saveClapCount(nextCount);
-    renderClapCount();
+  clapButton.addEventListener("click", async () => {
+    clapButton.disabled = true;
 
     if (clapResult) {
-      clapResult.textContent = getRandomClapMessage();
+      clapResult.textContent = "送信中...";
     }
 
-    clapButton.classList.remove("pop");
-    void clapButton.offsetWidth;
-    clapButton.classList.add("pop");
+    try {
+      const total = await addClap();
+
+      if (clapCount) {
+        clapCount.textContent = String(total);
+      }
+
+      if (clapResult) {
+        clapResult.textContent = getRandomClapThanksMessage();
+      }
+
+      clapButton.classList.remove("pop");
+      void clapButton.offsetWidth;
+      clapButton.classList.add("pop");
+    } catch (error) {
+      console.error(error);
+
+      if (clapResult) {
+        clapResult.textContent = "拍手の送信に失敗しました。時間を置いて試してください。";
+      }
+    } finally {
+      clapButton.disabled = false;
+    }
   });
 }
 
@@ -367,7 +458,7 @@ function setupClapMessageForm() {
 
   renderClapLogs();
 
-  clapMessageForm.addEventListener("submit", (event) => {
+  clapMessageForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const name = clapName.value.trim() || "名無し";
@@ -381,29 +472,53 @@ function setupClapMessageForm() {
       return;
     }
 
-    const logs = getClapLogs();
+    if (name.length > 40) {
+      if (clapFormStatus) {
+        clapFormStatus.textContent = "名前は40文字以内で入力してください。";
+      }
 
-    const newLog = {
-      name,
-      text,
-      date: new Date().toLocaleString("ja-JP")
-    };
+      return;
+    }
 
-    logs.unshift(newLog);
+    if (text.length > 300) {
+      if (clapFormStatus) {
+        clapFormStatus.textContent = "メッセージは300文字以内で入力してください。";
+      }
 
-    saveClapLogs(logs.slice(0, 20));
-    renderClapLogs();
-
-    clapText.value = "";
+      return;
+    }
 
     if (clapFormStatus) {
-      clapFormStatus.textContent = "メッセージを送信しました。";
+      clapFormStatus.textContent = "送信中...";
+    }
+
+    try {
+      await addClapMessage({
+        name,
+        text
+      });
+
+      clapText.value = "";
+
+      if (clapFormStatus) {
+        clapFormStatus.textContent = "メッセージを送信しました。";
+      }
+
+      await renderClapLogs();
+    } catch (error) {
+      console.error(error);
+
+      if (clapFormStatus) {
+        clapFormStatus.textContent = "送信に失敗しました。時間を置いて試してください。";
+      }
     }
   });
 }
 
 setupClapButton();
 setupClapMessageForm();
+
+
 
 
 
