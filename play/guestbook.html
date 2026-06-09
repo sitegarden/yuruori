@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>足あと帳 - ゆるおり</title>
+  <meta name="description" content="ゆるおりの足あと帳ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>足あとMENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#write">書き込む</a></li>
+              <li><a href="#list">足あと一覧</a></li>
+              <li><a href="#memo">足あとメモ</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              来たよ、だけでも大丈夫です。
+              足あとが残ると個人サイト感が出ます。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box" id="write">
+            <h2>足あとを書く</h2>
+
+            <form class="guestbook-form" id="guestbookForm">
+              <label for="guestName">名前</label>
+              <input id="guestName" type="text" placeholder="名無しでもOK" />
+
+              <label for="guestSite">サイトURL</label>
+              <input id="guestSite" type="url" placeholder="https://example.com" />
+
+              <label for="guestMessage">ひとこと</label>
+              <textarea id="guestMessage" rows="5" placeholder="来ました！など"></textarea>
+
+              <button class="mini-button" type="submit">足あとを残す</button>
+
+              <p class="form-status" id="guestbookStatus"></p>
+            </form>
+          </section>
+
+          <section class="portal-box" id="list">
+            <h2>足あと一覧</h2>
+
+            <div class="guestbook-list" id="guestbookList">
+              <p class="empty-text">まだ足あとはありません。</p>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>足あとメモ</h2>
+
+            <div class="guestbook-memo">
+              <p>
+                足あと帳は、来てくれた人がひとこと残せる場所です。
+              </p>
+
+              <p>
+                今は端末内保存版ですが、Firebase化するとみんなの足あとを共有できるようになります。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              足あと帳があると、急に「人が来るサイト」感が出ます。
+              カウンター、拍手、足あと帳が揃うとかなり古の個人サイトです。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
