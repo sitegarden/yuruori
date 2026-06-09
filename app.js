@@ -1062,3 +1062,286 @@ function setupGuestbook() {
   });
 }
 setupGuestbook();
+
+
+const adminLoginButton = document.getElementById("adminLoginButton");
+const adminLogoutButton = document.getElementById("adminLogoutButton");
+const adminLoginStatus = document.getElementById("adminLoginStatus");
+const adminGuestbookList = document.getElementById("adminGuestbookList");
+const adminClapList = document.getElementById("adminClapList");
+
+const ADMIN_EMAILS = [
+  "mitsuhashipaintart@gmail.com"
+];
+
+function isAdminUser(user) {
+  if (!user || !user.email) {
+    return false;
+  }
+
+  return ADMIN_EMAILS.includes(user.email);
+}
+
+function formatAdminDate(value) {
+  if (!value) {
+    return "日時不明";
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("ja-JP");
+  }
+
+  return String(value);
+}
+
+async function fetchAdminGuestbookLogs() {
+  const adminGuestbookQuery = query(
+    guestbookCollection,
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const snapshot = await getDocs(adminGuestbookQuery);
+
+  return snapshot.docs.map((docSnap) => {
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    };
+  });
+}
+
+async function fetchAdminClapLogs() {
+  const adminClapQuery = query(
+    clapMessagesCollection,
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const snapshot = await getDocs(adminClapQuery);
+
+  return snapshot.docs.map((docSnap) => {
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    };
+  });
+}
+
+function renderAdminGuestbookItems(logs) {
+  if (!adminGuestbookList) return;
+
+  if (logs.length === 0) {
+    adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の投稿はありません。</p>`;
+    return;
+  }
+
+  adminGuestbookList.innerHTML = logs
+    .map((log) => {
+      const visibleText = log.visible === false ? "非表示" : "表示中";
+
+      return `
+        <article class="admin-item">
+          <div class="admin-item-head">
+            <strong>${escapeHtml(log.name || "名無し")}</strong>
+            <span>${escapeHtml(visibleText)}</span>
+          </div>
+
+          <p>${escapeHtml(log.message || "")}</p>
+
+          <div class="admin-item-meta">
+            <span>${escapeHtml(formatAdminDate(log.createdAt))}</span>
+            <span>${escapeHtml(log.site || "URLなし")}</span>
+          </div>
+
+          <div class="admin-item-actions">
+            <button class="mini-button admin-hide-button" type="button" data-type="guestbook" data-id="${escapeHtml(log.id)}">
+              非表示にする
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderAdminClapItems(logs) {
+  if (!adminClapList) return;
+
+  if (logs.length === 0) {
+    adminClapList.innerHTML = `<p class="empty-text">拍手メッセージはありません。</p>`;
+    return;
+  }
+
+  adminClapList.innerHTML = logs
+    .map((log) => {
+      const visibleText = log.visible === false ? "非表示" : "表示中";
+
+      return `
+        <article class="admin-item">
+          <div class="admin-item-head">
+            <strong>${escapeHtml(log.name || "名無し")}</strong>
+            <span>${escapeHtml(visibleText)}</span>
+          </div>
+
+          <p>${escapeHtml(log.text || "")}</p>
+
+          <div class="admin-item-meta">
+            <span>${escapeHtml(formatAdminDate(log.createdAt))}</span>
+          </div>
+
+          <div class="admin-item-actions">
+            <button class="mini-button admin-hide-button" type="button" data-type="clap" data-id="${escapeHtml(log.id)}">
+              非表示にする
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function renderAdminLists() {
+  if (adminGuestbookList) {
+    adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+  }
+
+  if (adminClapList) {
+    adminClapList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+  }
+
+  try {
+    const guestbookLogs = await fetchAdminGuestbookLogs();
+    const clapLogs = await fetchAdminClapLogs();
+
+    renderAdminGuestbookItems(guestbookLogs);
+    renderAdminClapItems(clapLogs);
+  } catch (error) {
+    console.error(error);
+
+    if (adminGuestbookList) {
+      adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
+    }
+
+    if (adminClapList) {
+      adminClapList.innerHTML = `<p class="empty-text">拍手メッセージの読み込みに失敗しました。</p>`;
+    }
+  }
+}
+
+async function hideAdminItem({ type, id }) {
+  if (type === "guestbook") {
+    await updateDoc(doc(db, "guestbook", id), {
+      visible: false,
+      hiddenAt: serverTimestamp()
+    });
+  }
+
+  if (type === "clap") {
+    await updateDoc(doc(db, "clapMessages", id), {
+      visible: false,
+      hiddenAt: serverTimestamp()
+    });
+  }
+}
+
+function setupAdminHideButtons() {
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest(".admin-hide-button");
+
+    if (!button) return;
+
+    const type = button.dataset.type;
+    const id = button.dataset.id;
+
+    if (!type || !id) return;
+
+    button.disabled = true;
+    button.textContent = "処理中...";
+
+    try {
+      await hideAdminItem({ type, id });
+      await renderAdminLists();
+    } catch (error) {
+      console.error(error);
+      button.disabled = false;
+      button.textContent = "失敗しました";
+    }
+  });
+}
+
+function setupAdminPage() {
+  if (!adminLoginButton && !adminLogoutButton && !adminLoginStatus) return;
+
+  if (adminLoginButton) {
+    adminLoginButton.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        console.error(error);
+
+        if (adminLoginStatus) {
+          adminLoginStatus.textContent = "ログインに失敗しました。";
+        }
+      }
+    });
+  }
+
+  if (adminLogoutButton) {
+    adminLogoutButton.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error(error);
+
+        if (adminLoginStatus) {
+          adminLoginStatus.textContent = "ログアウトに失敗しました。";
+        }
+      }
+    });
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      if (adminLoginStatus) {
+        adminLoginStatus.textContent = "ログインしていません。";
+      }
+
+      if (adminGuestbookList) {
+        adminGuestbookList.innerHTML = `<p class="empty-text">ログインすると表示されます。</p>`;
+      }
+
+      if (adminClapList) {
+        adminClapList.innerHTML = `<p class="empty-text">ログインすると表示されます。</p>`;
+      }
+
+      return;
+    }
+
+    if (!isAdminUser(user)) {
+      if (adminLoginStatus) {
+        adminLoginStatus.textContent = `このアカウントでは管理できません。ログイン中：${user.email}`;
+      }
+
+      if (adminGuestbookList) {
+        adminGuestbookList.innerHTML = `<p class="empty-text">管理権限がありません。</p>`;
+      }
+
+      if (adminClapList) {
+        adminClapList.innerHTML = `<p class="empty-text">管理権限がありません。</p>`;
+      }
+
+      return;
+    }
+
+    if (adminLoginStatus) {
+      adminLoginStatus.textContent = `管理人としてログイン中：${user.email}`;
+    }
+
+    await renderAdminLists();
+  });
+
+  setupAdminHideButtons();
+}
+
+setupAdminPage();
