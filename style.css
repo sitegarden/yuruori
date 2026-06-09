@@ -1310,3 +1310,164 @@ body {
     width: fit-content;
   }
 }
+
+/* ==============================
+  Yuruori color recovery
+  色味を少し戻す + Welcome修正
+============================== */
+
+:root {
+  --bg: #fff8f2;
+  --text: #302538;
+  --muted: #76657c;
+
+  --main: #f36fa8;
+  --main-dark: #c64282;
+  --sub: #67cfea;
+  --sub-dark: #2f8fa8;
+  --cream: #fff3b8;
+  --green: #bff0cf;
+  --purple: #b8a8e8;
+
+  --border: #f0a0c4;
+  --shadow: 6px 6px 0 rgba(198, 66, 130, 0.13);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8px 8px, rgba(243, 111, 168, 0.1) 2px, transparent 3px),
+    radial-gradient(circle at 24px 24px, rgba(103, 207, 234, 0.08) 2px, transparent 3px),
+    linear-gradient(135deg, #fff8f2, #fff1fa 48%, #edfaff);
+  background-size: 32px 32px, 32px 32px, 100% 100%;
+}
+
+.site-bg {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(243, 111, 168, 0.22), transparent 28%),
+    radial-gradient(circle at 88% 14%, rgba(103, 207, 234, 0.22), transparent 26%),
+    radial-gradient(circle at 18% 82%, rgba(255, 243, 184, 0.48), transparent 30%),
+    linear-gradient(135deg, #fff8f2, #fff1fa 44%, #edfaff);
+}
+
+.site-header {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    repeating-linear-gradient(
+      90deg,
+      #ffe1f2,
+      #ffe1f2 16px,
+      #e5f9ff 16px,
+      #e5f9ff 32px,
+      #fff3b8 32px,
+      #fff3b8 48px
+    );
+}
+
+.logo-text,
+.section-head h2,
+.intro-card h3,
+.portal-card h3,
+.work-card h3,
+.explore-box h2,
+.footer-logo {
+  color: var(--main-dark);
+}
+
+.hero h1 {
+  color: #e94f98;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(103, 207, 234, 0.55),
+    6px 6px 0 rgba(255, 243, 184, 0.7);
+}
+
+.eyebrow,
+.section-label {
+  background: #fff3b8;
+  color: var(--main-dark);
+  border-color: var(--main);
+}
+
+.site-nav a {
+  color: var(--main-dark);
+  border-color: var(--border);
+}
+
+.site-nav a:hover,
+.site-nav a.current {
+  background: linear-gradient(#fff3b8, #ffffff);
+  color: #e94f98;
+}
+
+.btn.primary {
+  background: linear-gradient(#f36fa8, #d95591);
+  color: #fff;
+}
+
+.btn.secondary {
+  background: linear-gradient(#fff8dc, #fff3b8);
+  color: var(--text);
+}
+
+.window-bar {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f36fa8,
+      #f36fa8 16px,
+      #fff3b8 16px,
+      #fff3b8 32px,
+      #67cfea 32px,
+      #67cfea 48px
+    );
+}
+
+/* Welcomeの黒文字対策 */
+.window-label {
+  display: inline-block;
+  background: #e94f98;
+  color: #ffffff !important;
+  border: 2px outset #f0a0c4;
+  text-shadow: none;
+}
+
+.window-label,
+.window-label * {
+  color: #ffffff !important;
+}
+
+.window-body h2 {
+  color: var(--main-dark);
+}
+
+.mini-counter strong {
+  color: #e94f98;
+}
+
+.intro-card span {
+  background: #e94f98;
+  color: #fff;
+}
+
+.portal-icon {
+  color: #e94f98;
+}
+
+.work-card span,
+.footer-links a {
+  color: var(--main-dark);
+}
+
+.explore-section {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
+    repeating-linear-gradient(
+      90deg,
+      #e5f9ff,
+      #e5f9ff 18px,
+      #fff8dc 18px,
+      #fff8dc 36px,
+      #ffe8f4 36px,
+      #ffe8f4 54px
+    );
+}
