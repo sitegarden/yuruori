@@ -229,3 +229,166 @@ setupSiteHeader();
 setupSiteFooter();
 setupMobileNav();
 setupCurrentNav();
+
+const clapButton = document.getElementById("clapButton");
+const clapCount = document.getElementById("clapCount");
+const clapResult = document.getElementById("clapResult");
+
+const clapMessageForm = document.getElementById("clapMessageForm");
+const clapName = document.getElementById("clapName");
+const clapText = document.getElementById("clapText");
+const clapFormStatus = document.getElementById("clapFormStatus");
+const clapLogList = document.getElementById("clapLogList");
+
+const CLAP_COUNT_KEY = "yuruoriClapCount";
+const CLAP_LOG_KEY = "yuruoriClapLogs";
+
+const clapMessages = [
+  "拍手ありがとうございます！",
+  "うれしいです。ゆるおりが少し元気になりました。",
+  "ぱちぱち。今日もいい感じです。",
+  "ありがとうございます。管理人がたぶん喜びます。",
+  "拍手を受け取りました。よい一日を。",
+  "応援感謝です。サイトをまた増築します。"
+];
+
+function getClapCount() {
+  return Number(localStorage.getItem(CLAP_COUNT_KEY) || "0");
+}
+
+function saveClapCount(count) {
+  localStorage.setItem(CLAP_COUNT_KEY, String(count));
+}
+
+function getClapLogs() {
+  const rawLogs = localStorage.getItem(CLAP_LOG_KEY);
+
+  if (!rawLogs) {
+    return [];
+  }
+
+  try {
+    const logs = JSON.parse(rawLogs);
+
+    if (Array.isArray(logs)) {
+      return logs;
+    }
+
+    return [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveClapLogs(logs) {
+  localStorage.setItem(CLAP_LOG_KEY, JSON.stringify(logs));
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getRandomClapMessage() {
+  const index = Math.floor(Math.random() * clapMessages.length);
+  return clapMessages[index];
+}
+
+function renderClapCount() {
+  if (!clapCount) return;
+
+  clapCount.textContent = String(getClapCount());
+}
+
+function renderClapLogs() {
+  if (!clapLogList) return;
+
+  const logs = getClapLogs();
+
+  if (logs.length === 0) {
+    clapLogList.innerHTML = `<p class="empty-text">まだメッセージはありません。</p>`;
+    return;
+  }
+
+  clapLogList.innerHTML = logs
+    .map((log) => {
+      return `
+        <article class="clap-log-item">
+          <div class="clap-log-head">
+            <strong>${escapeHtml(log.name)}</strong>
+            <span>${escapeHtml(log.date)}</span>
+          </div>
+          <p>${escapeHtml(log.text)}</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function setupClapButton() {
+  if (!clapButton) return;
+
+  renderClapCount();
+
+  clapButton.addEventListener("click", () => {
+    const nextCount = getClapCount() + 1;
+
+    saveClapCount(nextCount);
+    renderClapCount();
+
+    if (clapResult) {
+      clapResult.textContent = getRandomClapMessage();
+    }
+
+    clapButton.classList.remove("pop");
+    void clapButton.offsetWidth;
+    clapButton.classList.add("pop");
+  });
+}
+
+function setupClapMessageForm() {
+  if (!clapMessageForm) return;
+
+  renderClapLogs();
+
+  clapMessageForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = clapName.value.trim() || "名無し";
+    const text = clapText.value.trim();
+
+    if (!text) {
+      if (clapFormStatus) {
+        clapFormStatus.textContent = "メッセージを入力してください。";
+      }
+
+      return;
+    }
+
+    const logs = getClapLogs();
+
+    const newLog = {
+      name,
+      text,
+      date: new Date().toLocaleString("ja-JP")
+    };
+
+    logs.unshift(newLog);
+
+    saveClapLogs(logs.slice(0, 20));
+    renderClapLogs();
+
+    clapText.value = "";
+
+    if (clapFormStatus) {
+      clapFormStatus.textContent = "メッセージを送信しました。";
+    }
+  });
+}
+
+setupClapButton();
+setupClapMessageForm();
