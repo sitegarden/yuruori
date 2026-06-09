@@ -3,282 +3,211 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yuruori</title>
 
-  <!-- Favicon -->
-<link rel="icon" type="image/png" href="/favicon.png" />
-<link rel="apple-touch-icon" href="/favicon.png" />
+  <title>ゆるおり - サイトは遊ぶ場所</title>
+  <meta name="description" content="ゆるおりは、創作・ゲーム・診断・日記・小さな遊びを置いておく個人サイトです。" />
 
-  <!-- OGP -->
-<meta property="og:title" content="yuruori.com" />
-<meta property="og:description" content="診断、ゲーム、創作、セルフケアなどをまとめた、ゆるいWebガーデン。" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://yuruori.com/" />
-<meta property="og:image" content="https://yuruori.com/ogp.png" />
-<meta property="og:site_name" content="yuruori.com" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
 
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="yuruori.com" />
-<meta name="twitter:description" content="診断、ゲーム、創作、セルフケアなどをまとめた、ゆるいWebガーデン。" />
-<meta name="twitter:image" content="https://yuruori.com/ogp.png" />
-  
+  <meta property="og:title" content="ゆるおり" />
+  <meta property="og:description" content="創作と遊びを置いておく、ゆるい個人サイト。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yuruori.com/" />
+  <meta property="og:image" content="https://yuruori.com/ogp.png" />
+  <meta property="og:site_name" content="ゆるおり" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ゆるおり" />
+  <meta name="twitter:description" content="創作と遊びを置いておく、ゆるい個人サイト。" />
+  <meta name="twitter:image" content="https://yuruori.com/ogp.png" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header class="site-header">
-    <a href="#" class="logo">
-      <span class="logo-mark">✦</span>
-      Yuruori
-    </a>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
 
-    <nav class="nav">
-      <a href="#timeline">Timeline</a>
-      <a href="#about">About</a>
-      <a href="#works">Works</a>
-      <a href="#illustrations">Illustrations</a>
-      <a href="#profile">Profile</a>
-    </nav>
-  </header>
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Creative playground</p>
 
-  <main>
-    <section class="hero">
-      <div class="hero-badge">My Creative SNS</div>
+          <h1>
+            サイトは、<br />
+            遊ぶ場所。
+          </h1>
 
-      <h1>
-        ゆるく織って、<br />
-        たのしく遊ぶ。
-      </h1>
+          <p class="hero-text">
+            ゆるおりは、創作・ゲーム・診断・日記・小さな実験を置いておく個人サイトです。
+            ちゃんとしたページも、よく分からないページもあります。
+          </p>
 
-      <p class="hero-text">
-        Yuruoriは、診断サイトや創作、日記、制作ログをまとめる場所。
-        SNSに流すほどでもないことも、自分のペースで残していきます。
-      </p>
+          <div class="hero-buttons">
+            <a class="btn primary" href="pages/works.html">作ったものを見る</a>
+            <a class="btn secondary" href="play/index.html">サイトを探検する</a>
+          </div>
+        </div>
 
-      <div class="hero-buttons">
-        <a href="#timeline" class="btn main">タイムラインを見る</a>
-        <a href="#works" class="btn sub">作品を見る</a>
-      </div>
+        <div class="hero-window" aria-label="ゆるおりの案内カード">
+          <div class="window-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-      <div class="floating-card card-one">
-        <span>LIKE</span>
-        <p>見た人は気軽に押せる</p>
-      </div>
+          <div class="window-body">
+            <p class="window-label">Welcome</p>
+            <h2>ゆるおりの遊び場</h2>
+            <p>
+              表は見やすく。<br />
+              奥はちょっと迷路。
+            </p>
 
-      <div class="floating-card card-two">
-        <span>COMMENT</span>
-        <p>テンプレから選ぶだけ</p>
-      </div>
+            <div class="mini-counter">
+              <span>発見できるページ</span>
+              <strong>???</strong>
+            </div>
+          </div>
+        </div>
 
-      <div class="bubble bubble-yellow"></div>
-      <div class="bubble bubble-blue"></div>
-      <div class="bubble bubble-small"></div>
-    </section>
+        <div class="float-chip chip-one">創作</div>
+        <div class="float-chip chip-two">ゲーム</div>
+        <div class="float-chip chip-three">診断</div>
+      </section>
 
-    <section id="timeline" class="section timeline-section">
-      <p class="section-label">Timeline</p>
-      <h2>投稿</h2>
-      <p>
-        日記、制作メモ、イラスト、好きなもの。
-        Yuruoriの小さなタイムラインです。
-      </p>
+      <section class="section intro-section" id="about">
+        <div class="section-head">
+          <p class="section-label">About</p>
+          <h2>ゆるおりとは</h2>
+        </div>
 
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="diary">Diary</button>
-        <button class="filter-btn" data-filter="log">Log</button>
-        <button class="filter-btn" data-filter="art">Art</button>
-        <button class="filter-btn" data-filter="idea">Idea</button>
-        <button class="filter-btn" data-filter="music">Music</button>
-      </div>
+        <div class="intro-grid">
+          <article class="intro-card">
+            <span>01</span>
+            <h3>創作の置き場</h3>
+            <p>
+              作ったサイト、診断、ゲーム、イラスト、メモなどをまとめて置いておく場所です。
+            </p>
+          </article>
 
-      <div id="postList" class="post-list"></div>
-    </section>
+          <article class="intro-card">
+            <span>02</span>
+            <h3>遊べる個人サイト</h3>
+            <p>
+              見るだけじゃなく、押したり探したり迷ったりできるサイトを目指しています。
+            </p>
+          </article>
 
-    <section id="about" class="section about">
-      <p class="section-label">About</p>
-      <h2>Yuruoriとは</h2>
-      <p>
-        「ゆるく織る」みたいに、アイデア・診断・キャラクター・ゲームを
-        少しずつ組み合わせていく場所です。
-        完璧じゃなくても、まずは形にして、あとから育てていく。
-      </p>
-    </section>
+          <article class="intro-card">
+            <span>03</span>
+            <h3>奥に進むと変</h3>
+            <p>
+              ナビに出ていないページもあります。見つけたらちょっと嬉しいタイプのやつです。
+            </p>
+          </article>
+        </div>
+      </section>
 
-   <section id="works" class="section">
-  <p class="section-label">Site Portal</p>
-  <h2>作ったもの</h2>
-  <p>
-    診断、ゲーム、創作、セルフケア、ツールなど、作ったページをまとめています。
-    気になったものから自由に見てください。
-  </p>
-
-  <div class="works-grid">
-    <a class="work-card entp" href="https://entp.jp" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">💡</div>
-      <p class="work-type">Diagnosis</p>
-      <h3>ENTP.jp</h3>
-      <p>
-        ひねくれた発想、ツッコミ、退屈への反逆。
-        ENTPっぽさをネタとして遊べる診断サイト。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card estp" href="https://estp.jp" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">⚡</div>
-      <p class="work-type">Diagnosis</p>
-      <h3>ESTP.jp</h3>
-      <p>
-        勢い、リアルな反応、まず動く感じ。
-        ESTPっぽさを体験できる診断サイト。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card ocfa" href="https://ocfa.jp" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🎨</div>
-      <p class="work-type">OC / Fan Art</p>
-      <h3>OCFA.jp</h3>
-      <p>
-        オリキャラのプロフィールやファンアートを楽しめる、
-        OC向けの創作サイト。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card rhythm" href="https://sitegarden.github.io/rhythm/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🎵</div>
-      <p class="work-type">Game</p>
-      <h3>Rhythm Game</h3>
-      <p>
-        オリジナル曲で遊べる、自作のリズムゲームページ。
-        タップして遊ぶミニゲーム。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card battle" href="https://alexlevel0.github.io/battle/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🔥</div>
-      <p class="work-type">Game</p>
-      <h3>Battle Game</h3>
-      <p>
-        自作のバトルゲームで遊べるページ。
-        気軽に戦えるミニゲーム。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card party" href="https://zeroto0000.github.io/jinkaku-yaminabe/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🍲</div>
-      <p class="work-type">Party Game</p>
-      <h3>人格闇鍋</h3>
-      <p>
-        自作のパーティゲームで遊べるページ。
-        みんなでワイワイ遊ぶ系。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card school" href="https://school-type.netlify.app/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🏫</div>
-      <p class="work-type">Diagnosis</p>
-      <h3>School Type</h3>
-      <p>
-        学校っぽい世界観で楽しめる、
-        自作の16タイプ診断ページ。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card characode" href="https://characode.netlify.app/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">🧬</div>
-      <p class="work-type">Diagnosis</p>
-      <h3>Characode</h3>
-      <p>
-        キャラクターや性格タイプをテーマにした、
-        自作の診断ページ。
-      </p>
-      <span>見に行く →</span>
-    </a>
-
-    <a class="work-card icon" href="https://simple-icon.netlify.app/" target="_blank" rel="noopener noreferrer">
-      <div class="work-icon">✨</div>
-      <p class="work-type">Tool</p>
-      <h3>Simple Icon</h3>
-      <p>
-        シンプルなアイコンを気軽に作れるミニツール。
-        SNSやサイト用にも使いやすいページ。
-      </p>
-      <span>見に行く →</span>
-    </a>
-  </div>
-</section>
-
-
-    
-<section id="illustrations" class="section">
-  <p class="section-label">Original Illustrations</p>
-  <h2>オリジナルイラスト</h2>
-  <p>
-    AIなしで描いた、完全オリジナルのイラストたち。
-    気に入っているものを少しずつ置いていきます。
-  </p>
-
-  <div class="illust-grid">
-    <figure class="illust-card">
-      <img src="./images/illust-01.png" alt="オリジナルイラスト 1" />
-      <figcaption>Original / No AI</figcaption>
-    </figure>
-
-    <figure class="illust-card">
-      <img src="./images/illust-02.png" alt="オリジナルイラスト 2" />
-      <figcaption>Original / No AI</figcaption>
-    </figure>
-
-    <figure class="illust-card">
-      <img src="./images/illust-03.png" alt="オリジナルイラスト 3" />
-      <figcaption>Original / No AI</figcaption>
-    </figure>
-
-    <figure class="illust-card">
-      <img src="./images/illust-04.png" alt="オリジナルイラスト 4" />
-      <figcaption>Original / No AI</figcaption>
-    </figure>
-  </div>
-</section>
-    
-
-
-    <section id="profile" class="section profile">
-      <div>
-        <p class="section-label">Profile</p>
-        <h2>Created by Lane</h2>
-        <p>
-          診断サイト、性格タイプ系コンテンツ、ミニゲーム、創作まわりのサイトを制作。
-          思いついたものを、勢いで形にしていくタイプ。
-        </p>
-
-        <div class="name-note">
-          <span>Name Note</span>
+      <section class="section portal-section" id="portal">
+        <div class="section-head">
+          <p class="section-label">Main portal</p>
+          <h2>表の入口</h2>
           <p>
-            EGMは「Earl Grey Milk Tea」の略。
-            好きなものを少しだけ名前に混ぜています。
+            まず見てほしいページたち。ちゃんとしている側のゆるおりです。
           </p>
         </div>
-      </div>
 
-      <div class="profile-stamp">
-        <span>Yuruori</span>
-        <small>Presented by ゆるおり</small>
-      </div>
-    </section>
-  </main>
+        <div class="portal-grid">
+          <a class="portal-card" href="pages/about.html">
+            <span class="portal-icon">✦</span>
+            <h3>ABOUT</h3>
+            <p>このサイトについて。</p>
+          </a>
 
-  <footer class="footer">
-    <p>© Yuruori.com / Created by Lane</p>
-  </footer>
+          <a class="portal-card" href="pages/profile.html">
+            <span class="portal-icon">☺</span>
+            <h3>PROFILE</h3>
+            <p>管理人プロフィール。</p>
+          </a>
 
-  <script type="module" src="app.js"></script>
+          <a class="portal-card" href="pages/works.html">
+            <span class="portal-icon">◆</span>
+            <h3>WORKS</h3>
+            <p>作ったサイトや作品。</p>
+          </a>
+
+          <a class="portal-card" href="pages/games.html">
+            <span class="portal-icon">★</span>
+            <h3>GAMES</h3>
+            <p>自作ゲーム置き場。</p>
+          </a>
+
+          <a class="portal-card" href="pages/ocfa.html">
+            <span class="portal-icon">♡</span>
+            <h3>OCFA</h3>
+            <p>OCFA.jpの案内。</p>
+          </a>
+
+          <a class="portal-card" href="pages/diary.html">
+            <span class="portal-icon">☕</span>
+            <h3>DIARY</h3>
+            <p>日記と制作メモ。</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section works-preview-section">
+        <div class="section-head">
+          <p class="section-label">Works</p>
+          <h2>作ったもの</h2>
+          <p>
+            外部サイトも含めて、今見せたいものだけ並べています。
+          </p>
+        </div>
+
+        <div class="works-grid">
+          <a class="work-card entp" href="https://entp.jp" target="_blank" rel="noopener noreferrer">
+            <p class="work-type">Diagnosis</p>
+            <h3>ENTP.jp</h3>
+            <p>ひねくれた発想とツッコミで遊ぶ診断サイト。</p>
+            <span>見に行く →</span>
+          </a>
+
+          <a class="work-card estp" href="https://estp.jp" target="_blank" rel="noopener noreferrer">
+            <p class="work-type">Diagnosis</p>
+            <h3>ESTP.jp</h3>
+            <p>勢いとリアルな反応で遊ぶ診断サイト。</p>
+            <span>見に行く →</span>
+          </a>
+
+          <a class="work-card ocfa" href="https://ocfa.jp" target="_blank" rel="noopener noreferrer">
+            <p class="work-type">OC / Fan Art</p>
+            <h3>OCFA.jp</h3>
+            <p>オリキャラのプロフィールやファンアートを楽しめるサイト。</p>
+            <span>見に行く →</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section explore-section">
+        <div class="explore-box">
+          <p class="section-label">Explore</p>
+          <h2>奥のページへ</h2>
+          <p>
+            ここから先は、少しだけ遊び寄りのエリアです。
+            くだらないページ、謎ページ、見つけるとちょっと嬉しいページがあります。
+          </p>
+
+          <a class="btn primary" href="play/index.html">探検をはじめる</a>
+        </div>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
