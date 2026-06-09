@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Web拍手 - ゆるおり</title>
+  <meta name="description" content="ゆるおりのWeb拍手ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>拍手MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#clap">拍手する</a></li>
+              <li><a href="#message">ひとこと</a></li>
+              <li><a href="#thanks">お礼</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              押しても何かが起きるだけです。
+              でもそれがWeb拍手です。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box clap-main-box" id="clap">
+            <h2>Web拍手</h2>
+
+            <div class="clap-area">
+              <p class="clap-label">CLAP BUTTON</p>
+
+              <button class="clap-button" type="button" id="clapButton">
+                拍手する
+              </button>
+
+              <p class="clap-count">
+                拍手数：<strong id="clapCount">0</strong>
+              </p>
+
+              <p class="clap-result" id="clapResult">
+                よかったら押していってください。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box" id="message">
+            <h2>ひとことメッセージ</h2>
+
+            <form class="clap-message-form" id="clapMessageForm">
+              <label for="clapName">名前</label>
+              <input id="clapName" type="text" placeholder="名無しでもOK" />
+
+              <label for="clapText">メッセージ</label>
+              <textarea id="clapText" rows="5" placeholder="ひとことどうぞ"></textarea>
+
+              <button class="mini-button" type="submit">送信する</button>
+
+              <p class="form-status" id="clapFormStatus"></p>
+            </form>
+          </section>
+
+          <section class="portal-box" id="thanks">
+            <h2>拍手ログ</h2>
+
+            <div class="clap-log-list" id="clapLogList">
+              <p class="empty-text">まだメッセージはありません。</p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              Web拍手は、反応を気軽に送れる古の文化です。
+              文章を書かなくても、ボタンひとつで応援できる感じが良い。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
