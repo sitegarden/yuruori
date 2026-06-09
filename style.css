@@ -1818,3 +1818,76 @@ body {
   font-size: 13px;
   line-height: 1.7;
 }
+
+.counter-box {
+  text-align: center;
+}
+
+.visitor-counter {
+  padding: 12px 8px;
+  border-bottom: 1px dotted #e6a5c0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.visitor-counter p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.visitor-counter strong {
+  display: block;
+  margin: 6px auto;
+  padding: 6px 8px;
+  border: 3px inset #e9a4c2;
+  background: #1e1722;
+  color: #fff3b8;
+  font-family:
+    "Courier New",
+    monospace;
+  font-size: 26px;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(255, 243, 184, 0.5);
+}
+
+.counter-mini-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px dotted #e6a5c0;
+}
+
+.counter-mini-info p {
+  margin: 0;
+  padding: 7px 4px;
+  color: #66566d;
+  font-size: 12px;
+}
+
+.counter-mini-info p + p {
+  border-left: 1px dotted #e6a5c0;
+}
+
+.counter-mini-info span {
+  color: #a94b77;
+  font-weight: 900;
+}
+
+.counter-message {
+  margin: 0;
+  padding: 9px !important;
+  color: #a94b77 !important;
+  font-size: 13px !important;
+  font-weight: 800;
+  line-height: 1.6 !important;
+}
