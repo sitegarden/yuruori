@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ゲーム - ゆるおり</title>
+  <meta name="description" content="ゆるおりの自作ゲーム置き場です。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="page-top">
+        <div class="page-title-box">
+          <p class="eyebrow">Games</p>
+          <h1>ゲーム</h1>
+          <p>
+            ゆるおりの自作ゲーム置き場です。
+            ミニゲーム、ランキング、ちょっとした遊びを増やしていく予定です。
+          </p>
+        </div>
+      </section>
+
+      <section class="games-page-layout">
+        <aside class="games-side">
+          <section class="portal-box">
+            <h2>GAME MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#pickup">おすすめ</a></li>
+              <li><a href="#list">ゲーム一覧</a></li>
+              <li><a href="#ranking">ランキング</a></li>
+              <li><a href="#memo">制作メモ</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>状態</h2>
+            <p>
+              ゲームは少しずつ追加予定です。
+              まずは置き場を作っています。
+            </p>
+          </section>
+        </aside>
+
+        <section class="games-main">
+          <section class="portal-box" id="pickup">
+            <h2>おすすめゲーム</h2>
+
+            <article class="game-pickup-card">
+              <div class="game-pickup-icon">★</div>
+
+              <div class="game-pickup-text">
+                <strong>準備中</strong>
+                <p>
+                  ここに一番見せたいゲームを置く予定です。
+                  ランキング対応のゲームや、短時間で遊べるミニゲームが合いそうです。
+                </p>
+              </div>
+            </article>
+          </section>
+
+          <section class="portal-box" id="list">
+            <h2>ゲーム一覧</h2>
+
+            <div class="game-list-table">
+              <a href="#">
+                <strong>記憶ゲーム</strong>
+                <span>順番を覚えてタッチしていくゲーム。制作予定。</span>
+              </a>
+
+              <a href="#">
+                <strong>音ゲー</strong>
+                <span>曲に合わせてタップするゲーム。制作済みの曲を使いたい。</span>
+              </a>
+
+              <a href="#">
+                <strong>星集めゲーム</strong>
+                <span>星を集めてスコアを伸ばすミニゲーム。移植予定。</span>
+              </a>
+
+              <a href="#">
+                <strong>診断ゲーム</strong>
+                <span>性格やタイプで遊べる診断系ゲーム。制作予定。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="portal-box" id="ranking">
+            <h2>ランキング予定</h2>
+
+            <div class="ranking-note">
+              <p>
+                ゲームを増やしたら、Firebaseを使ってランキングを付ける予定です。
+              </p>
+
+              <p>
+                スコア、レベル、称号などを記録できるようにすると、かなり遊べるサイトになりそうです。
+              </p>
+            </div>
+
+            <div class="mini-ranking-table">
+              <div>
+                <span>1位</span>
+                <strong>準備中</strong>
+                <em>---</em>
+              </div>
+
+              <div>
+                <span>2位</span>
+                <strong>準備中</strong>
+                <em>---</em>
+              </div>
+
+              <div>
+                <span>3位</span>
+                <strong>準備中</strong>
+                <em>---</em>
+              </div>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>制作メモ</h2>
+
+            <div class="games-memo">
+              <p>
+                ゆるおりのゲームは、ガチすぎるゲームよりも、
+                短時間で遊べて何回も押したくなるものが合いそうです。
+              </p>
+
+              <p>
+                ランキングや称号があると、サイト内を回る理由にもなります。
+              </p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
