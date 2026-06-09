@@ -504,3 +504,133 @@ function setupFortune() {
 }
 
 setupFortune();
+
+const guestbookForm = document.getElementById("guestbookForm");
+const guestName = document.getElementById("guestName");
+const guestSite = document.getElementById("guestSite");
+const guestMessage = document.getElementById("guestMessage");
+const guestbookStatus = document.getElementById("guestbookStatus");
+const guestbookList = document.getElementById("guestbookList");
+
+const GUESTBOOK_KEY = "yuruoriGuestbookLogs";
+
+function getGuestbookLogs() {
+  const rawLogs = localStorage.getItem(GUESTBOOK_KEY);
+
+  if (!rawLogs) {
+    return [];
+  }
+
+  try {
+    const logs = JSON.parse(rawLogs);
+
+    if (Array.isArray(logs)) {
+      return logs;
+    }
+
+    return [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveGuestbookLogs(logs) {
+  localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(logs));
+}
+
+function isValidUrl(url) {
+  if (!url) return true;
+
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+  } catch (error) {
+    return false;
+  }
+}
+
+function renderGuestbookLogs() {
+  if (!guestbookList) return;
+
+  const logs = getGuestbookLogs();
+
+  if (logs.length === 0) {
+    guestbookList.innerHTML = `<p class="empty-text">まだ足あとはありません。</p>`;
+    return;
+  }
+
+  guestbookList.innerHTML = logs
+    .map((log) => {
+      const siteHtml = log.site
+        ? `<a href="${escapeHtml(log.site)}" target="_blank" rel="noopener noreferrer">サイト</a>`
+        : `<span>サイトなし</span>`;
+
+      return `
+        <article class="guestbook-item">
+          <div class="guestbook-head">
+            <strong>${escapeHtml(log.name)}</strong>
+            <time>${escapeHtml(log.date)}</time>
+          </div>
+
+          <p>${escapeHtml(log.message)}</p>
+
+          <div class="guestbook-site">
+            ${siteHtml}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function setupGuestbook() {
+  if (!guestbookForm) return;
+
+  renderGuestbookLogs();
+
+  guestbookForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = guestName.value.trim() || "名無し";
+    const site = guestSite.value.trim();
+    const message = guestMessage.value.trim();
+
+    if (!message) {
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "ひとことを入力してください。";
+      }
+
+      return;
+    }
+
+    if (!isValidUrl(site)) {
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "URLは http:// または https:// から入力してください。";
+      }
+
+      return;
+    }
+
+    const logs = getGuestbookLogs();
+
+    const newLog = {
+      name,
+      site,
+      message,
+      date: new Date().toLocaleString("ja-JP")
+    };
+
+    logs.unshift(newLog);
+
+    saveGuestbookLogs(logs.slice(0, 30));
+    renderGuestbookLogs();
+
+    guestMessage.value = "";
+
+    if (guestbookStatus) {
+      guestbookStatus.textContent = "足あとを残しました。";
+    }
+  });
+}
+
+setupGuestbook();
