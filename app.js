@@ -21,7 +21,8 @@ const navLinks = [
   { label: "GAMES", url: "pages/games.html" },
   { label: "OCFA", url: "pages/ocfa.html" },
   { label: "DIARY", url: "pages/diary.html" },
-  { label: "LINK", url: "pages/links.html" }
+  { label: "LINK", url: "pages/links.html" },
+  { label: "EXPLORE", url: "play/index.html" }
 ];
 
 function makeUrl(url) {
