@@ -2715,3 +2715,135 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==============================
+  Works page
+============================== */
+
+.works-page-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 12px;
+  width: min(980px, calc(100% - 24px));
+  margin: 0 auto 24px;
+}
+
+.works-side,
+.works-page-main {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.works-list {
+  display: grid;
+  gap: 0;
+}
+
+.works-item {
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.works-item:last-child {
+  border-bottom: 0;
+}
+
+.works-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.works-item-head strong {
+  color: #a94b77;
+  font-size: 18px;
+}
+
+.works-item-head strong::before {
+  content: "■ ";
+  color: #e87aa8;
+}
+
+.works-item-head span {
+  padding: 3px 8px;
+  border: 1px dashed #e87aa8;
+  background: #fff8df;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.works-item p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.works-item p:last-child {
+  margin-bottom: 0;
+}
+
+.creative-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px dotted #e6a5c0;
+  border-left: 1px dotted #e6a5c0;
+}
+
+.creative-table article {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-right: 1px dotted #e6a5c0;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.creative-table strong {
+  color: #a94b77;
+}
+
+.creative-table strong::before {
+  content: "◇ ";
+  color: #e87aa8;
+}
+
+.creative-table span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.works-memo {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.works-memo p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.works-memo p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .works-page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .creative-table {
+    grid-template-columns: 1fr;
+  }
+}
