@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>倉庫 - ゆるおり</title>
+  <meta name="description" content="ゆるおりの倉庫ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>倉庫MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#storage">倉庫入口</a></li>
+              <li><a href="#boxes">収納箱</a></li>
+              <li><a href="#memo">メモ</a></li>
+              <li><a href="#notice">注意</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              倉庫は完成品じゃなくても置いていい場所です。
+              むしろ途中のものを置くための場所です。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box storage-main-box" id="storage">
+            <h2>倉庫入口</h2>
+
+            <div class="storage-entrance">
+              <div class="storage-door">
+                <span>倉庫</span>
+              </div>
+
+              <div class="storage-message">
+                <strong>ここはゆるおりの倉庫です</strong>
+                <p>
+                  画像、メモ、試作品、あとで使うものなどを置いておく場所です。
+                  ちゃんと整理されているようで、たぶんされていません。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="portal-box" id="boxes">
+            <h2>収納箱</h2>
+
+            <div class="storage-box-grid">
+              <article>
+                <strong>画像の箱</strong>
+                <p>
+                  サイトに使う画像や、あとで差し替える予定の画像を置く場所です。
+                </p>
+                <span>images/</span>
+              </article>
+
+              <article>
+                <strong>メモの箱</strong>
+                <p>
+                  思いついた文章、サイト案、まだ使わない説明文などを置く場所です。
+                </p>
+                <span>memo</span>
+              </article>
+
+              <article>
+                <strong>試作品の箱</strong>
+                <p>
+                  完成前のページや、あとで本編に入れるかもしれない機能を置く場所です。
+                </p>
+                <span>test</span>
+              </article>
+
+              <article>
+                <strong>隠し物の箱</strong>
+                <p>
+                  普通のナビには出さない、ちょっとしたおまけを置く場所です。
+                </p>
+                <span>secret</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>倉庫メモ</h2>
+
+            <div class="storage-note-list">
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>猫の画像を追加予定</strong>
+                <p>
+                  くーちゃんとごまちゃんの画像を猫の部屋に入れる予定。
+                </p>
+              </article>
+
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>Firebase機能を増やした</strong>
+                <p>
+                  足あと帳、拍手、カウンター、管理ページを少しずつ本物化中。
+                </p>
+              </article>
+
+              <article>
+                <time datetime="2026-06-09">2026/06/09</time>
+                <strong>好きなものページを作りたい</strong>
+                <p>
+                  MBTIや音楽、創作関係のページも後で増やしたい。
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="portal-box" id="notice">
+            <h2>倉庫の注意</h2>
+
+            <div class="storage-notice">
+              <p>
+                倉庫に置いてあるものは、あとで移動したり消したりすることがあります。
+              </p>
+
+              <p>
+                ここは完成品置き場というより、サイトを増築するための材料置き場です。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              倉庫があると、サイトに「奥行き」が出ます。
+              ちゃんとしたページではないものを置ける場所があると、増築しやすくなります。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script type="module" src="../app.js"></script>
+</body>
+</html>
