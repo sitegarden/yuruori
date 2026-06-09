@@ -2151,3 +2151,181 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==============================
+  Web clap
+============================== */
+
+.clap-main-box {
+  text-align: center;
+}
+
+.clap-area {
+  padding: 18px 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.clap-label {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 9px;
+  border: 1px dashed #e87aa8;
+  background: #fff;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.clap-button {
+  display: block;
+  width: min(260px, 100%);
+  margin: 0 auto 12px;
+  padding: 14px 18px;
+  border: 4px outset #e9a4c2;
+  background:
+    linear-gradient(#fff8df, #ffd6eb);
+  color: #a94b77;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.clap-button:hover {
+  background:
+    linear-gradient(#fff3b8, #ffc4df);
+}
+
+.clap-button:active {
+  border-style: inset;
+}
+
+.clap-button.pop {
+  animation: clap-pop 0.28s ease;
+}
+
+@keyframes clap-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.clap-count {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.clap-count strong {
+  color: #a94b77;
+  font-size: 22px;
+}
+
+.clap-result {
+  margin: 10px auto 0;
+  padding: 9px !important;
+  border: 1px dotted #e6a5c0;
+  background: #fff;
+  color: #a94b77 !important;
+  font-size: 14px !important;
+  font-weight: 800;
+  line-height: 1.7 !important;
+}
+
+.clap-message-form {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.clap-message-form label {
+  color: #a94b77;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.clap-message-form input,
+.clap-message-form textarea {
+  width: 100%;
+  padding: 9px;
+  border: 2px inset #e9a4c2;
+  background: #fff;
+  color: #332a36;
+  font: inherit;
+}
+
+.clap-message-form textarea {
+  resize: vertical;
+}
+
+.form-status {
+  margin: 0;
+  padding: 0 !important;
+  color: #a94b77 !important;
+  font-size: 13px !important;
+  font-weight: 800;
+}
+
+.clap-log-list {
+  display: grid;
+  gap: 0;
+}
+
+.empty-text {
+  margin: 0;
+  padding: 10px !important;
+  color: #66566d !important;
+  font-size: 14px !important;
+}
+
+.clap-log-item {
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.clap-log-item:last-child {
+  border-bottom: 0;
+}
+
+.clap-log-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.clap-log-head strong {
+  color: #a94b77;
+}
+
+.clap-log-head span {
+  color: #8b7b90;
+  font-size: 12px;
+}
+
+.clap-log-item p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.7;
+}
