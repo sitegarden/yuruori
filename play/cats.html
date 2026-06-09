@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>猫の部屋 - ゆるおり</title>
+  <meta name="description" content="ゆるおりの猫の部屋です。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>猫MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#cats">猫の部屋</a></li>
+              <li><a href="#profile">猫プロフィール</a></li>
+              <li><a href="#fortune">今日の猫</a></li>
+              <li><a href="#memo">猫メモ</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              猫は完璧じゃなくてもかわいい。
+              つまりだいたい勝ちです。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box cat-main-box" id="cats">
+            <h2>猫の部屋</h2>
+
+            <div class="cat-room">
+              <div class="cat-window">
+                <div class="cat-face">
+                  <span class="cat-ear left"></span>
+                  <span class="cat-ear right"></span>
+                  <span class="cat-eye left"></span>
+                  <span class="cat-eye right"></span>
+                  <span class="cat-mouth">ω</span>
+                </div>
+              </div>
+
+              <div class="cat-talk-box">
+                <strong id="catTalkTitle">猫がいます</strong>
+                <p id="catTalkText">
+                  ボタンを押すと、猫からひとこともらえます。
+                </p>
+              </div>
+
+              <button class="cat-button" type="button" id="catTalkButton">
+                猫に話しかける
+              </button>
+            </div>
+          </section>
+
+          <section class="portal-box" id="profile">
+            <h2>猫プロフィール</h2>
+
+            <div class="cat-profile-grid">
+              <article class="cat-profile-card">
+                <div class="cat-profile-icon">く</div>
+
+                <div>
+                  <strong>くーちゃん</strong>
+                  <p>
+                    甘えてくるタイプの猫。
+                    近くに来てくれるとかなり嬉しい。
+                  </p>
+                  <span>推し：私、父</span>
+                </div>
+              </article>
+
+              <article class="cat-profile-card">
+                <div class="cat-profile-icon goma">ご</div>
+
+                <div>
+                  <strong>ごまちゃん</strong>
+                  <p>
+                    噛んでくる問題児。
+                    でもそこも含めて猫なので、なんだかんだかわいい。
+                  </p>
+                  <span>推し：母、弟、父</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="portal-box" id="fortune">
+            <h2>今日の猫</h2>
+
+            <div class="cat-fortune-box">
+              <p class="cat-fortune-label">TODAY'S CAT</p>
+
+              <div class="cat-fortune-result">
+                <strong id="catFortuneTitle">？？？</strong>
+                <p id="catFortuneText">
+                  今日の猫タイプを占えます。
+                </p>
+              </div>
+
+              <button class="mini-button" type="button" id="catFortuneButton">
+                今日の猫を占う
+              </button>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>猫メモ</h2>
+
+            <div class="cat-memo-list">
+              <article>
+                <strong>甘えてくる猫</strong>
+                <p>
+                  近くに来るだけで勝ち。
+                  何もしてなくても癒し効果があります。
+                </p>
+              </article>
+
+              <article>
+                <strong>噛んでくる猫</strong>
+                <p>
+                  痛いけど、猫なので仕方ない。
+                  問題児でもかわいい時はかわいい。
+                </p>
+              </article>
+
+              <article>
+                <strong>猫の良いところ</strong>
+                <p>
+                  完璧じゃなくても許されるところ。
+                  むしろ完璧じゃないからかわいい。
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              猫の部屋は、意味があるようであまりない場所です。
+              でも、こういう場所があるとサイトが少しやわらかくなります。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script type="module" src="../app.js"></script>
+</body>
+</html>
