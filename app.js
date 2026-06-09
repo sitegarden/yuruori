@@ -1138,7 +1138,10 @@ function renderAdminGuestbookItems(logs) {
 
   adminGuestbookList.innerHTML = logs
     .map((log) => {
-      const visibleText = log.visible === false ? "非表示" : "表示中";
+      const isVisible = log.visible !== false;
+      const visibleText = isVisible ? "表示中" : "非表示";
+      const buttonText = isVisible ? "非表示にする" : "再表示する";
+      const nextVisible = isVisible ? "false" : "true";
 
       return `
         <article class="admin-item">
@@ -1155,8 +1158,14 @@ function renderAdminGuestbookItems(logs) {
           </div>
 
           <div class="admin-item-actions">
-            <button class="mini-button admin-hide-button" type="button" data-type="guestbook" data-id="${escapeHtml(log.id)}">
-              非表示にする
+            <button
+              class="mini-button admin-visibility-button"
+              type="button"
+              data-type="guestbook"
+              data-id="${escapeHtml(log.id)}"
+              data-visible="${nextVisible}"
+            >
+              ${buttonText}
             </button>
           </div>
         </article>
@@ -1175,7 +1184,10 @@ function renderAdminClapItems(logs) {
 
   adminClapList.innerHTML = logs
     .map((log) => {
-      const visibleText = log.visible === false ? "非表示" : "表示中";
+      const isVisible = log.visible !== false;
+      const visibleText = isVisible ? "表示中" : "非表示";
+      const buttonText = isVisible ? "非表示にする" : "再表示する";
+      const nextVisible = isVisible ? "false" : "true";
 
       return `
         <article class="admin-item">
@@ -1191,8 +1203,14 @@ function renderAdminClapItems(logs) {
           </div>
 
           <div class="admin-item-actions">
-            <button class="mini-button admin-hide-button" type="button" data-type="clap" data-id="${escapeHtml(log.id)}">
-              非表示にする
+            <button
+              class="mini-button admin-visibility-button"
+              type="button"
+              data-type="clap"
+              data-id="${escapeHtml(log.id)}"
+              data-visible="${nextVisible}"
+            >
+              ${buttonText}
             </button>
           </div>
         </article>
@@ -1200,7 +1218,6 @@ function renderAdminClapItems(logs) {
     })
     .join("");
 }
-
 async function renderAdminLists() {
   if (adminGuestbookList) {
     adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
@@ -1229,30 +1246,36 @@ async function renderAdminLists() {
   }
 }
 
-async function hideAdminItem({ type, id }) {
+async function updateAdminItemVisibility({ type, id, visible }) {
+  const updateData = {
+    visible,
+    updatedAt: serverTimestamp()
+  };
+
+  if (visible) {
+    updateData.hiddenAt = null;
+  } else {
+    updateData.hiddenAt = serverTimestamp();
+  }
+
   if (type === "guestbook") {
-    await updateDoc(doc(db, "guestbook", id), {
-      visible: false,
-      hiddenAt: serverTimestamp()
-    });
+    await updateDoc(doc(db, "guestbook", id), updateData);
   }
 
   if (type === "clap") {
-    await updateDoc(doc(db, "clapMessages", id), {
-      visible: false,
-      hiddenAt: serverTimestamp()
-    });
+    await updateDoc(doc(db, "clapMessages", id), updateData);
   }
 }
 
-function setupAdminHideButtons() {
+function setupAdminVisibilityButtons() {
   document.addEventListener("click", async (event) => {
-    const button = event.target.closest(".admin-hide-button");
+    const button = event.target.closest(".admin-visibility-button");
 
     if (!button) return;
 
     const type = button.dataset.type;
     const id = button.dataset.id;
+    const visible = button.dataset.visible === "true";
 
     if (!type || !id) return;
 
@@ -1260,7 +1283,12 @@ function setupAdminHideButtons() {
     button.textContent = "処理中...";
 
     try {
-      await hideAdminItem({ type, id });
+      await updateAdminItemVisibility({
+        type,
+        id,
+        visible
+      });
+
       await renderAdminLists();
     } catch (error) {
       console.error(error);
@@ -1341,7 +1369,7 @@ function setupAdminPage() {
     await renderAdminLists();
   });
 
-  setupAdminHideButtons();
+  setupAdminVisibilityButtons();
 }
 
 setupAdminPage();
