@@ -892,3 +892,39 @@ a {
     text-align: left;
   }
 }
+
+.work-card.ocfa .work-icon {
+  background: #ffb3dc;
+}
+
+.work-card.rhythm .work-icon {
+  background: #cab7ff;
+}
+
+.work-card.care .work-icon {
+  background: #baff9a;
+}
+
+.work-card.character .work-icon {
+  background: #ffffff;
+}
+
+.work-card.battle .work-icon {
+  background: #ffb36b;
+}
+
+.work-card.party .work-icon {
+  background: #ffe66d;
+}
+
+.work-card.school .work-icon {
+  background: #8ed7ff;
+}
+
+.work-card.characode .work-icon {
+  background: #d8ff8a;
+}
+
+.work-card.icon .work-icon {
+  background: #ffffff;
+}
