@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>今日の占い - ゆるおり</title>
+  <meta name="description" content="ゆるおりの今日の占いページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>占いMENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#fortune">占う</a></li>
+              <li><a href="#lucky">ラッキー情報</a></li>
+              <li><a href="#memo">占いメモ</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              当たるかどうかより、押すのが楽しいタイプの占いです。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box fortune-main-box" id="fortune">
+            <h2>今日の占い</h2>
+
+            <div class="fortune-area">
+              <p class="fortune-label">FORTUNE</p>
+
+              <div class="fortune-display">
+                <strong id="fortuneTitle">？？？</strong>
+                <p id="fortuneText">
+                  ボタンを押すと、今日の運勢が表示されます。
+                </p>
+              </div>
+
+              <button class="fortune-button" type="button" id="fortuneButton">
+                占う
+              </button>
+            </div>
+          </section>
+
+          <section class="portal-box" id="lucky">
+            <h2>ラッキー情報</h2>
+
+            <div class="lucky-table">
+              <div>
+                <strong>ラッキーカラー</strong>
+                <span id="luckyColor">---</span>
+              </div>
+
+              <div>
+                <strong>ラッキーアイテム</strong>
+                <span id="luckyItem">---</span>
+              </div>
+
+              <div>
+                <strong>ラッキーページ</strong>
+                <span id="luckyPage">---</span>
+              </div>
+
+              <div>
+                <strong>今日のひとこと</strong>
+                <span id="luckyWord">---</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>占いメモ</h2>
+
+            <div class="fortune-memo">
+              <p>
+                この占いは、ゆるおり内で遊ぶためのミニ機能です。
+              </p>
+
+              <p>
+                良い結果でも悪い結果でも、あまり気にしすぎず、今日の寄り道先を決めるくらいの気持ちでどうぞ。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              昔のサイトにありそうな「今日の運勢」コーナーです。
+              意味があるようで、あまりない。そこがいい。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
