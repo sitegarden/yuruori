@@ -2847,3 +2847,190 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* ==============================
+  Games page
+============================== */
+
+.games-page-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 12px;
+  width: min(980px, calc(100% - 24px));
+  margin: 0 auto 24px;
+}
+
+.games-side,
+.games-main {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.game-pickup-card {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.game-pickup-icon {
+  display: grid;
+  place-items: center;
+  min-height: 90px;
+  border: 3px ridge #e9a4c2;
+  background: #fff;
+  color: #e87aa8;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.game-pickup-text strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #a94b77;
+  font-size: 20px;
+}
+
+.game-pickup-text p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.game-list-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px dotted #e6a5c0;
+  border-left: 1px dotted #e6a5c0;
+}
+
+.game-list-table a {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-right: 1px dotted #e6a5c0;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+}
+
+.game-list-table a:hover {
+  background: #fff8df;
+}
+
+.game-list-table strong {
+  color: #a94b77;
+}
+
+.game-list-table strong::before {
+  content: "★ ";
+  color: #e87aa8;
+}
+
+.game-list-table span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.ranking-note {
+  padding: 10px;
+  background: #fffdfd;
+  border-bottom: 1px dotted #e6a5c0;
+}
+
+.ranking-note p {
+  margin: 0 0 8px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.ranking-note p:last-child {
+  margin-bottom: 0;
+}
+
+.mini-ranking-table {
+  display: grid;
+}
+
+.mini-ranking-table div {
+  display: grid;
+  grid-template-columns: 70px 1fr 80px;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.mini-ranking-table div:last-child {
+  border-bottom: 0;
+}
+
+.mini-ranking-table span {
+  color: #a94b77;
+  font-weight: 900;
+}
+
+.mini-ranking-table strong {
+  color: #66566d;
+}
+
+.mini-ranking-table em {
+  color: #8b7b90;
+  font-style: normal;
+  text-align: right;
+}
+
+.games-memo {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.games-memo p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.games-memo p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .games-page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .game-pickup-card {
+    grid-template-columns: 1fr;
+  }
+
+  .game-list-table {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-ranking-table div {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .mini-ranking-table em {
+    text-align: left;
+  }
+}
