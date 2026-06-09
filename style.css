@@ -2569,3 +2569,149 @@ body {
     margin: 0 auto;
   }
 }
+/* ==============================
+  About page
+============================== */
+
+.about-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 12px;
+  width: min(980px, calc(100% - 24px));
+  margin: 0 auto 24px;
+}
+
+.about-side,
+.about-main {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.about-message {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.about-message p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.about-message p:last-child {
+  margin-bottom: 0;
+}
+
+.about-message strong {
+  color: #a94b77;
+}
+
+.area-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px dotted #e6a5c0;
+  border-left: 1px dotted #e6a5c0;
+}
+
+.area-table article {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-right: 1px dotted #e6a5c0;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.area-table strong {
+  color: #a94b77;
+}
+
+.area-table strong::before {
+  content: "■ ";
+  color: #e87aa8;
+}
+
+.area-table span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.about-step-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: about-step;
+}
+
+.about-step-list li {
+  counter-increment: about-step;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.about-step-list li:last-child {
+  border-bottom: 0;
+}
+
+.about-step-list li::before {
+  content: counter(about-step, decimal-leading-zero);
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 2px outset #e9a4c2;
+  background: #fff8df;
+  color: #a94b77;
+  font-weight: 900;
+}
+
+.about-step-list strong {
+  display: block;
+  color: #a94b77;
+  margin-bottom: 4px;
+}
+
+.about-step-list span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.notice-list {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.notice-list p {
+  margin: 0 0 7px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.7;
+}
+
+.notice-list p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .area-table {
+    grid-template-columns: 1fr;
+  }
+
+  .about-step-list li {
+    grid-template-columns: 1fr;
+  }
+}
