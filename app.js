@@ -134,6 +134,96 @@ function setupCurrentNav() {
   });
 }
 
+const visitorCount = document.getElementById("visitorCount");
+const todayCount = document.getElementById("todayCount");
+const yesterdayCount = document.getElementById("yesterdayCount");
+const counterMessage = document.getElementById("counterMessage");
+
+const VISITOR_TOTAL_KEY = "yuruoriVisitorTotal";
+const VISITOR_LAST_DATE_KEY = "yuruoriVisitorLastDate";
+const VISITOR_TODAY_KEY = "yuruoriVisitorToday";
+const VISITOR_YESTERDAY_KEY = "yuruoriVisitorYesterday";
+
+function getTodayString() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const date = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${date}`;
+}
+
+function formatCounterNumber(number) {
+  return String(number).padStart(6, "0");
+}
+
+function getCounterMessage(total) {
+  if (total === 1) {
+    return "初めての訪問者です。ようこそ！";
+  }
+
+  if (total % 1000 === 0) {
+    return "すごいキリ番です。記念にスクショしてもいいかも。";
+  }
+
+  if (total % 100 === 0) {
+    return "キリ番です。ちょっと嬉しい。";
+  }
+
+  if (total % 111 === 0) {
+    return "ゾロ目っぽい番号です。いい感じ。";
+  }
+
+  if (String(total).endsWith("777")) {
+    return "ラッキーセブンです。今日は運がいいかも。";
+  }
+
+  return "ようこそ、ゆるおりへ。";
+}
+
+function setupVisitorCounter() {
+  if (!visitorCount) return;
+
+  const today = getTodayString();
+  const lastDate = localStorage.getItem(VISITOR_LAST_DATE_KEY);
+
+  let total = Number(localStorage.getItem(VISITOR_TOTAL_KEY) || "0");
+  let todayTotal = Number(localStorage.getItem(VISITOR_TODAY_KEY) || "0");
+  let yesterdayTotal = Number(localStorage.getItem(VISITOR_YESTERDAY_KEY) || "0");
+
+  if (lastDate !== today) {
+    yesterdayTotal = todayTotal;
+    todayTotal = 0;
+
+    localStorage.setItem(VISITOR_YESTERDAY_KEY, String(yesterdayTotal));
+    localStorage.setItem(VISITOR_LAST_DATE_KEY, today);
+  }
+
+  total += 1;
+  todayTotal += 1;
+
+  localStorage.setItem(VISITOR_TOTAL_KEY, String(total));
+  localStorage.setItem(VISITOR_TODAY_KEY, String(todayTotal));
+  localStorage.setItem(VISITOR_LAST_DATE_KEY, today);
+
+  visitorCount.textContent = formatCounterNumber(total);
+
+  if (todayCount) {
+    todayCount.textContent = String(todayTotal);
+  }
+
+  if (yesterdayCount) {
+    yesterdayCount.textContent = String(yesterdayTotal);
+  }
+
+  if (counterMessage) {
+    counterMessage.textContent = getCounterMessage(total);
+  }
+}
+
+setupVisitorCounter();
+
 setupSiteHeader();
 setupSiteFooter();
 setupMobileNav();
