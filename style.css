@@ -3612,3 +3612,153 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==============================
+  Fortune page
+============================== */
+
+.fortune-main-box {
+  text-align: center;
+}
+
+.fortune-area {
+  padding: 18px 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.fortune-label {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 4px 9px;
+  border: 1px dashed #e87aa8;
+  background: #fff;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fortune-display {
+  width: min(420px, 100%);
+  margin: 0 auto 14px;
+  padding: 14px;
+  border: 3px ridge #e9a4c2;
+  background: #fff;
+}
+
+.fortune-display strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #a94b77;
+  font-size: clamp(28px, 7vw, 48px);
+  line-height: 1;
+}
+
+.fortune-display p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+  font-weight: 700;
+}
+
+.fortune-button {
+  display: block;
+  width: min(240px, 100%);
+  margin: 0 auto;
+  padding: 12px 18px;
+  border: 4px outset #e9a4c2;
+  background:
+    linear-gradient(#fff8df, #ffd6eb);
+  color: #a94b77;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.fortune-button:hover {
+  background:
+    linear-gradient(#fff3b8, #ffc4df);
+}
+
+.fortune-button:active {
+  border-style: inset;
+}
+
+.fortune-button.pop {
+  animation: fortune-pop 0.28s ease;
+}
+
+@keyframes fortune-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.07);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.lucky-table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px dotted #e6a5c0;
+  border-left: 1px dotted #e6a5c0;
+}
+
+.lucky-table div {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-right: 1px dotted #e6a5c0;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.lucky-table strong {
+  color: #a94b77;
+}
+
+.lucky-table strong::before {
+  content: "★ ";
+  color: #e87aa8;
+}
+
+.lucky-table span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.fortune-memo {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.fortune-memo p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.fortune-memo p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .lucky-table {
+    grid-template-columns: 1fr;
+  }
+}
