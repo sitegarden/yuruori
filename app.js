@@ -345,16 +345,12 @@ async function setupVisitorCounter() {
   }
 }
 
-setupVisitorCounter();
-
-
-
-
-
 setupSiteHeader();
 setupSiteFooter();
 setupMobileNav();
 setupCurrentNav();
+
+setupVisitorCounter();
 
 
 
@@ -365,6 +361,150 @@ function escapeHtml(text) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+
+
+
+const BLOCKED_WORDS = [
+  "死ね",
+  "しね",
+  "消えろ",
+  "ころす",
+  "殺す",
+  "kill yourself",
+  "suicide",
+  "http://spam",
+  "https://spam"
+];
+
+const RECENT_POST_KEY = "yuruoriRecentPost";
+
+function normalizeText(text) {
+  return String(text)
+    .toLowerCase()
+    .replaceAll("　", " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function containsBlockedWord(text) {
+  const normalizedText = normalizeText(text);
+
+  return BLOCKED_WORDS.some((word) => {
+    return normalizedText.includes(normalizeText(word));
+  });
+}
+
+function countUrls(text) {
+  const matches = String(text).match(/https?:\/\/[^\s]+/g);
+
+  if (!matches) {
+    return 0;
+  }
+
+  return matches.length;
+}
+
+function getRecentPostData() {
+  const rawData = localStorage.getItem(RECENT_POST_KEY);
+
+  if (!rawData) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawData);
+  } catch (error) {
+    return null;
+  }
+}
+
+function saveRecentPostData({ type, text }) {
+  const data = {
+    type,
+    text: normalizeText(text),
+    time: Date.now()
+  };
+
+  localStorage.setItem(RECENT_POST_KEY, JSON.stringify(data));
+}
+
+function isDuplicateRecentPost({ type, text }) {
+  const recentPost = getRecentPostData();
+
+  if (!recentPost) {
+    return false;
+  }
+
+  const now = Date.now();
+  const elapsed = now - Number(recentPost.time || 0);
+
+  const isSameType = recentPost.type === type;
+  const isSameText = recentPost.text === normalizeText(text);
+  const isWithinShortTime = elapsed < 60 * 1000;
+
+  return isSameType && isSameText && isWithinShortTime;
+}
+
+function validatePublicPost({ type, name, message, site = "" }) {
+  const cleanName = String(name || "").trim();
+  const cleanMessage = String(message || "").trim();
+  const cleanSite = String(site || "").trim();
+
+  if (!cleanMessage) {
+    return {
+      ok: false,
+      message: "本文を入力してください。"
+    };
+  }
+
+  if (cleanName.length > 40) {
+    return {
+      ok: false,
+      message: "名前は40文字以内で入力してください。"
+    };
+  }
+
+  if (cleanMessage.length > 300) {
+    return {
+      ok: false,
+      message: "本文は300文字以内で入力してください。"
+    };
+  }
+
+  if (containsBlockedWord(cleanName) || containsBlockedWord(cleanMessage)) {
+    return {
+      ok: false,
+      message: "投稿できない言葉が含まれています。"
+    };
+  }
+
+  if (countUrls(cleanMessage) >= 2) {
+    return {
+      ok: false,
+      message: "本文にURLをたくさん入れることはできません。"
+    };
+  }
+
+  if (cleanSite && countUrls(cleanSite) > 1) {
+    return {
+      ok: false,
+      message: "URL欄には1つだけ入力してください。"
+    };
+  }
+
+  if (isDuplicateRecentPost({ type, text: cleanMessage })) {
+    return {
+      ok: false,
+      message: "同じ内容を連続で投稿することはできません。"
+    };
+  }
+
+  return {
+    ok: true,
+    message: ""
+  };
 }
 
 
@@ -573,25 +713,15 @@ function setupClapMessageForm() {
     const name = clapName.value.trim() || "名無し";
     const text = clapText.value.trim();
 
-    if (!text) {
+    const validation = validatePublicPost({
+      type: "clap",
+      name,
+      message: text
+    });
+
+    if (!validation.ok) {
       if (clapFormStatus) {
-        clapFormStatus.textContent = "メッセージを入力してください。";
-      }
-
-      return;
-    }
-
-    if (name.length > 40) {
-      if (clapFormStatus) {
-        clapFormStatus.textContent = "名前は40文字以内で入力してください。";
-      }
-
-      return;
-    }
-
-    if (text.length > 300) {
-      if (clapFormStatus) {
-        clapFormStatus.textContent = "メッセージは300文字以内で入力してください。";
+        clapFormStatus.textContent = validation.message;
       }
 
       return;
@@ -604,6 +734,11 @@ function setupClapMessageForm() {
     try {
       await addClapMessage({
         name,
+        text
+      });
+
+      saveRecentPostData({
+        type: "clap",
         text
       });
 
@@ -859,9 +994,16 @@ function setupGuestbook() {
     const site = guestSite.value.trim();
     const message = guestMessage.value.trim();
 
-    if (!message) {
+    const validation = validatePublicPost({
+      type: "guestbook",
+      name,
+      message,
+      site
+    });
+
+    if (!validation.ok) {
       if (guestbookStatus) {
-        guestbookStatus.textContent = "ひとことを入力してください。";
+        guestbookStatus.textContent = validation.message;
       }
 
       return;
@@ -870,22 +1012,6 @@ function setupGuestbook() {
     if (!isValidUrl(site)) {
       if (guestbookStatus) {
         guestbookStatus.textContent = "URLは http:// または https:// から入力してください。";
-      }
-
-      return;
-    }
-
-    if (message.length > 300) {
-      if (guestbookStatus) {
-        guestbookStatus.textContent = "ひとことは300文字以内で入力してください。";
-      }
-
-      return;
-    }
-
-    if (name.length > 40) {
-      if (guestbookStatus) {
-        guestbookStatus.textContent = "名前は40文字以内で入力してください。";
       }
 
       return;
@@ -900,6 +1026,11 @@ function setupGuestbook() {
         name,
         site,
         message
+      });
+
+      saveRecentPostData({
+        type: "guestbook",
+        text: message
       });
 
       guestMessage.value = "";
@@ -918,5 +1049,4 @@ function setupGuestbook() {
     }
   });
 }
-
 setupGuestbook();
