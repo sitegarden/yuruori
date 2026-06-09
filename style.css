@@ -1019,3 +1019,241 @@ body {
   border: 1px dashed #ff83c5;
   background: #fff;
 }
+
+
+/* ==============================
+  Calm retro adjustment
+  目に優しいレトロ寄せ
+============================== */
+
+:root {
+  --bg: #fff9f2;
+  --text: #332a36;
+  --muted: #746a78;
+  --main: #e87aa8;
+  --main-dark: #a94b77;
+  --sub: #7fc7dc;
+  --sub-dark: #3f8ea3;
+  --cream: #fff2bd;
+  --green: #ccebd5;
+  --purple: #b8a8d8;
+  --border: #e9a4c2;
+  --shadow: 6px 6px 0 rgba(169, 75, 119, 0.12);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8px 8px, rgba(232, 122, 168, 0.08) 2px, transparent 3px),
+    linear-gradient(135deg, #fff9f2, #fff4fa 48%, #eef8fb);
+  background-size: 32px 32px, 100% 100%;
+}
+
+.site-bg {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(232, 122, 168, 0.18), transparent 28%),
+    radial-gradient(circle at 88% 14%, rgba(127, 199, 220, 0.2), transparent 26%),
+    linear-gradient(135deg, #fff9f2, #fff4fa 44%, #eef8fb);
+}
+
+.site-bg::before {
+  background-image:
+    linear-gradient(rgba(232, 122, 168, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 199, 220, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+}
+
+.site-header {
+  border-bottom: 3px double #e9a4c2;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
+    repeating-linear-gradient(
+      90deg,
+      #fff4fa,
+      #fff4fa 14px,
+      #eef8fb 14px,
+      #eef8fb 28px
+    );
+  box-shadow: 0 3px 0 rgba(169, 75, 119, 0.08);
+}
+
+.site-logo {
+  border: 2px double #e9a4c2;
+}
+
+.logo-mark {
+  border: 2px ridge #e87aa8;
+  background: #fff2bd;
+}
+
+.logo-text {
+  color: #a94b77;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.site-nav a {
+  border: 2px outset #e9a4c2;
+  background: linear-gradient(#ffffff, #fff7fb);
+  color: #a94b77;
+  box-shadow: 1px 1px 0 rgba(169, 75, 119, 0.1);
+}
+
+.site-nav a:hover,
+.site-nav a.current {
+  background: linear-gradient(#fff2bd, #ffffff);
+  color: #a94b77;
+}
+
+.hero h1 {
+  color: #a94b77;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(127, 199, 220, 0.42);
+}
+
+.hero-text {
+  border: 2px double #e9a4c2;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.eyebrow,
+.section-label {
+  border: 1px dashed #e87aa8;
+  background: #fff8dd;
+  color: #a94b77;
+  box-shadow: 2px 2px 0 rgba(169, 75, 119, 0.08);
+}
+
+.btn {
+  border: 3px outset #e9a4c2;
+  box-shadow: 3px 3px 0 rgba(169, 75, 119, 0.1);
+}
+
+.btn.primary {
+  background: linear-gradient(#e87aa8, #c96593);
+}
+
+.btn.secondary {
+  background: linear-gradient(#fff8dd, #fff2bd);
+}
+
+.hero-window {
+  border: 3px ridge #e9a4c2;
+  box-shadow:
+    6px 6px 0 rgba(127, 199, 220, 0.18),
+    10px 10px 0 rgba(232, 122, 168, 0.1);
+}
+
+.window-bar {
+  border-bottom: 3px double #e9a4c2;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #e9a4c2,
+      #e9a4c2 16px,
+      #fff2bd 16px,
+      #fff2bd 32px,
+      #bfe6f0 32px,
+      #bfe6f0 48px
+    );
+}
+
+.window-body {
+  background:
+    radial-gradient(circle at 10px 10px, rgba(232, 122, 168, 0.06) 2px, transparent 3px),
+    #ffffff;
+  background-size: 22px 22px;
+}
+
+.window-label {
+  background: #a94b77;
+}
+
+.window-body h2 {
+  color: #a94b77;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.mini-counter {
+  border: 2px ridge #e9a4c2;
+  background: #fff8dd;
+}
+
+.section {
+  border: 3px double #e9a4c2;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
+    repeating-linear-gradient(
+      -45deg,
+      #fffafa,
+      #fffafa 14px,
+      #fff8e8 14px,
+      #fff8e8 28px
+    );
+  box-shadow: 5px 5px 0 rgba(169, 75, 119, 0.08);
+}
+
+.section-head {
+  border-bottom: 2px double #e9a4c2;
+}
+
+.section-head h2 {
+  color: #a94b77;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.intro-card,
+.portal-card,
+.work-card {
+  border: 2px ridge #e9a4c2;
+  background: #fffdfd;
+  box-shadow: 3px 3px 0 rgba(169, 75, 119, 0.08);
+}
+
+.intro-card span {
+  border: 2px outset #e9a4c2;
+  background: #c96593;
+}
+
+.portal-icon {
+  border: 2px ridge #e9a4c2;
+  background: #fff8dd;
+}
+
+.portal-card:hover,
+.work-card:hover {
+  box-shadow: 4px 4px 0 rgba(169, 75, 119, 0.12);
+}
+
+.explore-section {
+  border: 3px double #7fc7dc;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    repeating-linear-gradient(
+      90deg,
+      #eef8fb,
+      #eef8fb 18px,
+      #fff8e8 18px,
+      #fff8e8 36px
+    );
+}
+
+.explore-box h2 {
+  color: #a94b77;
+  text-shadow:
+    1px 1px 0 #fff,
+    3px 3px 0 rgba(127, 199, 220, 0.35);
+}
+
+.site-footer {
+  border-top: 3px double #e9a4c2;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    repeating-linear-gradient(
+      90deg,
+      #fff8e8,
+      #fff8e8 16px,
+      #fff4fa 16px,
+      #fff4fa 32px
+    );
+}
