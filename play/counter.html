@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>訪問者カウンター - ゆるおり</title>
+  <meta name="description" content="ゆるおりの訪問者カウンターとキリ番ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>カウンターMENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#counter">カウンター</a></li>
+              <li><a href="#kiriban">キリ番</a></li>
+              <li><a href="#report">報告について</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              キリ番を踏むと、ちょっとだけ嬉しい。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box counter-big-box" id="counter">
+            <h2>訪問者カウンター</h2>
+
+            <div class="big-counter-display">
+              <p>あなたは</p>
+              <strong id="visitorCount">000001</strong>
+              <p>人目の訪問者です</p>
+            </div>
+
+            <div class="counter-mini-info large">
+              <p>本日：<span id="todayCount">---</span></p>
+              <p>昨日：<span id="yesterdayCount">---</span></p>
+            </div>
+
+            <p class="counter-message" id="counterMessage">
+              ようこそ、ゆるおりへ。
+            </p>
+          </section>
+
+          <section class="portal-box" id="kiriban">
+            <h2>キリ番について</h2>
+
+            <div class="kiriban-note">
+              <p>
+                キリのいい番号や、ゾロ目っぽい番号を踏んだら記念です。
+              </p>
+              <p>
+                例：000100、000111、000777、001000 など。
+              </p>
+            </div>
+
+            <div class="kiriban-grid">
+              <div>
+                <strong>100番単位</strong>
+                <span>000100 / 000200 / 000300</span>
+              </div>
+
+              <div>
+                <strong>ゾロ目</strong>
+                <span>000111 / 000222 / 000333</span>
+              </div>
+
+              <div>
+                <strong>ラッキー</strong>
+                <span>000777 / 001777 / 007777</span>
+              </div>
+
+              <div>
+                <strong>大きいキリ番</strong>
+                <span>001000 / 005000 / 010000</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="portal-box" id="report">
+            <h2>キリ番報告</h2>
+
+            <div class="kiriban-report-box">
+              <p>
+                キリ番を踏んだら、心の中で報告してもOKです。
+              </p>
+              <p>
+                そのうちWeb拍手や足あと帳を作ったら、そこから報告できるようにする予定。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              訪問者カウンターがあるだけで、急に個人サイト感が強くなります。
+              実用性より、そこにあることが大事。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
