@@ -1,3 +1,15 @@
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
 const siteHeader = document.getElementById("siteHeader");
 const siteFooter = document.getElementById("siteFooter");
 
@@ -512,31 +524,7 @@ const guestMessage = document.getElementById("guestMessage");
 const guestbookStatus = document.getElementById("guestbookStatus");
 const guestbookList = document.getElementById("guestbookList");
 
-const GUESTBOOK_KEY = "yuruoriGuestbookLogs";
-
-function getGuestbookLogs() {
-  const rawLogs = localStorage.getItem(GUESTBOOK_KEY);
-
-  if (!rawLogs) {
-    return [];
-  }
-
-  try {
-    const logs = JSON.parse(rawLogs);
-
-    if (Array.isArray(logs)) {
-      return logs;
-    }
-
-    return [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveGuestbookLogs(logs) {
-  localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(logs));
-}
+const guestbookCollection = collection(db, "guestbook");
 
 function isValidUrl(url) {
   if (!url) return true;
@@ -549,10 +537,37 @@ function isValidUrl(url) {
   }
 }
 
-function renderGuestbookLogs() {
-  if (!guestbookList) return;
+function formatGuestbookDate(value) {
+  if (!value) {
+    return "日時不明";
+  }
 
-  const logs = getGuestbookLogs();
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("ja-JP");
+  }
+
+  return String(value);
+}
+
+async function fetchGuestbookLogs() {
+  const guestbookQuery = query(
+    guestbookCollection,
+    orderBy("createdAt", "desc"),
+    limit(30)
+  );
+
+  const snapshot = await getDocs(guestbookQuery);
+
+  return snapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data()
+    };
+  });
+}
+
+function renderGuestbookItems(logs) {
+  if (!guestbookList) return;
 
   if (logs.length === 0) {
     guestbookList.innerHTML = `<p class="empty-text">まだ足あとはありません。</p>`;
@@ -568,11 +583,11 @@ function renderGuestbookLogs() {
       return `
         <article class="guestbook-item">
           <div class="guestbook-head">
-            <strong>${escapeHtml(log.name)}</strong>
-            <time>${escapeHtml(log.date)}</time>
+            <strong>${escapeHtml(log.name || "名無し")}</strong>
+            <time>${escapeHtml(formatGuestbookDate(log.createdAt))}</time>
           </div>
 
-          <p>${escapeHtml(log.message)}</p>
+          <p>${escapeHtml(log.message || "")}</p>
 
           <div class="guestbook-site">
             ${siteHtml}
@@ -583,12 +598,37 @@ function renderGuestbookLogs() {
     .join("");
 }
 
+async function renderGuestbookLogs() {
+  if (!guestbookList) return;
+
+  guestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+
+  try {
+    const logs = await fetchGuestbookLogs();
+    renderGuestbookItems(logs);
+  } catch (error) {
+    console.error(error);
+    guestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
+  }
+}
+
+async function addGuestbookLog({ name, site, message }) {
+  await addDoc(guestbookCollection, {
+    name,
+    site,
+    message,
+    createdAt: serverTimestamp(),
+    page: "guestbook",
+    visible: true
+  });
+}
+
 function setupGuestbook() {
   if (!guestbookForm) return;
 
   renderGuestbookLogs();
 
-  guestbookForm.addEventListener("submit", (event) => {
+  guestbookForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const name = guestName.value.trim() || "名無し";
@@ -611,24 +651,46 @@ function setupGuestbook() {
       return;
     }
 
-    const logs = getGuestbookLogs();
+    if (message.length > 300) {
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "ひとことは300文字以内で入力してください。";
+      }
 
-    const newLog = {
-      name,
-      site,
-      message,
-      date: new Date().toLocaleString("ja-JP")
-    };
+      return;
+    }
 
-    logs.unshift(newLog);
+    if (name.length > 40) {
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "名前は40文字以内で入力してください。";
+      }
 
-    saveGuestbookLogs(logs.slice(0, 30));
-    renderGuestbookLogs();
-
-    guestMessage.value = "";
+      return;
+    }
 
     if (guestbookStatus) {
-      guestbookStatus.textContent = "足あとを残しました。";
+      guestbookStatus.textContent = "送信中...";
+    }
+
+    try {
+      await addGuestbookLog({
+        name,
+        site,
+        message
+      });
+
+      guestMessage.value = "";
+
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "足あとを残しました。";
+      }
+
+      await renderGuestbookLogs();
+    } catch (error) {
+      console.error(error);
+
+      if (guestbookStatus) {
+        guestbookStatus.textContent = "送信に失敗しました。時間を置いて試してください。";
+      }
     }
   });
 }
