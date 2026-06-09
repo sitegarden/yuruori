@@ -3866,3 +3866,83 @@ body {
 .guestbook-memo p:last-child {
   margin-bottom: 0;
 }
+
+/* ==============================
+  Admin page
+============================== */
+
+.admin-login-box {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.admin-login-box p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.7;
+}
+
+.admin-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-list {
+  display: grid;
+}
+
+.admin-item {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.admin-item:last-child {
+  border-bottom: 0;
+}
+
+.admin-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.admin-item-head strong {
+  color: #a94b77;
+}
+
+.admin-item-head span {
+  padding: 3px 8px;
+  border: 1px dashed #e87aa8;
+  background: #fff8df;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.admin-item p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.7;
+}
+
+.admin-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #8b7b90;
+  font-size: 12px;
+}
+
+.admin-item-actions {
+  display: flex;
+  justify-content: flex-end;
+}
