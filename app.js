@@ -32,7 +32,11 @@ const siteFooter = document.getElementById("siteFooter");
 function getRootPath() {
   const path = location.pathname;
 
-  if (path.includes("/pages/") || path.includes("/play/")) {
+  if (
+    path.includes("/pages/") ||
+    path.includes("/play/") ||
+    path.includes("/notes/")
+  ) {
     return "../";
   }
 
