@@ -366,8 +366,6 @@ setupSiteFooter();
 setupMobileNav();
 setupCurrentNav();
 
-renderCommonLinks();
-
 setupVisitorCounter();
 
 
@@ -1076,6 +1074,7 @@ const adminLogoutButton = document.getElementById("adminLogoutButton");
 const adminLoginStatus = document.getElementById("adminLoginStatus");
 const adminGuestbookList = document.getElementById("adminGuestbookList");
 const adminClapList = document.getElementById("adminClapList");
+const adminBoardList = document.getElementById("adminBoardList");
 
 const ADMIN_EMAILS = [
   "mitsuhashipaintart@gmail.com"
@@ -1225,33 +1224,7 @@ function renderAdminClapItems(logs) {
     })
     .join("");
 }
-async function renderAdminLists() {
-  if (adminGuestbookList) {
-    adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
-  }
 
-  if (adminClapList) {
-    adminClapList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
-  }
-
-  try {
-    const guestbookLogs = await fetchAdminGuestbookLogs();
-    const clapLogs = await fetchAdminClapLogs();
-
-    renderAdminGuestbookItems(guestbookLogs);
-    renderAdminClapItems(clapLogs);
-  } catch (error) {
-    console.error(error);
-
-    if (adminGuestbookList) {
-      adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
-    }
-
-    if (adminClapList) {
-      adminClapList.innerHTML = `<p class="empty-text">拍手メッセージの読み込みに失敗しました。</p>`;
-    }
-  }
-}
 
 async function updateAdminItemVisibility({ type, id, visible }) {
   const updateData = {
@@ -1649,7 +1622,7 @@ function renderCommonLinks() {
       .join("");
   });
 }
-
+renderCommonLinks();
 
 
 
@@ -2160,3 +2133,69 @@ function setupBoardForm() {
 }
 
 setupBoardForm();
+
+
+
+
+
+  const adminBoardQuery = query(
+    boardCollection,
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const snapshot = await getDocs(adminBoardQuery);
+
+  return snapshot.docs.map((docSnap) => {
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    };
+  });
+}
+
+function renderAdminBoardItems(posts) {
+  if (!adminBoardList) return;
+
+  if (posts.length === 0) {
+    adminBoardList.innerHTML = `<p class="empty-text">掲示板の投稿はありません。</p>`;
+    return;
+  }
+
+  adminBoardList.innerHTML = posts
+    .map((post) => {
+      const isVisible = post.visible !== false;
+      const visibleText = isVisible ? "表示中" : "非表示";
+      const buttonText = isVisible ? "非表示にする" : "再表示する";
+      const nextVisible = isVisible ? "false" : "true";
+
+      return `
+        <article class="admin-item">
+          <div class="admin-item-head">
+            <strong>${escapeHtml(post.title || "無題")}</strong>
+            <span>${escapeHtml(visibleText)}</span>
+          </div>
+
+          <p>${escapeHtml(post.message || "")}</p>
+
+          <div class="admin-item-meta">
+            <span>投稿者：${escapeHtml(post.name || "名無し")}</span>
+            <span>${escapeHtml(formatAdminDate(post.createdAt))}</span>
+          </div>
+
+          <div class="admin-item-actions">
+            <button
+              class="mini-button admin-visibility-button"
+              type="button"
+              data-type="board"
+              data-id="${escapeHtml(post.id)}"
+              data-visible="${nextVisible}"
+            >
+              ${buttonText}
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
