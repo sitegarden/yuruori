@@ -1649,3 +1649,246 @@ function renderCommonLinks() {
       .join("");
   });
 }
+
+
+
+
+
+const tweetForm = document.getElementById("tweetForm");
+const tweetText = document.getElementById("tweetText");
+const tweetStatus = document.getElementById("tweetStatus");
+const tweetList = document.getElementById("tweetList");
+
+const tweetsCollection = collection(db, "tweets");
+const TWEET_LIKED_KEY = "yuruoriLikedTweets";
+
+function getLikedTweetIds() {
+  const rawData = localStorage.getItem(TWEET_LIKED_KEY);
+
+  if (!rawData) {
+    return [];
+  }
+
+  try {
+    const ids = JSON.parse(rawData);
+
+    if (Array.isArray(ids)) {
+      return ids;
+    }
+
+    return [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveLikedTweetIds(ids) {
+  localStorage.setItem(TWEET_LIKED_KEY, JSON.stringify(ids));
+}
+
+function hasLikedTweet(id) {
+  return getLikedTweetIds().includes(id);
+}
+
+function addLikedTweetId(id) {
+  const ids = getLikedTweetIds();
+
+  if (ids.includes(id)) {
+    return;
+  }
+
+  ids.push(id);
+  saveLikedTweetIds(ids);
+}
+
+function formatTweetDate(value) {
+  if (!value) {
+    return "日時不明";
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("ja-JP");
+  }
+
+  return String(value);
+}
+
+async function fetchTweets() {
+  const tweetQuery = query(
+    tweetsCollection,
+    where("visible", "==", true),
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const snapshot = await getDocs(tweetQuery);
+
+  return snapshot.docs.map((docSnap) => {
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    };
+  });
+}
+
+function renderTweetItems(tweets) {
+  if (!tweetList) return;
+
+  if (tweets.length === 0) {
+    tweetList.innerHTML = `<p class="empty-text">まだつぶやきはありません。</p>`;
+    return;
+  }
+
+  tweetList.innerHTML = tweets
+    .map((tweet) => {
+      const liked = hasLikedTweet(tweet.id);
+      const likeText = liked ? "いいね済み" : "いいね";
+      const likeCount = Number(tweet.likes || 0);
+
+      return `
+        <article class="tweet-item">
+          <div class="tweet-head">
+            <strong>ゆるおり</strong>
+            <time>${escapeHtml(formatTweetDate(tweet.createdAt))}</time>
+          </div>
+
+          <p>${escapeHtml(tweet.text || "")}</p>
+
+          <div class="tweet-actions">
+            <button
+              class="tweet-like-button"
+              type="button"
+              data-id="${escapeHtml(tweet.id)}"
+              ${liked ? "disabled" : ""}
+            >
+              ♡ ${likeText}
+            </button>
+
+            <span>${likeCount} likes</span>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function renderTweets() {
+  if (!tweetList) return;
+
+  tweetList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+
+  try {
+    const tweets = await fetchTweets();
+    renderTweetItems(tweets);
+  } catch (error) {
+    console.error(error);
+    tweetList.innerHTML = `<p class="empty-text">つぶやきの読み込みに失敗しました。</p>`;
+  }
+}
+
+async function addTweet(text) {
+  await addDoc(tweetsCollection, {
+    text,
+    likes: 0,
+    createdAt: serverTimestamp(),
+    visible: true
+  });
+}
+
+async function likeTweet(id) {
+  const tweetRef = doc(db, "tweets", id);
+
+  await updateDoc(tweetRef, {
+    likes: increment(1),
+    updatedAt: serverTimestamp()
+  });
+
+  addLikedTweetId(id);
+}
+
+function setupTweetForm() {
+  if (!tweetForm) return;
+
+  renderTweets();
+
+  tweetForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const text = tweetText.value.trim();
+
+    const validation = validatePublicPost({
+      type: "tweet",
+      name: "ゆるおり",
+      message: text
+    });
+
+    if (!validation.ok) {
+      if (tweetStatus) {
+        tweetStatus.textContent = validation.message;
+      }
+
+      return;
+    }
+
+    if (tweetStatus) {
+      tweetStatus.textContent = "投稿中...";
+    }
+
+    try {
+      await addTweet(text);
+
+      saveRecentPostData({
+        type: "tweet",
+        text
+      });
+
+      tweetText.value = "";
+
+      if (tweetStatus) {
+        tweetStatus.textContent = "投稿しました。";
+      }
+
+      await renderTweets();
+    } catch (error) {
+      console.error(error);
+
+      if (tweetStatus) {
+        tweetStatus.textContent = "投稿に失敗しました。時間を置いて試してください。";
+      }
+    }
+  });
+}
+
+function setupTweetLikeButtons() {
+  if (!tweetList) return;
+
+  tweetList.addEventListener("click", async (event) => {
+    const button = event.target.closest(".tweet-like-button");
+
+    if (!button) return;
+
+    const id = button.dataset.id;
+
+    if (!id) return;
+
+    if (hasLikedTweet(id)) {
+      button.disabled = true;
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "送信中...";
+
+    try {
+      await likeTweet(id);
+      await renderTweets();
+    } catch (error) {
+      console.error(error);
+      button.disabled = false;
+      button.textContent = "失敗しました";
+    }
+  });
+}
+
+setupTweetForm();
+setupTweetLikeButtons();
