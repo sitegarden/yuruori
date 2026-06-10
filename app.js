@@ -1653,6 +1653,10 @@ function renderCommonLinks() {
 
 
 
+const tweetLoginBox = document.getElementById("tweetLoginBox");
+const tweetLoginStatus = document.getElementById("tweetLoginStatus");
+const tweetLoginButton = document.getElementById("tweetLoginButton");
+const tweetLogoutButton = document.getElementById("tweetLogoutButton");
 
 const tweetForm = document.getElementById("tweetForm");
 const tweetText = document.getElementById("tweetText");
@@ -1809,10 +1813,18 @@ async function likeTweet(id) {
 function setupTweetForm() {
   if (!tweetForm) return;
 
-  renderTweets();
-
   tweetForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    const user = auth.currentUser;
+
+    if (!isAdminUser(user)) {
+      if (tweetStatus) {
+        tweetStatus.textContent = "管理人だけが投稿できます。";
+      }
+
+      return;
+    }
 
     const text = tweetText.value.trim();
 
@@ -1859,6 +1871,88 @@ function setupTweetForm() {
   });
 }
 
+function updateTweetPostArea(user) {
+  if (!tweetForm || !tweetLoginStatus) return;
+
+  if (!user) {
+    tweetForm.classList.add("hidden");
+    tweetLoginStatus.textContent = "つぶやき投稿は管理人用です。";
+
+    if (tweetLoginButton) {
+      tweetLoginButton.style.display = "";
+    }
+
+    if (tweetLogoutButton) {
+      tweetLogoutButton.style.display = "none";
+    }
+
+    return;
+  }
+
+  if (!isAdminUser(user)) {
+    tweetForm.classList.add("hidden");
+    tweetLoginStatus.textContent = `このアカウントでは投稿できません。ログイン中：${user.email}`;
+
+    if (tweetLoginButton) {
+      tweetLoginButton.style.display = "none";
+    }
+
+    if (tweetLogoutButton) {
+      tweetLogoutButton.style.display = "";
+    }
+
+    return;
+  }
+
+  tweetForm.classList.remove("hidden");
+  tweetLoginStatus.textContent = `管理人としてログイン中：${user.email}`;
+
+  if (tweetLoginButton) {
+    tweetLoginButton.style.display = "none";
+  }
+
+  if (tweetLogoutButton) {
+    tweetLogoutButton.style.display = "";
+  }
+}
+
+function setupTweetLogin() {
+  if (!tweetLoginBox) return;
+
+  if (tweetLoginButton) {
+    tweetLoginButton.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        console.error(error);
+
+        if (tweetLoginStatus) {
+          tweetLoginStatus.textContent = "ログインに失敗しました。";
+        }
+      }
+    });
+  }
+
+  if (tweetLogoutButton) {
+    tweetLogoutButton.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error(error);
+
+        if (tweetLoginStatus) {
+          tweetLoginStatus.textContent = "ログアウトに失敗しました。";
+        }
+      }
+    });
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    updateTweetPostArea(user);
+  });
+}
+
+
 function setupTweetLikeButtons() {
   if (!tweetList) return;
 
@@ -1890,5 +1984,7 @@ function setupTweetLikeButtons() {
   });
 }
 
+renderTweets();
+setupTweetLogin();
 setupTweetForm();
 setupTweetLikeButtons();
