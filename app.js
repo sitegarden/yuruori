@@ -1720,19 +1720,20 @@ function formatTweetDate(value) {
 async function fetchTweets() {
   const tweetQuery = query(
     tweetsCollection,
-    where("visible", "==", true),
     orderBy("createdAt", "desc"),
     limit(50)
   );
 
   const snapshot = await getDocs(tweetQuery);
 
-  return snapshot.docs.map((docSnap) => {
-    return {
-      id: docSnap.id,
-      ...docSnap.data()
-    };
-  });
+  return snapshot.docs
+    .map((docSnap) => {
+      return {
+        id: docSnap.id,
+        ...docSnap.data()
+      };
+    })
+    .filter((tweet) => tweet.visible !== false);
 }
 
 function renderTweetItems(tweets) {
