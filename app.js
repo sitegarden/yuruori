@@ -1523,3 +1523,127 @@ function setupSecretRoom() {
 }
 
 setupSecretRoom();
+
+
+
+
+
+
+const linkGroups = {
+  main: [
+    {
+      title: "HOME",
+      url: "index.html",
+      description: "ゆるおりのトップページ。"
+    },
+    {
+      title: "PROFILE",
+      url: "pages/profile.html",
+      description: "管理人プロフィール。"
+    },
+    {
+      title: "WORKS",
+      url: "pages/works.html",
+      description: "作ったサイトや創作物のまとめ。"
+    },
+    {
+      title: "EXPLORE",
+      url: "play/index.html",
+      description: "奥の遊びページ入口。"
+    }
+  ],
+
+  notes: [
+    {
+      title: "タイプメモ",
+      url: "notes/type.html",
+      description: "性格タイプ・創作・診断のメモ。"
+    },
+    {
+      title: "プロフ帳",
+      url: "notes/profile-book.html",
+      description: "昔の自己紹介ページっぽいプロフィール。"
+    },
+    {
+      title: "音楽メモ",
+      url: "notes/music.html",
+      description: "自作曲、音ゲー曲、タイプ別曲の置き場。"
+    },
+    {
+      title: "WORKS",
+      url: "pages/works.html",
+      description: "作ったもののまとめ。"
+    }
+  ],
+
+  play: [
+    {
+      title: "探検入口",
+      url: "play/index.html",
+      description: "奥の遊びページ入口。"
+    },
+    {
+      title: "Web拍手",
+      url: "play/clap.html",
+      description: "拍手とひとことメッセージ。"
+    },
+    {
+      title: "今日の占い",
+      url: "play/fortune.html",
+      description: "なんとなく運勢を見るページ。"
+    },
+    {
+      title: "猫の部屋",
+      url: "play/cats.html",
+      description: "猫っぽい癒しページ。"
+    },
+    {
+      title: "倉庫",
+      url: "play/storage.html",
+      description: "画像やメモを置いておく場所。"
+    }
+  ],
+
+  creation: [
+    {
+      title: "WORKS",
+      url: "pages/works.html",
+      description: "作ったサイトや創作物のまとめ。"
+    },
+    {
+      title: "GAMES",
+      url: "pages/games.html",
+      description: "ゲーム置き場。"
+    },
+    {
+      title: "OCFA",
+      url: "pages/ocfa.html",
+      description: "オリキャラ関連サイトの案内。"
+    },
+    {
+      title: "音楽メモ",
+      url: "notes/music.html",
+      description: "自作曲や音ゲー曲の置き場。"
+    }
+  ]
+};
+
+function renderCommonLinks() {
+  const boxes = document.querySelectorAll(".common-link-box");
+
+  boxes.forEach((box) => {
+    const groupName = box.dataset.links || "main";
+    const links = linkGroups[groupName] || linkGroups.main;
+
+    box.innerHTML = links
+      .map((link) => {
+        return `
+          <a href="${makeUrl(link.url)}">
+            <strong>${escapeHtml(link.title)}</strong>
+            <span>${escapeHtml(link.description)}</span>
+          </a>
+        `;
+      })
+      .join("");
+  });
+}
