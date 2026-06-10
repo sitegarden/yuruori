@@ -1989,3 +1989,174 @@ renderTweets();
 setupTweetLogin();
 setupTweetForm();
 setupTweetLikeButtons();
+
+
+const boardForm = document.getElementById("boardForm");
+const boardName = document.getElementById("boardName");
+const boardTitle = document.getElementById("boardTitle");
+const boardMessage = document.getElementById("boardMessage");
+const boardStatus = document.getElementById("boardStatus");
+const boardList = document.getElementById("boardList");
+
+const boardCollection = collection(db, "boardPosts");
+
+function formatBoardDate(value) {
+  if (!value) {
+    return "日時不明";
+  }
+
+  if (typeof value.toDate === "function") {
+    return value.toDate().toLocaleString("ja-JP");
+  }
+
+  return String(value);
+}
+
+async function fetchBoardPosts() {
+  const boardQuery = query(
+    boardCollection,
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const snapshot = await getDocs(boardQuery);
+
+  return snapshot.docs
+    .map((docSnap) => {
+      return {
+        id: docSnap.id,
+        ...docSnap.data()
+      };
+    })
+    .filter((post) => post.visible !== false);
+}
+
+function renderBoardItems(posts) {
+  if (!boardList) return;
+
+  if (posts.length === 0) {
+    boardList.innerHTML = `<p class="empty-text">まだ投稿はありません。</p>`;
+    return;
+  }
+
+  boardList.innerHTML = posts
+    .map((post) => {
+      return `
+        <article class="board-item">
+          <div class="board-item-head">
+            <strong>${escapeHtml(post.title || "無題")}</strong>
+            <time>${escapeHtml(formatBoardDate(post.createdAt))}</time>
+          </div>
+
+          <div class="board-item-name">
+            投稿者：${escapeHtml(post.name || "名無し")}
+          </div>
+
+          <p>${escapeHtml(post.message || "")}</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function renderBoardPosts() {
+  if (!boardList) return;
+
+  boardList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+
+  try {
+    const posts = await fetchBoardPosts();
+    renderBoardItems(posts);
+  } catch (error) {
+    console.error(error);
+    boardList.innerHTML = `<p class="empty-text">掲示板の読み込みに失敗しました。</p>`;
+  }
+}
+
+async function addBoardPost({ name, title, message }) {
+  await addDoc(boardCollection, {
+    name,
+    title,
+    message,
+    createdAt: serverTimestamp(),
+    visible: true
+  });
+}
+
+function setupBoardForm() {
+  if (!boardForm) return;
+
+  renderBoardPosts();
+
+  boardForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = boardName.value.trim() || "名無し";
+    const title = boardTitle.value.trim() || "無題";
+    const message = boardMessage.value.trim();
+
+    const validation = validatePublicPost({
+      type: "board",
+      name,
+      message
+    });
+
+    if (!validation.ok) {
+      if (boardStatus) {
+        boardStatus.textContent = validation.message;
+      }
+
+      return;
+    }
+
+    if (title.length > 60) {
+      if (boardStatus) {
+        boardStatus.textContent = "タイトルは60文字以内で入力してください。";
+      }
+
+      return;
+    }
+
+    if (containsBlockedWord(title)) {
+      if (boardStatus) {
+        boardStatus.textContent = "タイトルに投稿できない言葉が含まれています。";
+      }
+
+      return;
+    }
+
+    if (boardStatus) {
+      boardStatus.textContent = "投稿中...";
+    }
+
+    try {
+      await addBoardPost({
+        name,
+        title,
+        message
+      });
+
+      saveRecentPostData({
+        type: "board",
+        text: message
+      });
+
+      boardTitle.value = "";
+      boardMessage.value = "";
+
+      if (boardStatus) {
+        boardStatus.textContent = "投稿しました。";
+      }
+
+      await renderBoardPosts();
+    } catch (error) {
+      console.error(error);
+
+      if (boardStatus) {
+        boardStatus.textContent = "投稿に失敗しました。時間を置いて試してください。";
+      }
+    }
+  });
+}
+
+setupBoardForm();
