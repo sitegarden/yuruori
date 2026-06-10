@@ -36,21 +36,36 @@
           </section>
         </aside>
 
-        <section class="play-main">
-          <section class="portal-box" id="post">
-            <h2>つぶやく</h2>
+        <section class="portal-box" id="post">
+  <h2>つぶやく</h2>
 
-            <form class="tweet-form" id="tweetForm">
-              <label for="tweetText">本文</label>
-              <textarea id="tweetText" rows="4" placeholder="今日のひとことを書く"></textarea>
+  <div class="tweet-login-box" id="tweetLoginBox">
+    <p id="tweetLoginStatus">
+      ログイン状態を確認中...
+    </p>
 
-              <button class="mini-button" type="submit">
-                投稿する
-              </button>
+    <div class="tweet-login-buttons">
+      <button class="mini-button" type="button" id="tweetLoginButton">
+        管理人ログイン
+      </button>
 
-              <p class="form-status" id="tweetStatus"></p>
-            </form>
-          </section>
+      <button class="mini-button" type="button" id="tweetLogoutButton">
+        ログアウト
+      </button>
+    </div>
+  </div>
+
+  <form class="tweet-form hidden" id="tweetForm">
+    <label for="tweetText">本文</label>
+    <textarea id="tweetText" rows="4" placeholder="今日のひとことを書く"></textarea>
+
+    <button class="mini-button" type="submit">
+      投稿する
+    </button>
+
+    <p class="form-status" id="tweetStatus"></p>
+  </form>
+</section>
 
           <section class="portal-box" id="list">
             <h2>つぶやき一覧</h2>
