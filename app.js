@@ -366,6 +366,8 @@ setupSiteFooter();
 setupMobileNav();
 setupCurrentNav();
 
+renderCommonLinks();
+
 setupVisitorCounter();
 
 
