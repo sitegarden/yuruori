@@ -54,6 +54,7 @@ const navLinks = [
   { label: "OCFA", url: "pages/ocfa.html" },
   { label: "DIARY", url: "pages/diary.html" },
   { label: "LINK", url: "pages/links.html" },
+  { label: "TYPE", url: "notes/type.html" },
   { label: "EXPLORE", url: "play/index.html" }
 ];
 
