@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>掲示板 - ゆるおり</title>
+  <meta name="description" content="ゆるおりの掲示板ページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>掲示板MENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#write">書き込む</a></li>
+              <li><a href="#list">投稿一覧</a></li>
+              <li><a href="#rule">ルール</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              気軽に書ける場所です。
+              まずはゆるい掲示板として作っています。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box" id="write">
+            <h2>掲示板に書く</h2>
+
+            <form class="board-form" id="boardForm">
+              <label for="boardName">名前</label>
+              <input id="boardName" type="text" placeholder="名無しでもOK" />
+
+              <label for="boardTitle">タイトル</label>
+              <input id="boardTitle" type="text" placeholder="こんにちは、質問、感想など" />
+
+              <label for="boardMessage">本文</label>
+              <textarea id="boardMessage" rows="6" placeholder="本文を書く"></textarea>
+
+              <button class="mini-button" type="submit">
+                投稿する
+              </button>
+
+              <p class="form-status" id="boardStatus"></p>
+            </form>
+          </section>
+
+          <section class="portal-box" id="list">
+            <h2>投稿一覧</h2>
+
+            <div class="board-list" id="boardList">
+              <p class="empty-text">読み込み中...</p>
+            </div>
+          </section>
+
+          <section class="portal-box" id="rule">
+            <h2>掲示板のルール</h2>
+
+            <div class="board-rule">
+              <p>
+                ゆるく書ける場所ですが、強い言葉や荒らしっぽい投稿は非表示にすることがあります。
+              </p>
+
+              <p>
+                返信機能はまだありません。
+                まずは「書き込みが残る場所」として作っています。
+              </p>
+            </div>
+          </section>
+
+          <section class="portal-box">
+            <h2>管理人メモ</h2>
+            <p>
+              掲示板があると、一気に人が来るサイト感が出ます。
+              平成っぽさと令和のFirebaseが合体しています。
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script type="module" src="../app.js"></script>
+</body>
+</html>
