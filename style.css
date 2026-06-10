@@ -5601,3 +5601,106 @@ body {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* ==============================
+  Board page
+============================== */
+
+.board-form {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.board-form label {
+  color: #a94b77;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.board-form input,
+.board-form textarea {
+  width: 100%;
+  padding: 9px;
+  border: 2px inset #e9a4c2;
+  background: #fff;
+  color: #332a36;
+  font: inherit;
+}
+
+.board-form textarea {
+  resize: vertical;
+}
+
+.board-list {
+  display: grid;
+}
+
+.board-item {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.board-item:last-child {
+  border-bottom: 0;
+}
+
+.board-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.board-item-head strong {
+  color: #a94b77;
+  font-size: 17px;
+}
+
+.board-item-head strong::before {
+  content: "◇ ";
+  color: #e87aa8;
+}
+
+.board-item-head time {
+  color: #8b7b90;
+  font-size: 12px;
+}
+
+.board-item-name {
+  justify-self: start;
+  padding: 3px 8px;
+  border: 1px dashed #e87aa8;
+  background: #fff8df;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.board-item p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.board-rule {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.board-rule p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.board-rule p:last-child {
+  margin-bottom: 0;
+}
