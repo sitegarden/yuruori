@@ -5451,3 +5451,124 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==============================
+  Tweets page
+============================== */
+
+.tweet-form {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.tweet-form label {
+  color: #a94b77;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.tweet-form textarea {
+  width: 100%;
+  padding: 9px;
+  border: 2px inset #e9a4c2;
+  background: #fff;
+  color: #332a36;
+  font: inherit;
+  resize: vertical;
+}
+
+.tweet-list {
+  display: grid;
+}
+
+.tweet-item {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.tweet-item:last-child {
+  border-bottom: 0;
+}
+
+.tweet-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.tweet-head strong {
+  color: #a94b77;
+}
+
+.tweet-head time {
+  color: #8b7b90;
+  font-size: 12px;
+}
+
+.tweet-item p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.tweet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tweet-like-button {
+  padding: 5px 10px;
+  border: 2px outset #e9a4c2;
+  background: #fff8df;
+  color: #a94b77;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.tweet-like-button:hover {
+  background: #ffd6eb;
+}
+
+.tweet-like-button:active {
+  border-style: inset;
+}
+
+.tweet-like-button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.tweet-actions span {
+  color: #8b7b90;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tweet-memo {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.tweet-memo p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.tweet-memo p:last-child {
+  margin-bottom: 0;
+}
