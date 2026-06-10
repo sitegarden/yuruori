@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>つぶやき - ゆるおり</title>
+  <meta name="description" content="ゆるおりのつぶやきページです。" />
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <div class="site-bg">
+    <div id="siteHeader"></div>
+
+    <main>
+      <section class="play-page-layout">
+        <aside class="play-side">
+          <section class="portal-box">
+            <h2>つぶやきMENU</h2>
+            <ul class="side-link-list">
+              <li><a href="#post">投稿する</a></li>
+              <li><a href="#list">つぶやき一覧</a></li>
+              <li><a href="#memo">メモ</a></li>
+              <li><a href="index.html">探検入口へ戻る</a></li>
+              <li><a href="../index.html">トップへ戻る</a></li>
+            </ul>
+          </section>
+
+          <section class="portal-box">
+            <h2>ひとこと</h2>
+            <p>
+              短い近況や、サイト制作メモを置いておく場所です。
+            </p>
+          </section>
+        </aside>
+
+        <section class="play-main">
+          <section class="portal-box" id="post">
+            <h2>つぶやく</h2>
+
+            <form class="tweet-form" id="tweetForm">
+              <label for="tweetText">本文</label>
+              <textarea id="tweetText" rows="4" placeholder="今日のひとことを書く"></textarea>
+
+              <button class="mini-button" type="submit">
+                投稿する
+              </button>
+
+              <p class="form-status" id="tweetStatus"></p>
+            </form>
+          </section>
+
+          <section class="portal-box" id="list">
+            <h2>つぶやき一覧</h2>
+
+            <div class="tweet-list" id="tweetList">
+              <p class="empty-text">読み込み中...</p>
+            </div>
+          </section>
+
+          <section class="portal-box" id="memo">
+            <h2>つぶやきメモ</h2>
+
+            <div class="tweet-memo">
+              <p>
+                ここは、日記よりも短い文章を置いておく場所です。
+              </p>
+
+              <p>
+                サイト制作の進捗、思いついたこと、猫のこと、音楽のことなどをゆるく書けます。
+              </p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="siteFooter"></div>
+  </div>
+
+  <script type="module" src="../app.js"></script>
+</body>
+</html>
