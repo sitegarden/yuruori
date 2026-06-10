@@ -5572,3 +5572,32 @@ body {
 .tweet-memo p:last-child {
   margin-bottom: 0;
 }
+
+/* ==============================
+  Tweet login
+============================== */
+
+.hidden {
+  display: none !important;
+}
+
+.tweet-login-box {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fffdfd;
+}
+
+.tweet-login-box p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.7;
+}
+
+.tweet-login-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
