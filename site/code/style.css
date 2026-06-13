@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f7fbff;
+  --text: #2d2a33;
+  --muted: #746f7d;
+  --main: #4a9fd8;
+  --main-dark: #246a9d;
+  --accent: #f0b94f;
+  --panel: rgba(255, 255, 255, 0.9);
+  --line: #b7d8ef;
+  --shadow: 0 18px 42px rgba(49, 99, 136, 0.14);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    system-ui,
+    sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(100, 183, 232, 0.22), transparent 28%),
+    radial-gradient(circle at 86% 18%, rgba(240, 185, 79, 0.2), transparent 26%),
+    radial-gradient(circle at 24% 88%, rgba(184, 219, 242, 0.5), transparent 32%),
+    linear-gradient(135deg, #f7fbff, #fffaf0);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.62) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.62) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.55;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(980px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 34px 0 28px;
+}
+
+.hero-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 22px;
+  align-items: center;
+  padding: 28px;
+  border: 3px solid var(--line);
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
+    repeating-linear-gradient(
+      -45deg,
+      #eef8ff,
+      #eef8ff 14px,
+      #fff8e8 14px,
+      #fff8e8 28px
+    );
+  box-shadow: var(--shadow);
+}
+
+.label {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 5px 12px;
+  border: 2px dashed var(--main);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--main-dark);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  color: var(--main-dark);
+  font-size: clamp(54px, 10vw, 96px);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-shadow:
+    3px 3px 0 #ffffff,
+    6px 6px 0 rgba(240, 185, 79, 0.36);
+}
+
+.lead {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.main-button,
+.sub-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 3px solid #2d2a33;
+  border-radius: 999px;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 rgba(45, 42, 51, 0.13);
+}
+
+.main-button {
+  background: var(--main);
+  color: #ffffff;
+}
+
+.sub-button {
+  background: #fff3c8;
+  color: var(--text);
+}
+
+.hero-images {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.hero-images img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 3px solid var(--line);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 6px 6px 0 rgba(74, 159, 216, 0.14);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.panel {
+  padding: 22px;
+  border: 3px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  margin: 0 0 14px;
+  color: var(--main-dark);
+  font-size: 24px;
+}
+
+.panel h2::before {
+  content: "■ ";
+  color: var(--accent);
+}
+
+.panel p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.panel p:last-child {
+  margin-bottom: 0;
+}
+
+.link-panel {
+  margin-top: 14px;
+}
+
+.link-panel a {
+  display: block;
+  padding: 14px 16px;
+  border: 2px dashed var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--main-dark);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.link-panel a:hover {
+  background: #fff8e8;
+}
+
+.footer {
+  padding: 22px 0 0;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.footer p {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .page {
+    width: min(100% - 22px, 980px);
+    padding-top: 22px;
+  }
+
+  .hero-card {
+    grid-template-columns: 1fr;
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .hero-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .button-row {
+    flex-direction: column;
+  }
+
+  .main-button,
+  .sub-button {
+    width: 100%;
+  }
+
+  .hero-images {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+}
