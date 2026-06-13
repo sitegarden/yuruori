@@ -5704,3 +5704,86 @@ body {
 .board-rule p:last-child {
   margin-bottom: 0;
 }
+
+/* ==============================
+  404 page
+============================== */
+
+.notfound-main-box {
+  text-align: center;
+}
+
+.notfound-room {
+  display: grid;
+  gap: 12px;
+  padding: 16px 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    repeating-linear-gradient(
+      -45deg,
+      #fff8df,
+      #fff8df 12px,
+      #fff3f8 12px,
+      #fff3f8 24px
+    );
+}
+
+.notfound-mark {
+  display: grid;
+  place-items: center;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto;
+  border: 5px ridge #e9a4c2;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top, #fff8df, #ffd6eb);
+  color: #a94b77;
+  font-family:
+    "Courier New",
+    monospace;
+  font-size: 58px;
+  font-weight: 900;
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 255, 255, 0.55),
+    0 8px 20px rgba(169, 75, 119, 0.16);
+}
+
+.notfound-message-box {
+  width: min(520px, 100%);
+  margin: 0 auto;
+  padding: 12px;
+  border: 2px dashed #e87aa8;
+  background: #fff;
+}
+
+.notfound-message-box strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #a94b77;
+  font-size: 19px;
+}
+
+.notfound-message-box p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+  font-weight: 700;
+}
+
+.notfound-hint-list {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.notfound-hint-list p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.notfound-hint-list p:last-child {
+  margin-bottom: 0;
+}
