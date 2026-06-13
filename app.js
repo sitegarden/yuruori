@@ -999,6 +999,16 @@ async function addGuestbookLog({ name, site, message }) {
   });
 }
 
+
+
+
+
+
+
+
+
+
+
 function setupGuestbook() {
   if (!guestbookForm) return;
 
@@ -2134,68 +2144,30 @@ function setupBoardForm() {
 
 setupBoardForm();
 
-
-
-
-
-  const adminBoardQuery = query(
-    boardCollection,
-    orderBy("createdAt", "desc"),
-    limit(50)
-  );
-
-  const snapshot = await getDocs(adminBoardQuery);
-
-  return snapshot.docs.map((docSnap) => {
-    return {
-      id: docSnap.id,
-      ...docSnap.data()
-    };
-  });
-}
-
-function renderAdminBoardItems(posts) {
-  if (!adminBoardList) return;
-
-  if (posts.length === 0) {
-    adminBoardList.innerHTML = `<p class="empty-text">掲示板の投稿はありません。</p>`;
-    return;
+async function renderAdminLists() {
+  if (adminGuestbookList) {
+    adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
   }
 
-  adminBoardList.innerHTML = posts
-    .map((post) => {
-      const isVisible = post.visible !== false;
-      const visibleText = isVisible ? "表示中" : "非表示";
-      const buttonText = isVisible ? "非表示にする" : "再表示する";
-      const nextVisible = isVisible ? "false" : "true";
+  if (adminClapList) {
+    adminClapList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+  }
 
-      return `
-        <article class="admin-item">
-          <div class="admin-item-head">
-            <strong>${escapeHtml(post.title || "無題")}</strong>
-            <span>${escapeHtml(visibleText)}</span>
-          </div>
+  try {
+    const guestbookLogs = await fetchAdminGuestbookLogs();
+    const clapLogs = await fetchAdminClapLogs();
 
-          <p>${escapeHtml(post.message || "")}</p>
+    renderAdminGuestbookItems(guestbookLogs);
+    renderAdminClapItems(clapLogs);
+  } catch (error) {
+    console.error(error);
 
-          <div class="admin-item-meta">
-            <span>投稿者：${escapeHtml(post.name || "名無し")}</span>
-            <span>${escapeHtml(formatAdminDate(post.createdAt))}</span>
-          </div>
+    if (adminGuestbookList) {
+      adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
+    }
 
-          <div class="admin-item-actions">
-            <button
-              class="mini-button admin-visibility-button"
-              type="button"
-              data-type="board"
-              data-id="${escapeHtml(post.id)}"
-              data-visible="${nextVisible}"
-            >
-              ${buttonText}
-            </button>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
+    if (adminClapList) {
+      adminClapList.innerHTML = `<p class="empty-text">拍手メッセージの読み込みに失敗しました。</p>`;
+    }
+  }
 }
