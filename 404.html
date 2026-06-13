@@ -9,19 +9,6 @@
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" href="favicon.png" />
-
-  <meta property="og:title" content="404 - ページが見つかりません｜ゆるおり" />
-  <meta property="og:description" content="お探しのページは見つかりませんでした。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yuruori.com/404.html" />
-  <meta property="og:image" content="https://yuruori.com/ogp.png" />
-  <meta property="og:site_name" content="ゆるおり" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="404 - ページが見つかりません｜ゆるおり" />
-  <meta name="twitter:description" content="お探しのページは見つかりませんでした。" />
-  <meta name="twitter:image" content="https://yuruori.com/ogp.png" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -30,50 +17,67 @@
     <div id="siteHeader"></div>
 
     <main>
-      <section class="notfound-cute-wrap">
-        <div class="notfound-cute-card">
-          <p class="notfound-label">404 Not Found</p>
-
-          <div class="notfound-face" aria-hidden="true">
-            <span class="notfound-ear left"></span>
-            <span class="notfound-ear right"></span>
-            <span class="notfound-eye left"></span>
-            <span class="notfound-eye right"></span>
-            <span class="notfound-mouth">×</span>
-          </div>
-
-          <h1>ページが迷子です</h1>
-
-          <p class="notfound-lead">
-            お探しのページは見つかりませんでした。<br>
-            URLが変わったか、まだ作られていない場所かもしれません。
+      <section class="portal-top notfound-top">
+        <div class="top-message notfound-message">
+          <p class="eyebrow">404 NOT FOUND</p>
+          <h1>ページが迷子です。</h1>
+          <p>
+            お探しのページは見つかりませんでした。
+            URLが変わったか、まだ準備中の場所かもしれません。
           </p>
+        </div>
 
-          <div class="notfound-button-row">
-            <a class="btn primary" href="index.html">トップへ戻る</a>
-            <a class="btn secondary" href="play/index.html">探検入口へ</a>
+        <div class="top-status notfound-status">
+          <h2>迷子情報</h2>
+          <dl>
+            <div>
+              <dt>状態</dt>
+              <dd>見つからない</dd>
+            </div>
+            <div>
+              <dt>場所</dt>
+              <dd>ゆるおりのどこか</dd>
+            </div>
+            <div>
+              <dt>案内</dt>
+              <dd>トップへ戻ってね</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="notfound-pickup">
+        <section class="portal-box notfound-illust-box">
+          <h2>404エリア</h2>
+
+          <div class="notfound-illust-wrap">
+            <div class="notfound-illust">
+              <div class="notfound-heart"></div>
+
+              <div class="notfound-cat">
+                <span class="cat-ear-left"></span>
+                <span class="cat-ear-right"></span>
+                <span class="cat-eye-left"></span>
+                <span class="cat-eye-right"></span>
+                <span class="cat-mouth-small">ω</span>
+              </div>
+
+              <p class="notfound-big">404</p>
+            </div>
           </div>
-        </div>
 
-        <div class="notfound-mini-grid">
-          <section class="notfound-mini-box">
-            <h2>戻り道</h2>
-            <ul class="side-link-list">
-              <li><a href="index.html">トップページ</a></li>
-              <li><a href="profile.html">プロフィール</a></li>
-              <li><a href="works.html">作ったもの</a></li>
-              <li><a href="links.html">リンク集</a></li>
-            </ul>
-          </section>
-
-          <section class="notfound-mini-box">
-            <h2>ひとこと</h2>
+          <div class="illust-caption notfound-caption">
+            <strong>このページは見つかりませんでした</strong>
             <p>
-              迷った時はトップページからどうぞ。<br>
-              ゆるおりは、今日もゆるく増築中です。
+              迷った時は、トップページからもう一度探してみてください。
             </p>
-          </section>
-        </div>
+
+            <div class="notfound-link-row">
+              <a class="mini-button" href="index.html">トップページへ</a>
+              <a class="mini-button" href="play/index.html">探検入口へ</a>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
 
