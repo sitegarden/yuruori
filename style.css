@@ -5931,3 +5931,327 @@ body {
     text-align: center;
   }
 }
+
+/* ==============================
+  Site index page
+  yuruori.com/site/
+============================== */
+
+.site-mini-top {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 12px;
+  width: min(1180px, calc(100% - 24px));
+  margin: 18px auto 12px;
+}
+
+.site-mini-message,
+.site-mini-status,
+.site-mini-visual-box {
+  border: 2px solid #e6a5c0;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 3px 3px 0 rgba(169, 75, 119, 0.08);
+}
+
+.site-mini-message {
+  padding: 16px 18px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    repeating-linear-gradient(
+      90deg,
+      #fff4fa,
+      #fff4fa 18px,
+      #eef9ff 18px,
+      #eef9ff 36px,
+      #fff8df 36px,
+      #fff8df 54px
+    );
+}
+
+.site-mini-message h1 {
+  margin: 0 0 8px;
+  color: #c64282;
+  font-size: clamp(34px, 6vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(103, 207, 234, 0.35);
+}
+
+.site-mini-message p {
+  margin: 0;
+  color: #66566d;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.site-mini-status h2 {
+  margin: 0;
+  padding: 7px 10px;
+  border-bottom: 1px solid #e6a5c0;
+  background:
+    linear-gradient(#ffe7f3, #fff7fb);
+  color: #a94b77;
+  font-size: 15px;
+}
+
+.site-mini-status dl {
+  margin: 0;
+  padding: 8px;
+}
+
+.site-mini-status div {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  border-bottom: 1px dotted #e6a5c0;
+  padding: 6px 0;
+}
+
+.site-mini-status div:last-child {
+  border-bottom: 0;
+}
+
+.site-mini-status dt {
+  color: #a94b77;
+  font-weight: 900;
+}
+
+.site-mini-status dd {
+  margin: 0;
+  color: #66566d;
+}
+
+.site-mini-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 12px;
+  width: min(1180px, calc(100% - 24px));
+  margin: 0 auto 22px;
+}
+
+.site-mini-side,
+.site-mini-main {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.site-mini-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  padding: 18px;
+  border-bottom: 1px solid #e6a5c0;
+  background:
+    radial-gradient(circle at 24% 34%, rgba(255, 214, 235, 0.9) 0 22%, transparent 23%),
+    radial-gradient(circle at 70% 36%, rgba(229, 249, 255, 0.9) 0 24%, transparent 25%),
+    radial-gradient(circle at 50% 72%, rgba(255, 248, 223, 0.9) 0 28%, transparent 29%),
+    linear-gradient(135deg, #fff7fb, #fffdf0 48%, #eefaff);
+  overflow: hidden;
+}
+
+.site-mini-heart {
+  position: absolute;
+  width: min(520px, 72vw);
+  aspect-ratio: 1 / 0.82;
+  background:
+    linear-gradient(135deg, rgba(255, 207, 228, 0.7), rgba(226, 246, 255, 0.68));
+  clip-path: path("M 260 88 C 195 0 40 32 40 158 C 40 278 166 342 260 398 C 354 342 480 278 480 158 C 480 32 325 0 260 88 Z");
+  opacity: 0.78;
+}
+
+.site-mini-card {
+  position: relative;
+  z-index: 2;
+  width: min(360px, 100%);
+  padding: 18px;
+  border: 3px solid #e6a5c0;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    8px 8px 0 rgba(198, 66, 130, 0.12),
+    0 0 0 8px rgba(255, 255, 255, 0.42);
+  text-align: center;
+}
+
+.site-mini-card-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 9px;
+  border: 1px dashed #e87aa8;
+  background: #fff8df;
+  color: #a94b77;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.site-mini-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #c64282;
+  font-size: clamp(28px, 6vw, 48px);
+  line-height: 1;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(103, 207, 234, 0.3);
+}
+
+.site-mini-card p {
+  margin: 0;
+  padding: 0;
+  color: #66566d;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.site-mini-card.small {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  min-height: 62px;
+  padding: 8px;
+  border: 2px outset #e9a4c2;
+  background: linear-gradient(#fff8df, #ffd6eb);
+  color: #a94b77;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.site-mini-card.small.one {
+  left: 12%;
+  bottom: 18%;
+  transform: rotate(-7deg);
+}
+
+.site-mini-card.small.two {
+  right: 10%;
+  top: 20%;
+  transform: rotate(7deg);
+  background: linear-gradient(#e5f9ff, #ffffff);
+  color: #3f8ea3;
+}
+
+.site-mini-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px dotted #e6a5c0;
+  border-left: 1px dotted #e6a5c0;
+}
+
+.site-mini-type-grid article {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-right: 1px dotted #e6a5c0;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+}
+
+.site-mini-type-grid strong {
+  color: #a94b77;
+}
+
+.site-mini-type-grid strong::before {
+  content: "♡ ";
+  color: #e87aa8;
+}
+
+.site-mini-type-grid span {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.site-mini-note {
+  padding: 10px;
+  background: #fffdfd;
+}
+
+.site-mini-note p {
+  margin: 0 0 9px;
+  padding: 0;
+  color: #66566d;
+  line-height: 1.8;
+}
+
+.site-mini-note p:last-child {
+  margin-bottom: 0;
+}
+
+.site-mini-list {
+  display: grid;
+}
+
+.site-mini-list a,
+.site-mini-empty {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px dotted #e6a5c0;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-mini-list a:hover {
+  background: #fff8df;
+}
+
+.site-mini-list strong {
+  color: #a94b77;
+}
+
+.site-mini-list strong::before {
+  content: "◇ ";
+  color: #e87aa8;
+}
+
+.site-mini-list span,
+.site-mini-empty {
+  color: #66566d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.site-mini-empty {
+  grid-template-columns: 1fr;
+  background: #fffdfd;
+}
+
+@media (max-width: 920px) {
+  .site-mini-top,
+  .site-mini-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .site-mini-type-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-mini-top,
+  .site-mini-layout {
+    width: calc(100% - 18px);
+  }
+
+  .site-mini-visual {
+    min-height: 300px;
+  }
+
+  .site-mini-card.small {
+    display: none;
+  }
+
+  .site-mini-list a {
+    grid-template-columns: 1fr;
+  }
+}
