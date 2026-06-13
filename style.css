@@ -5706,84 +5706,233 @@ body {
 }
 
 /* ==============================
-  404 page
+  404 page / cute
 ============================== */
 
-.notfound-main-box {
-  text-align: center;
+.notfound-cute-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(920px, calc(100% - 24px));
+  margin: 28px auto 34px;
 }
 
-.notfound-room {
-  display: grid;
-  gap: 12px;
-  padding: 16px 12px;
+.notfound-cute-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 5vw, 48px) 20px;
+  border: 4px double #e9a4c2;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86)),
+    radial-gradient(circle at 12% 18%, rgba(243, 111, 168, 0.16), transparent 24%),
+    radial-gradient(circle at 88% 22%, rgba(103, 207, 234, 0.18), transparent 24%),
+    linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
     repeating-linear-gradient(
       -45deg,
       #fff8df,
-      #fff8df 12px,
-      #fff3f8 12px,
-      #fff3f8 24px
+      #fff8df 14px,
+      #fff3f8 14px,
+      #fff3f8 28px
     );
-}
-
-.notfound-mark {
-  display: grid;
-  place-items: center;
-  width: 110px;
-  height: 110px;
-  margin: 0 auto;
-  border: 5px ridge #e9a4c2;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at top, #fff8df, #ffd6eb);
-  color: #a94b77;
-  font-family:
-    "Courier New",
-    monospace;
-  font-size: 58px;
-  font-weight: 900;
   box-shadow:
-    inset 0 0 0 6px rgba(255, 255, 255, 0.55),
-    0 8px 20px rgba(169, 75, 119, 0.16);
+    6px 6px 0 rgba(169, 75, 119, 0.12),
+    12px 12px 0 rgba(103, 207, 234, 0.12);
+  text-align: center;
 }
 
-.notfound-message-box {
-  width: min(520px, 100%);
-  margin: 0 auto;
-  padding: 12px;
+.notfound-cute-card::before,
+.notfound-cute-card::after {
+  position: absolute;
+  color: #e87aa8;
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.notfound-cute-card::before {
+  content: "404";
+  top: 16px;
+  left: 18px;
+  transform: rotate(-8deg);
+}
+
+.notfound-cute-card::after {
+  content: "？";
+  right: 26px;
+  bottom: 18px;
+  transform: rotate(10deg);
+}
+
+.notfound-label {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 5px 12px;
   border: 2px dashed #e87aa8;
-  background: #fff;
-}
-
-.notfound-message-box strong {
-  display: block;
-  margin-bottom: 7px;
+  background: #fff8df;
   color: #a94b77;
-  font-size: 19px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
 }
 
-.notfound-message-box p {
-  margin: 0;
-  padding: 0;
-  color: #66566d;
-  line-height: 1.8;
-  font-weight: 700;
+.notfound-face {
+  position: relative;
+  width: 136px;
+  height: 106px;
+  margin: 6px auto 20px;
+  border: 4px solid #a94b77;
+  border-radius: 48% 48% 42% 42%;
+  background:
+    radial-gradient(circle at 30% 36%, #ffd6eb 0 8px, transparent 9px),
+    radial-gradient(circle at 70% 36%, #ffd6eb 0 8px, transparent 9px),
+    #fffdfd;
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 255, 255, 0.72),
+    5px 5px 0 rgba(169, 75, 119, 0.12);
 }
 
-.notfound-hint-list {
-  padding: 10px;
+.notfound-ear {
+  position: absolute;
+  top: -30px;
+  width: 44px;
+  height: 44px;
+  border: 4px solid #a94b77;
   background: #fffdfd;
+  transform: rotate(45deg);
 }
 
-.notfound-hint-list p {
-  margin: 0 0 9px;
-  padding: 0;
+.notfound-ear.left {
+  left: 16px;
+}
+
+.notfound-ear.right {
+  right: 16px;
+}
+
+.notfound-eye {
+  position: absolute;
+  top: 38px;
+  width: 16px;
+  height: 16px;
+}
+
+.notfound-eye::before,
+.notfound-eye::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 0;
+  width: 3px;
+  height: 16px;
+  border-radius: 999px;
+  background: #332a36;
+}
+
+.notfound-eye::before {
+  transform: rotate(45deg);
+}
+
+.notfound-eye::after {
+  transform: rotate(-45deg);
+}
+
+.notfound-eye.left {
+  left: 36px;
+}
+
+.notfound-eye.right {
+  right: 36px;
+}
+
+.notfound-mouth {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 17px;
+  color: #a94b77;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.notfound-cute-card h1 {
+  margin: 0 0 12px;
+  color: #c64282;
+  font-size: clamp(38px, 8vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(103, 207, 234, 0.35),
+    6px 6px 0 rgba(255, 243, 184, 0.55);
+}
+
+.notfound-lead {
+  max-width: 620px;
+  margin: 0 auto;
   color: #66566d;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.notfound-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.notfound-mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.notfound-mini-box {
+  overflow: hidden;
+  border: 2px solid #e6a5c0;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 3px 3px 0 rgba(169, 75, 119, 0.08);
+}
+
+.notfound-mini-box h2 {
+  margin: 0;
+  padding: 7px 10px;
+  border-bottom: 1px solid #e6a5c0;
+  background:
+    linear-gradient(#ffe7f3, #fff7fb);
+  color: #a94b77;
+  font-size: 15px;
+}
+
+.notfound-mini-box p {
+  margin: 0;
+  padding: 10px;
+  color: #66566d;
+  font-size: 14px;
   line-height: 1.8;
 }
 
-.notfound-hint-list p:last-child {
-  margin-bottom: 0;
+@media (max-width: 700px) {
+  .notfound-cute-wrap {
+    margin-top: 18px;
+  }
+
+  .notfound-cute-card {
+    padding: 30px 14px;
+  }
+
+  .notfound-button-row {
+    flex-direction: column;
+  }
+
+  .notfound-button-row .btn {
+    width: 100%;
+  }
+
+  .notfound-mini-grid {
+    grid-template-columns: 1fr;
+  }
 }
