@@ -1514,6 +1514,37 @@ setupSecretRoom();
 
 
 
+
+
+
+async function renderAdminLists() {
+  if (adminGuestbookList) {
+    adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+  }
+
+  if (adminClapList) {
+    adminClapList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
+  }
+
+  try {
+    const guestbookLogs = await fetchAdminGuestbookLogs();
+    const clapLogs = await fetchAdminClapLogs();
+
+    renderAdminGuestbookItems(guestbookLogs);
+    renderAdminClapItems(clapLogs);
+  } catch (error) {
+    console.error(error);
+
+    if (adminGuestbookList) {
+      adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
+    }
+
+    if (adminClapList) {
+      adminClapList.innerHTML = `<p class="empty-text">拍手メッセージの読み込みに失敗しました。</p>`;
+    }
+  }
+}
+
 const linkGroups = {
   main: [
     {
@@ -1566,6 +1597,16 @@ const linkGroups = {
       title: "探検入口",
       url: "play/index.html",
       description: "奥の遊びページ入口。"
+    },
+    {
+      title: "つぶやき",
+      url: "play/tweets.html",
+      description: "短い近況といいね付きメモ。"
+    },
+    {
+      title: "掲示板",
+      url: "play/board.html",
+      description: "見に来た人が書き込める場所。"
     },
     {
       title: "Web拍手",
@@ -1632,6 +1673,7 @@ function renderCommonLinks() {
       .join("");
   });
 }
+
 renderCommonLinks();
 
 
@@ -1936,7 +1978,6 @@ function setupTweetLogin() {
   });
 }
 
-
 function setupTweetLikeButtons() {
   if (!tweetList) return;
 
@@ -1972,6 +2013,7 @@ renderTweets();
 setupTweetLogin();
 setupTweetForm();
 setupTweetLikeButtons();
+
 
 
 const boardForm = document.getElementById("boardForm");
@@ -2143,31 +2185,3 @@ function setupBoardForm() {
 }
 
 setupBoardForm();
-
-async function renderAdminLists() {
-  if (adminGuestbookList) {
-    adminGuestbookList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
-  }
-
-  if (adminClapList) {
-    adminClapList.innerHTML = `<p class="empty-text">読み込み中...</p>`;
-  }
-
-  try {
-    const guestbookLogs = await fetchAdminGuestbookLogs();
-    const clapLogs = await fetchAdminClapLogs();
-
-    renderAdminGuestbookItems(guestbookLogs);
-    renderAdminClapItems(clapLogs);
-  } catch (error) {
-    console.error(error);
-
-    if (adminGuestbookList) {
-      adminGuestbookList.innerHTML = `<p class="empty-text">足あと帳の読み込みに失敗しました。</p>`;
-    }
-
-    if (adminClapList) {
-      adminClapList.innerHTML = `<p class="empty-text">拍手メッセージの読み込みに失敗しました。</p>`;
-    }
-  }
-}
