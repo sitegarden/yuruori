@@ -605,6 +605,17 @@ https://yuruori.com/type/`;
   }
 }
 
+const typeListToggle = document.getElementById("typeListToggle");
+const typeList = document.getElementById("typeList");
+
+typeListToggle.addEventListener("click", () => {
+  typeList.classList.toggle("hidden");
+
+  typeListToggle.textContent = typeList.classList.contains("hidden")
+    ? "タイプ一覧を見る"
+    : "タイプ一覧を閉じる";
+});
+
 startBtn.addEventListener("click", startQuiz);
 retryBtn.addEventListener("click", retryQuiz);
 shareBtn.addEventListener("click", copyResult);
