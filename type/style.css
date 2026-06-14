@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    system-ui,
+    sans-serif;
+  color: #3a2f2f;
+  background:
+    radial-gradient(circle at top left, rgba(255, 199, 226, 0.5), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(190, 220, 255, 0.55), transparent 35%),
+    #fff8ee;
+}
+
+.page {
+  width: min(720px, 92%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 48px 0;
+  display: grid;
+  place-items: center;
+}
+
+.hero,
+.quiz-area,
+.result-area {
+  width: 100%;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 2px solid rgba(80, 55, 55, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 18px 45px rgba(80, 55, 55, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.label {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: #b26a86;
+  font-weight: bold;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.lead {
+  margin: 18px 0 28px;
+  line-height: 1.9;
+  color: #675a5a;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-btn,
+.sub-btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.main-btn {
+  color: white;
+  background: linear-gradient(135deg, #ff7aa8, #8c7bff);
+  box-shadow: 0 10px 24px rgba(140, 123, 255, 0.28);
+}
+
+.sub-btn {
+  margin-top: 18px;
+  color: #5b4a4a;
+  background: #fff1f6;
+  border: 2px solid #ffd4e3;
+}
+
+.main-btn:hover,
+.sub-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.94;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  background: #f4dfdf;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff8ab3, #8c7bff);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.question-count {
+  margin: 0 0 8px;
+  color: #b26a86;
+  font-weight: bold;
+}
+
+.question-text {
+  margin: 0 0 24px;
+  font-size: 1.35rem;
+  line-height: 1.6;
+}
+
+.choices {
+  display: grid;
+  gap: 12px;
+}
+
+.choice-btn {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #f0dada;
+  border-radius: 18px;
+  background: #fffdf9;
+  color: #3a2f2f;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.choice-btn:hover {
+  transform: translateY(-2px);
+  background: #fff4f8;
+  border-color: #ffb8d0;
+}
+
+.result-rarity {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fff0f6;
+  color: #b64b75;
+  font-weight: bold;
+}
+
+.result-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  line-height: 1.2;
+}
+
+.result-catch {
+  margin: 16px 0 24px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #6a5656;
+}
+
+.result-card {
+  margin: 14px 0;
+  padding: 18px;
+  border-radius: 20px;
+  background: #fffdf9;
+  border: 2px solid #f2dfdf;
+}
+
+.result-card h3 {
+  margin: 0 0 8px;
+  color: #8c5b74;
+}
+
+.result-card p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+#retryBtn {
+  margin-top: 12px;
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding: 24px 0;
+  }
+
+  .hero,
+  .quiz-area,
+  .result-area {
+    padding: 26px 18px;
+    border-radius: 24px;
+  }
+}
