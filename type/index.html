@@ -13,54 +13,85 @@
 <body>
   <main class="page">
     <section class="hero">
-      <p class="label">YURUORI TYPE CHECK</p>
-      <h1>レアキャラ性格診断</h1>
-      <p class="lead">
-        あなたの性格を30タイプの“レアキャラ”に分類する診断です。<br>
-        ノリで答えてOK。深く考えすぎたら負け。
-      </p>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="label">YURUORI TYPE CHECK</p>
 
-      <button id="startBtn" class="main-btn">診断をはじめる</button>
+          <h1>
+            レアキャラ<br>
+            性格診断
+          </h1>
+
+          <p class="lead">
+            あなたの性格を30タイプの“レアキャラ”に分類する診断です。<br>
+            ノリで答えてOK。深く考えすぎたら負け。
+          </p>
+
+          <div class="hero-badges">
+            <span>N〜LR</span>
+            <span>30タイプ</span>
+            <span>カード風診断</span>
+          </div>
+
+          <button id="startBtn" class="main-btn">診断をはじめる</button>
+        </div>
+
+        <div class="hero-visual">
+          <img src="images/hero.png" alt="レアキャラ性格診断のヒーロー画像" />
+        </div>
+      </div>
     </section>
 
     <section id="quizArea" class="quiz-area hidden">
-      <div class="progress">
-        <div id="progressBar" class="progress-bar"></div>
+      <div class="quiz-head">
+        <p id="questionCount" class="question-count"></p>
+        <div class="progress">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
       </div>
 
-      <p id="questionCount" class="question-count"></p>
       <h2 id="questionText" class="question-text"></h2>
 
       <div id="choices" class="choices"></div>
     </section>
 
     <section id="resultArea" class="result-area hidden">
-      <p id="resultRarity" class="result-rarity"></p>
-      <h2 id="resultTitle" class="result-title"></h2>
-      <p id="resultCatch" class="result-catch"></p>
+      <div class="result-top">
+        <img id="resultImage" class="result-image" src="" alt="" />
 
-      <div class="result-card">
-        <h3>どんなタイプ？</h3>
-        <p id="resultDescription"></p>
+        <div class="result-main">
+          <p id="resultRarity" class="result-rarity"></p>
+          <h2 id="resultTitle" class="result-title"></h2>
+          <p id="resultCatch" class="result-catch"></p>
+        </div>
       </div>
 
-      <div class="result-card">
-        <h3>強み</h3>
-        <p id="resultStrength"></p>
+      <div class="result-grid">
+        <div class="result-card">
+          <h3>どんなタイプ？</h3>
+          <p id="resultDescription"></p>
+        </div>
+
+        <div class="result-card">
+          <h3>強み</h3>
+          <p id="resultStrength"></p>
+        </div>
+
+        <div class="result-card">
+          <h3>弱点</h3>
+          <p id="resultWeakness"></p>
+        </div>
+
+        <div class="result-card">
+          <h3>相性がいいタイプ</h3>
+          <p id="resultMatch"></p>
+        </div>
       </div>
 
-      <div class="result-card">
-        <h3>弱点</h3>
-        <p id="resultWeakness"></p>
+      <div class="result-buttons">
+        <button id="shareBtn" class="sub-btn">結果をコピー</button>
+        <button id="retryBtn" class="main-btn">もう一度診断する</button>
       </div>
-
-      <div class="result-card">
-        <h3>相性がいいタイプ</h3>
-        <p id="resultMatch"></p>
-      </div>
-
-      <button id="shareBtn" class="sub-btn">結果をコピー</button>
-      <button id="retryBtn" class="main-btn">もう一度診断する</button>
     </section>
   </main>
 
