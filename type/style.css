@@ -503,3 +503,63 @@ h1 {
     linear-gradient(135deg, #ff7aa8, #8c7bff 55%, #6dd4ff);
   box-shadow: 0 12px 28px rgba(140, 123, 255, 0.32);
 }
+
+.mini-btn {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(140, 123, 255, 0.28);
+  background: rgba(255, 255, 255, 0.74);
+  color: #755a8c;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.type-list {
+  max-width: 620px;
+  margin: 0 auto 24px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(232, 184, 95, 0.34);
+  text-align: left;
+}
+
+.type-list h2 {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.type-rank {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px dashed rgba(140, 123, 255, 0.22);
+}
+
+.type-rank:first-of-type {
+  border-top: none;
+}
+
+.type-rank h3 {
+  margin: 0;
+  color: #b64b75;
+  font-size: 1rem;
+}
+
+.type-rank p {
+  margin: 0;
+  color: #5d4d5c;
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.type-rank.secret p {
+  letter-spacing: 0.08em;
+  color: #8c7bff;
+}
