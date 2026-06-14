@@ -543,13 +543,16 @@ function showResult() {
   quizArea.classList.add("hidden");
   resultArea.classList.remove("hidden");
 
-  resultRarity.textContent = `${finalResult.rarity} レアリティ`;
+  resultRarity.textContent = `${finalResult.rarity}｜${finalResult.title}`;
   resultTitle.textContent = finalResult.name;
   resultCatch.textContent = finalResult.catch;
   resultDescription.textContent = finalResult.description;
   resultStrength.textContent = finalResult.strength;
   resultWeakness.textContent = finalResult.weakness;
   resultMatch.textContent = finalResult.match;
+
+  resultImage.src = finalResult.image;
+  resultImage.alt = finalResult.name;
 }
 
 function getBestType() {
