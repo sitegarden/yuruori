@@ -50,6 +50,7 @@ const navLinks = [
   { label: "ABOUT", url: "pages/about.html" },
   { label: "PROFILE", url: "pages/profile.html" },
   { label: "WORKS", url: "pages/works.html" },
+  { label: "STAMP", url: "pages/stamps.html" },
   { label: "GAMES", url: "pages/games.html" },
   { label: "OCFA", url: "pages/ocfa.html" },
   { label: "DIARY", url: "pages/diary.html" },
