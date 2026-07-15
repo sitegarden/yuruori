@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Leo's game-inspired art portfolio." />
+  <title>Leo's Art Gallery</title>
+
+  <style>
+    :root {
+      --bg: #09111f;
+      --bg-2: #101c32;
+      --panel: rgba(17, 29, 50, 0.88);
+      --panel-2: rgba(24, 40, 67, 0.94);
+      --line: rgba(124, 220, 255, 0.28);
+      --cyan: #73e8ff;
+      --blue: #6488ff;
+      --purple: #a777ff;
+      --pink: #ff76c8;
+      --text: #f4f8ff;
+      --muted: #aab7cf;
+      --shadow: 0 18px 55px rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(100, 136, 255, 0.23), transparent 27%),
+        radial-gradient(circle at 85% 14%, rgba(255, 118, 200, 0.15), transparent 25%),
+        radial-gradient(circle at 50% 85%, rgba(115, 232, 255, 0.12), transparent 32%),
+        linear-gradient(180deg, #070d18, #0b1527 45%, #08101d);
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+      line-height: 1.7;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(115, 232, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(115, 232, 255, 0.16) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 49.8%, rgba(115,232,255,.08) 50%, transparent 50.2%),
+        linear-gradient(transparent 49.8%, rgba(115,232,255,.05) 50%, transparent 50.2%);
+      background-size: 240px 240px;
+      opacity: 0.35;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(36px, 7vw, 82px) clamp(20px, 5vw, 70px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(22, 39, 67, 0.93), rgba(10, 19, 34, 0.92));
+      box-shadow: var(--shadow), inset 0 0 40px rgba(115, 232, 255, 0.04);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border: 2px solid rgba(115, 232, 255, 0.23);
+      transform: rotate(45deg);
+    }
+
+    .hero::before {
+      left: -85px;
+      top: -85px;
+    }
+
+    .hero::after {
+      right: -85px;
+      bottom: -85px;
+      border-color: rgba(255, 118, 200, 0.22);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      padding: 7px 14px;
+      border: 1px solid rgba(115, 232, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(115, 232, 255, 0.08);
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      box-shadow: 0 0 22px rgba(115, 232, 255, 0.1);
+    }
+
+    h1 {
+      margin: 0 auto;
+      max-width: 850px;
+      font-size: clamp(2.7rem, 8vw, 6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      text-shadow:
+        0 0 18px rgba(115, 232, 255, 0.18),
+        0 0 34px rgba(167, 119, 255, 0.12);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--cyan), #ffffff, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.16rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      box-shadow: 0 0 24px rgba(100, 136, 255, 0.3);
+    }
+
+    .button.secondary {
+      border: 1px solid var(--line);
+      background: rgba(115, 232, 255, 0.07);
+      color: var(--cyan);
+    }
+
+    .button:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .section {
+      margin-top: 58px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-note {
+      margin: 8px auto 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .art-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      transition: 0.23s ease;
+      text-align: center;
+    }
+
+    .art-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(115, 232, 255, 0.62);
+      box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.36),
+        0 0 24px rgba(115, 232, 255, 0.1);
+    }
+
+    .image-wrap {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #0e1930;
+    }
+
+    .image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 45px rgba(0,0,0,.22);
+    }
+
+    .art-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .art-info {
+      padding: 16px 16px 18px;
+    }
+
+    .art-info h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .art-info p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 0.87rem;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+      text-align: center;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+      font-size: 1.45rem;
+      color: var(--cyan);
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .tag {
+      padding: 7px 12px;
+      border: 1px solid rgba(167, 119, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(167, 119, 255, 0.1);
+      color: #e8ddff;
+      font-size: 0.87rem;
+      font-weight: 800;
+    }
+
+    footer {
+      margin-top: 58px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .page {
+        width: min(100% - 18px, 1160px);
+        padding-top: 9px;
+      }
+
+      .hero {
+        border-radius: 20px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Player Profile · Artist</span>
+      <h1><span class="gradient-text">Leo's Art Gallery</span></h1>
+
+      <p>
+        Hello! I’m Leo, an artist who loves drawing colorful characters,
+        fan art, and game-inspired illustrations. I enjoy creating expressive
+        artwork with strong personalities, fun ideas, and energetic designs.
+        Thank you for visiting my gallery!
+      </p>
+
+      <div class="hero-actions">
+        <a class="button primary" href="#gallery">View Gallery</a>
+        <a class="button secondary" href="#about">About Me</a>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="section-head">
+        <span class="eyebrow">Gallery Select</span>
+        <h2>Featured Artwork</h2>
+        <p class="section-note">Fan art, character art, and game-inspired illustrations.</p>
+      </div>
+
+      <div class="gallery">
+        <!--
+          Create an "images" folder beside this HTML file.
+          Then change each src to something like:
+          src="images/art01.jpg"
+        -->
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/172642/73e8ff?text=Artwork+01" alt="Artwork 01 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 01</h3>
+            <p>Character illustration</p>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/1b2140/a777ff?text=Artwork+02" alt="Artwork 02 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 02</h3>
+            <p>Fan art</p>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/231a3c/ff76c8?text=Artwork+03" alt="Artwork 03 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 03</h3>
+            <p>Original character</p>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/142a38/73e8ff?text=Artwork+04" alt="Artwork 04 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 04</h3>
+            <p>Game-inspired illustration</p>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/1f2346/6488ff?text=Artwork+05" alt="Artwork 05 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 05</h3>
+            <p>Character study</p>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <div class="image-wrap">
+            <img src="https://placehold.co/800x1000/291c38/ff76c8?text=Artwork+06" alt="Artwork 06 by Leo">
+          </div>
+          <div class="art-info">
+            <h3>Artwork 06</h3>
+            <p>Fan illustration</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <span class="eyebrow">Player Data</span>
+        <h2>About the Artist</h2>
+      </div>
+
+      <div class="about">
+        <div class="panel">
+          <h3>Nice to meet you!</h3>
+          <p>
+            My name is Leo. Drawing is one of my favorite ways to express ideas,
+            emotions, and the charm of the characters I love. I enjoy experimenting
+            with different styles and creating artwork that feels fun, energetic,
+            and full of personality.
+          </p>
+          <p>
+            I’m happy to share my work with other artists and fans. Thank you for
+            taking the time to look through my portfolio.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>Favorite Categories</h3>
+          <div class="tag-list">
+            <span class="tag">Fan Art</span>
+            <span class="tag">Characters</span>
+            <span class="tag">Game Art</span>
+            <span class="tag">Original Characters</span>
+            <span class="tag">Colorful Art</span>
+            <span class="tag">Digital Illustration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Leo · Please do not repost or use my artwork without permission.
+    </footer>
+  </main>
+</body>
+</html>
